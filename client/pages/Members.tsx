@@ -115,7 +115,8 @@ export default function Members() {
     telephone: '',
     email: '',
     adresse: '',
-    date_naissance: new Date()
+    date_naissance: new Date(),
+    photo: ''
   });
 
   const filteredMembres = useMemo(() => {
@@ -206,7 +207,8 @@ export default function Members() {
       telephone: '',
       email: '',
       adresse: '',
-      date_naissance: new Date()
+      date_naissance: new Date(),
+      photo: ''
     });
     setEditingMembre(null);
     setIsDialogOpen(false);
@@ -386,6 +388,17 @@ export default function Members() {
                 />
               </div>
 
+              <div className="space-y-2">
+                <Label htmlFor="photo">Photo (URL ou Base64)</Label>
+                <Input
+                  id="photo"
+                  value={formData.photo}
+                  onChange={(e) => setFormData({...formData, photo: e.target.value})}
+                  placeholder="ex: https://example.com/photo.jpg ou data:image/..."
+                />
+                <p className="text-xs text-muted-foreground">Format recommandé: photo passport, 150x200px</p>
+              </div>
+
               <div className="flex justify-end space-x-2 pt-4">
                 <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
                   Annuler
@@ -521,9 +534,27 @@ export default function Members() {
                 {filteredMembres.map((membre) => (
                   <TableRow key={membre.id_membre}>
                     <TableCell className="font-medium">
-                      <div className="flex items-center gap-2">
-                        {getStatutIcon(membre.statut)}
-                        {membre.nom_prenom}
+                      <div className="flex items-center gap-3">
+                        {membre.photo ? (
+                          <img
+                            src={membre.photo}
+                            alt={membre.nom_prenom}
+                            className="w-8 h-8 rounded-full object-cover border"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).style.display = 'none';
+                            }}
+                          />
+                        ) : (
+                          <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+                            {getStatutIcon(membre.statut)}
+                          </div>
+                        )}
+                        <div>
+                          <div className="font-medium">{membre.nom_prenom}</div>
+                          {membre.photo && (
+                            <div className="text-xs text-muted-foreground">Photo disponible</div>
+                          )}
+                        </div>
                       </div>
                     </TableCell>
                     <TableCell>
