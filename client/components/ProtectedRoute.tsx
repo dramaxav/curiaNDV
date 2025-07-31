@@ -25,7 +25,16 @@ export default function ProtectedRoute({
   praesidiumId,
   fallback,
 }: ProtectedRouteProps) {
-  const { isAuthenticated, isLoading, hasPermission, utilisateur } = useAuth();
+  let authContext;
+
+  try {
+    authContext = useAuth();
+  } catch (error) {
+    // Si le contexte n'est pas disponible, rediriger vers login
+    return <Navigate to="/login" replace />;
+  }
+
+  const { isAuthenticated, isLoading, hasPermission, utilisateur } = authContext;
   const location = useLocation();
 
   // Affichage pendant le chargement
