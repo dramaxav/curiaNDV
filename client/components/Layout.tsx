@@ -113,7 +113,7 @@ export default function Layout({ children }: LayoutProps) {
           </div>
 
           <div className="flex flex-1 items-center justify-end space-x-4">
-            <nav className="hidden lg:flex items-center space-x-1">
+            <nav className="hidden xl:flex items-center space-x-1">
               {navigationItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = location.pathname === item.href;
@@ -123,14 +123,20 @@ export default function Layout({ children }: LayoutProps) {
                     key={item.name}
                     to={item.href}
                     className={cn(
-                      "flex items-center gap-2 px-2 py-2 rounded-lg text-xs font-medium transition-colors",
+                      "flex items-center gap-1 px-2 py-2 rounded-lg text-xs font-medium transition-colors",
                       isActive
                         ? "bg-primary text-primary-foreground"
                         : "text-muted-foreground hover:text-foreground hover:bg-accent"
                     )}
                   >
                     <Icon className="h-3 w-3" />
-                    {item.name}
+                    <span className="hidden 2xl:inline">{item.name}</span>
+                    <span className="xl:inline 2xl:hidden">
+                      {item.name === 'Officiers des Praesidia' ? 'Off. Praes.' :
+                       item.name === 'Officiers du Conseil' ? 'Off. Conseil' :
+                       item.name === 'Tableau de bord' ? 'Dashboard' :
+                       item.name.length > 8 ? item.name.substring(0, 8) + '...' : item.name}
+                    </span>
                   </Link>
                 );
               })}
