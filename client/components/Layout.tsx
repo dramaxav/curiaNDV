@@ -105,23 +105,23 @@ export default function Layout({ children }: LayoutProps) {
           </div>
 
           <div className="flex flex-1 items-center justify-end space-x-4">
-            <nav className="hidden md:flex items-center space-x-1">
-              {navigationItems.slice(0, 4).map((item) => {
+            <nav className="hidden lg:flex items-center space-x-1">
+              {navigationItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = location.pathname === item.href;
-                
+
                 return (
                   <Link
                     key={item.name}
                     to={item.href}
                     className={cn(
-                      "flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                      "flex items-center gap-2 px-2 py-2 rounded-lg text-xs font-medium transition-colors",
                       isActive
                         ? "bg-primary text-primary-foreground"
                         : "text-muted-foreground hover:text-foreground hover:bg-accent"
                     )}
                   >
-                    <Icon className="h-4 w-4" />
+                    <Icon className="h-3 w-3" />
                     {item.name}
                   </Link>
                 );
@@ -129,8 +129,10 @@ export default function Layout({ children }: LayoutProps) {
             </nav>
             
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="icon">
-                <Bell className="h-4 w-4" />
+              <Button variant="ghost" size="icon" asChild>
+                <Link to="/alerts">
+                  <Bell className="h-4 w-4" />
+                </Link>
               </Button>
               <Button variant="ghost" size="icon">
                 <Settings className="h-4 w-4" />
