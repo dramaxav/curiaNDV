@@ -231,7 +231,23 @@ export default function Layout({ children }: LayoutProps) {
           <div className="flex-1 p-4">
             <NavItems />
           </div>
-          <div className="border-t p-4">
+          <div className="border-t p-4 space-y-4">
+            {/* User Info Desktop Sidebar */}
+            <div className="flex items-center gap-3">
+              <Avatar className="h-10 w-10">
+                <AvatarFallback>
+                  {utilisateur ? getInitials(utilisateur.nom_prenom) : 'U'}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex-1 min-w-0">
+                <div className="text-sm font-medium truncate">{utilisateur?.nom_prenom}</div>
+                <div className="text-xs text-muted-foreground truncate">{utilisateur?.poste}</div>
+                {utilisateur?.type_utilisateur === 'officier_conseil' && (
+                  <Badge variant="secondary" className="text-xs mt-1">Conseil</Badge>
+                )}
+              </div>
+            </div>
+
             <div className="space-y-2">
               <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground" asChild>
                 <Link to="/settings">
@@ -239,7 +255,11 @@ export default function Layout({ children }: LayoutProps) {
                   Paramètres
                 </Link>
               </Button>
-              <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground">
+              <Button
+                variant="ghost"
+                className="w-full justify-start gap-3 text-muted-foreground"
+                onClick={handleLogout}
+              >
                 <LogOut className="h-4 w-4" />
                 Déconnexion
               </Button>
