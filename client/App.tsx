@@ -110,6 +110,11 @@ const App = () => (
                 <Layout><Archives /></Layout>
               </ProtectedRoute>
             } />
+            <Route path="/approvals" element={
+              <ProtectedRoute requiredPermission="approve_accounts">
+                <Layout><Approvals /></Layout>
+              </ProtectedRoute>
+            } />
             <Route path="/settings" element={
               <ProtectedRoute>
                 <Layout><Settings /></Layout>
