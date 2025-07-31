@@ -291,18 +291,18 @@ export default function Attendance() {
     // Calculer les praesidia représentés (qui ont au moins une présence)
     const praesidiaRepresentes = new Set();
     presencesMensuel.forEach((p) => {
-      const membre = mockMembres.find((m) => m.id_membre === p.id_membre);
-      if (membre) {
-        praesidiaRepresentes.add(membre.id_praesidium);
+      const officier = mockOfficiers.find((o) => o.id_officier === p.id_officier);
+      if (officier) {
+        praesidiaRepresentes.add(officier.id_praesidium);
       }
     });
 
     // Calculer les présents par type de praesidium
     const presentsAdultes = presencesMensuel.filter((p) => {
-      const membre = mockMembres.find((m) => m.id_membre === p.id_membre);
-      if (!membre) return false;
+      const officier = mockOfficiers.find((o) => o.id_officier === p.id_officier);
+      if (!officier) return false;
       const praesidium = mockPraesidia.find(
-        (pr) => pr.id_praesidium === membre.id_praesidium,
+        (pr) => pr.id_praesidium === officier.id_praesidium,
       );
       return (
         praesidium?.type_praesidium === "adulte" &&
@@ -311,10 +311,10 @@ export default function Attendance() {
     }).length;
 
     const presentsJuniors = presencesMensuel.filter((p) => {
-      const membre = mockMembres.find((m) => m.id_membre === p.id_membre);
-      if (!membre) return false;
+      const officier = mockOfficiers.find((o) => o.id_officier === p.id_officier);
+      if (!officier) return false;
       const praesidium = mockPraesidia.find(
-        (pr) => pr.id_praesidium === membre.id_praesidium,
+        (pr) => pr.id_praesidium === officier.id_praesidium,
       );
       return (
         praesidium?.type_praesidium === "junior" &&
