@@ -396,11 +396,14 @@ export default function Alerts() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Résolues (7j)</CardTitle>
-            <CheckCircle className="h-4 w-4 text-green-500" />
+            <CardTitle className="text-sm font-medium">Probations 3+ mois</CardTitle>
+            <UserX className="h-4 w-4 text-red-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">{stats.resolues_semaine}</div>
+            <div className="text-2xl font-bold text-red-600">{stats.probations}</div>
+            <p className="text-xs text-muted-foreground mt-1">
+              Promesses requises
+            </p>
           </CardContent>
         </Card>
       </div>
