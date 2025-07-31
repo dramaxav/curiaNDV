@@ -676,6 +676,24 @@ export default function Alerts() {
                 <SelectItem value="probation_prolongee">
                   Probation prolongée
                 </SelectItem>
+                <SelectItem value="anniversaire_naissance">
+                  Anniversaire naissance
+                </SelectItem>
+                <SelectItem value="anniversaire_bapteme">
+                  Anniversaire baptême
+                </SelectItem>
+                <SelectItem value="anniversaire_confirmation">
+                  Anniversaire confirmation
+                </SelectItem>
+                <SelectItem value="anniversaire_creation_praesidium">
+                  Anniversaire praesidium
+                </SelectItem>
+                <SelectItem value="anniversaire_creation_conseil">
+                  Anniversaire conseil
+                </SelectItem>
+                <SelectItem value="non_contribution_mensuelle">
+                  Non-contribution mensuelle
+                </SelectItem>
               </SelectContent>
             </Select>
             <Select
