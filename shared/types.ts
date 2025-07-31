@@ -213,3 +213,157 @@ export interface RappelManifestation {
   date_envoi: Date;
   statut: 'programme' | 'envoye' | 'echec';
 }
+
+// Types d'authentification et d'utilisateurs
+export interface Utilisateur {
+  id_utilisateur: string;
+  email: string;
+  nom_prenom: string;
+  type_utilisateur: 'officier_praesidium' | 'officier_conseil';
+  statut_compte: 'en_attente' | 'actif' | 'suspendu' | 'inactif';
+  id_praesidium?: string; // Pour les officiers de praesidium
+  poste?: string; // Poste de l'officier
+  date_creation: Date;
+  derniere_connexion?: Date;
+  approuve_par?: string; // ID de l'officier du conseil qui a approuvé
+  date_approbation?: Date;
+}
+
+export interface DemandeCompte {
+  id_demande: string;
+  email: string;
+  nom_prenom: string;
+  type_demande: 'officier_praesidium' | 'officier_conseil';
+  id_praesidium?: string;
+  poste_souhaite: string;
+  justification: string;
+  statut: 'en_attente' | 'approuvee' | 'refusee';
+  date_demande: Date;
+  traite_par?: string; // ID de l'officier du conseil qui a traité
+  date_traitement?: Date;
+  commentaire_traitement?: string;
+}
+
+export interface ApprobationPresence {
+  id_approbation: string;
+  id_praesidium: string;
+  mois_annee: string; // Format: YYYY-MM
+  soumis_par: string; // ID officier praesidium
+  date_soumission: Date;
+  statut: 'en_attente' | 'approuvee' | 'refusee';
+  approuve_par?: string; // ID vice-président conseil
+  date_approbation?: Date;
+  commentaire?: string;
+  presences_ids: string[]; // IDs des présences concernées
+}
+
+export interface ApprobationFinance {
+  id_approbation: string;
+  id_praesidium: string;
+  id_transaction: string;
+  soumis_par: string; // ID officier praesidium
+  date_soumission: Date;
+  statut: 'en_attente' | 'approuvee' | 'refusee';
+  approuve_par?: string; // ID trésorier conseil
+  date_approbation?: Date;
+  commentaire?: string;
+}
+
+export interface AlerteProbation {
+  id_alerte: string;
+  id_membre: string;
+  nom_membre: string;
+  id_praesidium: string;
+  nom_praesidium: string;
+  date_debut_probation: Date;
+  duree_probation_mois: number;
+  statut: 'active' | 'traitee' | 'ignoree';
+  date_creation: Date;
+  traite_par?: string;
+  date_traitement?: Date;
+}
+
+// Types pour l'authentification
+export interface AuthContextType {
+  utilisateur: Utilisateur | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => void;
+  hasPermission: (permission: string, praesidiumId?: string) => boolean;
+}
+
+export type PermissionType =
+  | 'view_all_praesidia'
+  | 'manage_praesidium'
+  | 'approve_accounts'
+  | 'approve_presences'
+  | 'approve_finances'
+  | 'view_finances'
+  | 'manage_manifestations'
+  | 'view_all_reports';
+
+// Types pour les rôles et permissions
+export interface Role {
+  type: 'officier_praesidium' | 'officier_conseil';
+  poste: string;
+  permissions: PermissionType[];
+}
+
+export const ROLES_PERMISSIONS: Record<string, PermissionType[]> = {
+  // Officiers du Conseil
+  'Président du Conseil': [
+    'view_all_praesidia',
+    'approve_accounts',
+    'approve_presences',
+    'approve_finances',
+    'view_finances',
+    'manage_manifestations',
+    'view_all_reports'
+  ],
+  'Vice-Président du Conseil': [
+    'view_all_praesidia',
+    'approve_presences',
+    'view_finances',
+    'manage_manifestations',
+    'view_all_reports'
+  ],
+  'Secrétaire du Conseil': [
+    'view_all_praesidia',
+    'manage_manifestations',
+    'view_all_reports'
+  ],
+  'Trésorier du Conseil': [
+    'view_all_praesidia',
+    'approve_finances',
+    'view_finances',
+    'view_all_reports'
+  ],
+  'Directeur Spirituel': [
+    'view_all_praesidia',
+    'approve_accounts',
+    'view_all_reports'
+  ],
+  'Responsable Formation': [
+    'view_all_praesidia',
+    'manage_manifestations',
+    'view_all_reports'
+  ],
+
+  // Officiers de Praesidium
+  'Président': [
+    'manage_praesidium',
+    'view_finances'
+  ],
+  'Vice-Président': [
+    'manage_praesidium',
+    'view_finances'
+  ],
+  'Secrétaire': [
+    'manage_praesidium'
+  ],
+  'Trésorier': [
+    'manage_praesidium',
+    'view_finances'
+  ]
+};
