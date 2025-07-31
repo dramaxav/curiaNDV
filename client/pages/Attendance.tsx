@@ -291,7 +291,9 @@ export default function Attendance() {
     // Calculer les praesidia représentés (qui ont au moins une présence)
     const praesidiaRepresentes = new Set();
     presencesMensuel.forEach((p) => {
-      const officier = mockOfficiers.find((o) => o.id_officier === p.id_officier);
+      const officier = mockOfficiers.find(
+        (o) => o.id_officier === p.id_officier,
+      );
       if (officier) {
         praesidiaRepresentes.add(officier.id_praesidium);
       }
@@ -299,7 +301,9 @@ export default function Attendance() {
 
     // Calculer les présents par type de praesidium
     const presentsAdultes = presencesMensuel.filter((p) => {
-      const officier = mockOfficiers.find((o) => o.id_officier === p.id_officier);
+      const officier = mockOfficiers.find(
+        (o) => o.id_officier === p.id_officier,
+      );
       if (!officier) return false;
       const praesidium = mockPraesidia.find(
         (pr) => pr.id_praesidium === officier.id_praesidium,
@@ -311,7 +315,9 @@ export default function Attendance() {
     }).length;
 
     const presentsJuniors = presencesMensuel.filter((p) => {
-      const officier = mockOfficiers.find((o) => o.id_officier === p.id_officier);
+      const officier = mockOfficiers.find(
+        (o) => o.id_officier === p.id_officier,
+      );
       if (!officier) return false;
       const praesidium = mockPraesidia.find(
         (pr) => pr.id_praesidium === officier.id_praesidium,
@@ -393,7 +399,9 @@ export default function Attendance() {
 
   const getOfficierName = (officierId: string) => {
     const officier = mockOfficiers.find((o) => o.id_officier === officierId);
-    return officier ? `${officier.nom_prenom} (${officier.poste})` : "Officier inconnu";
+    return officier
+      ? `${officier.nom_prenom} (${officier.poste})`
+      : "Officier inconnu";
   };
 
   const getPraesidiumName = (praesidiumId: string) => {
@@ -1062,7 +1070,10 @@ export default function Attendance() {
                 ))}
               </SelectContent>
             </Select>
-            <Select value={selectedOfficier} onValueChange={setSelectedOfficier}>
+            <Select
+              value={selectedOfficier}
+              onValueChange={setSelectedOfficier}
+            >
               <SelectTrigger className="w-56">
                 <SelectValue placeholder="Tous les officiers" />
               </SelectTrigger>
@@ -1071,7 +1082,10 @@ export default function Attendance() {
                 {mockOfficiers
                   .filter((o) => o.actif)
                   .map((officier) => (
-                    <SelectItem key={officier.id_officier} value={officier.id_officier}>
+                    <SelectItem
+                      key={officier.id_officier}
+                      value={officier.id_officier}
+                    >
                       {officier.nom_prenom} ({officier.poste})
                     </SelectItem>
                   ))}

@@ -374,7 +374,10 @@ export default function Finances() {
             <Building className="h-4 w-4" />
             Vue d'ensemble
           </TabsTrigger>
-          <TabsTrigger value="contributions" className="flex items-center gap-2">
+          <TabsTrigger
+            value="contributions"
+            className="flex items-center gap-2"
+          >
             <TrendingUp className="h-4 w-4" />
             Contributions
           </TabsTrigger>
@@ -586,7 +589,10 @@ export default function Finances() {
                       rows={2}
                     />
                   </div>
-                  <Button onClick={handleAjouterContribution} className="w-full">
+                  <Button
+                    onClick={handleAjouterContribution}
+                    className="w-full"
+                  >
                     <TrendingUp className="mr-2 h-4 w-4" />
                     Enregistrer la Contribution
                   </Button>
@@ -624,9 +630,13 @@ export default function Finances() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="dons">Dons</SelectItem>
-                          <SelectItem value="collectes">Collectes spéciales</SelectItem>
+                          <SelectItem value="collectes">
+                            Collectes spéciales
+                          </SelectItem>
                           <SelectItem value="ventes">Ventes</SelectItem>
-                          <SelectItem value="subventions">Subventions</SelectItem>
+                          <SelectItem value="subventions">
+                            Subventions
+                          </SelectItem>
                           <SelectItem value="autres">Autres</SelectItem>
                         </SelectContent>
                       </Select>
@@ -723,12 +733,22 @@ export default function Finances() {
                         <SelectValue placeholder="Type de dépense" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="missions">Missions et évangélisation</SelectItem>
-                        <SelectItem value="formation">Formation spirituelle</SelectItem>
-                        <SelectItem value="administratif">Frais administratifs</SelectItem>
-                        <SelectItem value="materiel">Matériel liturgique</SelectItem>
+                        <SelectItem value="missions">
+                          Missions et évangélisation
+                        </SelectItem>
+                        <SelectItem value="formation">
+                          Formation spirituelle
+                        </SelectItem>
+                        <SelectItem value="administratif">
+                          Frais administratifs
+                        </SelectItem>
+                        <SelectItem value="materiel">
+                          Matériel liturgique
+                        </SelectItem>
                         <SelectItem value="transport">Transport</SelectItem>
-                        <SelectItem value="communication">Communication</SelectItem>
+                        <SelectItem value="communication">
+                          Communication
+                        </SelectItem>
                         <SelectItem value="autres">Autres</SelectItem>
                       </SelectContent>
                     </Select>
