@@ -101,11 +101,19 @@ export default function Dashboard() {
   ];
 
   const financialSummary = [
-    { praesidium: 'Notre-Dame du Rosaire', contributions: 450, depenses: 320, solde: 130 },
-    { praesidium: 'Saint-Jean-Baptiste', contributions: 380, depenses: 250, solde: 130 },
-    { praesidium: 'Sainte-Thérèse', contributions: 520, depenses: 400, solde: 120 },
-    { praesidium: 'Saint-Pierre', contributions: 290, depenses: 180, solde: 110 }
+    { praesidium: 'Notre-Dame du Rosaire', contributions: 450000, depenses: 320000, solde: 130000 },
+    { praesidium: 'Saint-Jean-Baptiste', contributions: 380000, depenses: 250000, solde: 130000 },
+    { praesidium: 'Sainte-Thérèse', contributions: 520000, depenses: 400000, solde: 120000 },
+    { praesidium: 'Saint-Pierre', contributions: 290000, depenses: 180000, solde: 110000 }
   ];
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('fr-FR', {
+      style: 'currency',
+      currency: 'XOF',
+      minimumFractionDigits: 0
+    }).format(amount).replace('XOF', 'F CFA');
+  };
 
   const upcomingEvents = [
     { title: 'Assemblée Générale Zone Nord', date: '2024-02-15', type: 'assembly' },
@@ -268,16 +276,16 @@ export default function Dashboard() {
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs">
                     <span className="text-muted-foreground">Contributions</span>
-                    <span className="text-green-600 font-medium">+{item.contributions}€</span>
+                    <span className="text-green-600 font-medium">+{formatCurrency(item.contributions)}</span>
                   </div>
                   <div className="flex justify-between text-xs">
                     <span className="text-muted-foreground">Dépenses</span>
-                    <span className="text-red-600 font-medium">-{item.depenses}€</span>
+                    <span className="text-red-600 font-medium">-{formatCurrency(item.depenses)}</span>
                   </div>
                   <div className="border-t pt-2">
                     <div className="flex justify-between text-sm">
                       <span className="font-medium">Solde</span>
-                      <span className="font-bold text-primary">{item.solde}€</span>
+                      <span className="font-bold text-primary">{formatCurrency(item.solde)}</span>
                     </div>
                     <Progress 
                       value={(item.solde / item.contributions) * 100} 
