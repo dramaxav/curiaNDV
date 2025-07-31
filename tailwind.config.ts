@@ -57,6 +57,15 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        legion: {
+          blue: "hsl(var(--legion-blue))",
+          gold: "hsl(var(--legion-gold))",
+          white: "hsl(var(--legion-white))",
+          dark: "hsl(var(--legion-dark))",
+        },
+        success: "hsl(var(--success))",
+        warning: "hsl(var(--warning))",
+        info: "hsl(var(--info))",
       },
       borderRadius: {
         lg: "var(--radius)",
