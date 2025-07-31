@@ -244,21 +244,21 @@ export default function Attendance() {
 
   const filteredPresences = useMemo(() => {
     return presences.filter((presence) => {
-      const membre = mockMembres.find(
-        (m) => m.id_membre === presence.id_membre,
+      const officier = mockOfficiers.find(
+        (o) => o.id_officier === presence.id_officier,
       );
       const matchesPraesidium =
         selectedPraesidium === "all" ||
-        membre?.id_praesidium === selectedPraesidium;
-      const matchesMember =
-        selectedMember === "all" || presence.id_membre === selectedMember;
+        officier?.id_praesidium === selectedPraesidium;
+      const matchesOfficier =
+        selectedOfficier === "all" || presence.id_officier === selectedOfficier;
       const matchesDate =
         format(presence.date_reunion, "yyyy-MM") ===
         format(selectedDate, "yyyy-MM");
 
-      return matchesPraesidium && matchesMember && matchesDate;
+      return matchesPraesidium && matchesOfficier && matchesDate;
     });
-  }, [presences, selectedPraesidium, selectedMember, selectedDate]);
+  }, [presences, selectedPraesidium, selectedOfficier, selectedDate]);
 
   const stats = useMemo(() => {
     const now = new Date();
