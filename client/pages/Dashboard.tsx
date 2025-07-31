@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -116,9 +117,11 @@ export default function Dashboard() {
             Vue d'ensemble de la gestion de la Légion de Marie
           </p>
         </div>
-        <Button>
-          <Calendar className="mr-2 h-4 w-4" />
-          Nouvelle Réunion
+        <Button asChild>
+          <Link to="/meetings">
+            <Calendar className="mr-2 h-4 w-4" />
+            Nouvelle Réunion
+          </Link>
         </Button>
       </div>
 
