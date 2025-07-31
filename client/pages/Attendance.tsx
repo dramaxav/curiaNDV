@@ -461,7 +461,7 @@ export default function Attendance() {
 
     const newPresences: Presence[] = bulkFormData.presences.map((p, index) => ({
       id_presence: (presences.length + index + 1).toString(),
-      id_membre: p.id_membre,
+      id_officier: p.id_officier,
       date_reunion: bulkFormData.date_reunion,
       statut_presence: p.statut,
       notes: p.notes,
