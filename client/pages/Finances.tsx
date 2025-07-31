@@ -145,6 +145,92 @@ export default function Finances() {
     };
   }, [finances]);
 
+  const generateRapportConseil = (periode: string, type: "mensuel" | "annuel"): RapportConseil => {
+    // Simulation du solde initial basé sur la période précédente
+    const getSoldeInitial = (periode: string) => {
+      // En pratique, ceci viendrait de la base de données
+      const periodesPrecedentes: Record<string, number> = {
+        "2024-01": 1200000,
+        "2024-02": 1375000,
+        "2024-03": 1550000,
+        "2024": 1200000
+      };
+      return periodesPrecedentes[periode] || 1000000;
+    };
+
+    const soldeInitial = getSoldeInitial(periode);
+    const totalContributions = stats.totalContributions;
+    const totalDepenses = 185000; // Dépenses du conseil (différentes des dépenses praesidia)
+    const soldeFinale = soldeInitial + totalContributions - totalDepenses;
+
+    return {
+      id_rapport: `rpt_${periode}_${type}`,
+      periode: periode,
+      type_rapport: type,
+      solde_initial: soldeInitial,
+      total_contributions: totalContributions,
+      total_depenses: totalDepenses,
+      solde_final: soldeFinale,
+      nombre_praesidia_actifs: mockPraesidia.filter((p) => p.actif).length,
+      contributions_par_praesidium: [
+        {
+          id_praesidium: "1",
+          nom_praesidium: "Notre-Dame du Rosaire",
+          montant: 350000,
+          statut: "paye",
+          date_paiement: new Date("2024-01-15")
+        },
+        {
+          id_praesidium: "2",
+          nom_praesidium: "Saint-Jean-Baptiste",
+          montant: 250000,
+          statut: "paye",
+          date_paiement: new Date("2024-01-20")
+        },
+        {
+          id_praesidium: "3",
+          nom_praesidium: "Sainte-Thérèse",
+          montant: 150000,
+          statut: "en_retard"
+        },
+      ],
+      depenses_principales: [
+        {
+          categorie: "Missions et évangélisation",
+          montant: 120000,
+          description: "Financement des missions territoriales",
+          date_depense: new Date("2024-01-10")
+        },
+        {
+          categorie: "Formation spirituelle",
+          montant: 35000,
+          description: "Séminaires et matériel de formation",
+          date_depense: new Date("2024-01-15")
+        },
+        {
+          categorie: "Frais administratifs",
+          montant: 30000,
+          description: "Communication, papeterie, transport",
+          date_depense: new Date("2024-01-25")
+        },
+      ],
+      analyse_comparative: {
+        periode_precedente: type === "mensuel" ? "2023-12" : "2023",
+        evolution_contributions: +12.5, // +12.5%
+        evolution_depenses: -5.2, // -5.2%
+        evolution_solde: +8.3 // +8.3%
+      },
+      observations: `Rapport ${type} pour la période ${periode}. Excellente performance financière avec une augmentation significative des contributions. Les dépenses sont bien maîtrisées. ${
+        type === "mensuel" ? "Le praesidium Sainte-Thérèse nécessite un suivi pour régulariser sa contribution." : "Bilan annuel très positif pour l'ensemble des activités."
+      }`,
+      cree_par: utilisateur?.id_utilisateur || "1",
+      date_creation: new Date(),
+      approuve_par: undefined,
+      date_approbation: undefined,
+      statut: "brouillon"
+    };
+  };
+
   // Mock data pour rapport conseil
   const rapportConseil: RapportConseil = {
     id_rapport: "1",
