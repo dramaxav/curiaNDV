@@ -1091,7 +1091,7 @@ export default function Attendance() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Membre</TableHead>
+                  <TableHead>Officier</TableHead>
                   <TableHead>Praesidium</TableHead>
                   <TableHead>Date Réunion</TableHead>
                   <TableHead>Statut</TableHead>
@@ -1105,13 +1105,13 @@ export default function Attendance() {
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-2">
                         <UserCheck className="h-4 w-4 text-muted-foreground" />
-                        {getMemberName(presence.id_membre)}
+                        {getOfficierName(presence.id_officier)}
                       </div>
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Shield className="h-4 w-4 text-muted-foreground" />
-                        {getMemberPraesidium(presence.id_membre)}
+                        {getOfficierPraesidium(presence.id_officier)}
                       </div>
                     </TableCell>
                     <TableCell>
