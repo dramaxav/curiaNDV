@@ -124,7 +124,7 @@ export default function Finances() {
     "mensuel" | "annuel"
   >("mensuel");
 
-  // États pour les formulaires
+  // ��tats pour les formulaires
   const [contributionForm, setContributionForm] = useState({
     id_praesidium: "",
     montant: "",
@@ -369,10 +369,18 @@ export default function Finances() {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="praesidia" className="flex items-center gap-2">
             <Building className="h-4 w-4" />
-            Gestion Praesidia
+            Vue d'ensemble
+          </TabsTrigger>
+          <TabsTrigger value="contributions" className="flex items-center gap-2">
+            <TrendingUp className="h-4 w-4" />
+            Contributions
+          </TabsTrigger>
+          <TabsTrigger value="depenses" className="flex items-center gap-2">
+            <TrendingDown className="h-4 w-4" />
+            Dépenses Conseil
           </TabsTrigger>
           {canViewAllReports && (
             <TabsTrigger
@@ -380,7 +388,7 @@ export default function Finances() {
               className="flex items-center gap-2"
             >
               <Crown className="h-4 w-4" />
-              Rapport du Conseil
+              Rapports
             </TabsTrigger>
           )}
         </TabsList>
