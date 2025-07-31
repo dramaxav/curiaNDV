@@ -610,12 +610,12 @@ export default function Attendance() {
 
                 {bulkFormData.presences.length > 0 && (
                   <div className="space-y-3">
-                    <h4 className="font-medium">Présences des membres :</h4>
+                    <h4 className="font-medium">Présences des officiers :</h4>
                     <div className="max-h-60 overflow-y-auto border rounded-lg">
                       <Table>
                         <TableHeader>
                           <TableRow>
-                            <TableHead>Membre</TableHead>
+                            <TableHead>Officier</TableHead>
                             <TableHead>Statut</TableHead>
                             <TableHead>Notes</TableHead>
                           </TableRow>
