@@ -49,7 +49,7 @@ const mockPraesidia: Praesidium[] = [
     nom_praesidium: 'Notre-Dame du Rosaire',
     date_creation: new Date('2020-01-15'),
     directeur_spirituel: 'Père Jean Martin',
-    type_praesidium: 'senior',
+    type_praesidium: 'adulte',
     actif: true,
     lieu_reunion: 'Salle paroissiale',
     horaire_reunion: 'Mardi 19h30'
@@ -60,7 +60,7 @@ const mockPraesidia: Praesidium[] = [
     nom_praesidium: 'Saint-Jean-Baptiste',
     date_creation: new Date('2019-03-20'),
     directeur_spirituel: 'Père Jean Martin',
-    type_praesidium: 'senior',
+    type_praesidium: 'adulte',
     actif: true,
     lieu_reunion: 'Sacristie',
     horaire_reunion: 'Jeudi 20h00'
@@ -79,10 +79,10 @@ const mockPraesidia: Praesidium[] = [
   {
     id_praesidium: '4',
     id_zone: '2',
-    nom_praesidium: 'Saint-Pierre Auxiliaire',
+    nom_praesidium: 'Saint-Pierre',
     date_creation: new Date('2020-11-05'),
     directeur_spirituel: 'Père Michel Dubois',
-    type_praesidium: 'auxiliaire',
+    type_praesidium: 'adulte',
     actif: false,
     lieu_reunion: 'Domicile',
     horaire_reunion: 'Flexible'
@@ -101,7 +101,7 @@ export default function Praesidia() {
     nom_praesidium: '',
     date_creation: new Date(),
     directeur_spirituel: '',
-    type_praesidium: 'senior',
+    type_praesidium: 'adulte',
     lieu_reunion: '',
     horaire_reunion: ''
   });
@@ -120,9 +120,8 @@ export default function Praesidia() {
   const stats = {
     total: praesidia.length,
     actifs: praesidia.filter(p => p.actif).length,
-    senior: praesidia.filter(p => p.type_praesidium === 'senior').length,
-    junior: praesidia.filter(p => p.type_praesidium === 'junior').length,
-    auxiliaire: praesidia.filter(p => p.type_praesidium === 'auxiliaire').length
+    adulte: praesidia.filter(p => p.type_praesidium === 'adulte').length,
+    junior: praesidia.filter(p => p.type_praesidium === 'junior').length
   };
 
   const getZoneName = (zoneId: string) => {
@@ -132,9 +131,8 @@ export default function Praesidia() {
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case 'senior': return 'default';
+      case 'adulte': return 'default';
       case 'junior': return 'secondary';
-      case 'auxiliaire': return 'outline';
       default: return 'default';
     }
   };
@@ -166,7 +164,7 @@ export default function Praesidia() {
       nom_praesidium: '',
       date_creation: new Date(),
       directeur_spirituel: '',
-      type_praesidium: 'senior',
+      type_praesidium: 'adulte',
       lieu_reunion: '',
       horaire_reunion: ''
     });
@@ -274,9 +272,8 @@ export default function Praesidia() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="senior">Sénior</SelectItem>
+                      <SelectItem value="adulte">Adulte</SelectItem>
                       <SelectItem value="junior">Junior</SelectItem>
-                      <SelectItem value="auxiliaire">Auxiliaire</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -359,11 +356,11 @@ export default function Praesidia() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Séniors</CardTitle>
+            <CardTitle className="text-sm font-medium">Adultes</CardTitle>
             <Shield className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.senior}</div>
+            <div className="text-2xl font-bold">{stats.adulte}</div>
           </CardContent>
         </Card>
         <Card>
@@ -375,15 +372,7 @@ export default function Praesidia() {
             <div className="text-2xl font-bold">{stats.junior}</div>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Auxiliaires</CardTitle>
-            <Shield className="h-4 w-4 text-purple-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.auxiliaire}</div>
-          </CardContent>
-        </Card>
+
       </div>
 
       {/* List */}
@@ -424,9 +413,8 @@ export default function Praesidia() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Tous types</SelectItem>
-                <SelectItem value="senior">Sénior</SelectItem>
+                <SelectItem value="adulte">Adulte</SelectItem>
                 <SelectItem value="junior">Junior</SelectItem>
-                <SelectItem value="auxiliaire">Auxiliaire</SelectItem>
               </SelectContent>
             </Select>
           </div>
