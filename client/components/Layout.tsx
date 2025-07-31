@@ -247,12 +247,9 @@ export default function Layout({ children }: LayoutProps) {
 
       {/* Main content area */}
       <div className={cn(
-        "flex-1 flex flex-col transition-all duration-300",
-        // Desktop margins
-        "md:ml-16 md:ml-64",
-        isCollapsed ? "md:ml-16" : "md:ml-64",
-        // Mobile - no margin when sidebar is hidden
-        "ml-0"
+        "flex-1 flex flex-col transition-all duration-300 ml-0",
+        // Desktop margins based on sidebar state
+        isCollapsed ? "md:ml-16" : "md:ml-64"
       )}>
         <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="flex h-14 items-center justify-between px-4">
