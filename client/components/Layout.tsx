@@ -111,17 +111,39 @@ export default function Layout({ children }: LayoutProps) {
                   <span className="font-bold text-lg">Légion de Marie</span>
                 </div>
                 <NavItems mobile />
-                <div className="mt-auto pt-4 border-t">
-                  <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground" asChild>
-                    <Link to="/settings">
-                      <Settings className="h-4 w-4" />
-                      Paramètres
-                    </Link>
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground">
-                    <LogOut className="h-4 w-4" />
-                    Déconnexion
-                  </Button>
+                <div className="mt-auto pt-4 border-t space-y-4">
+                  {/* User Info Mobile */}
+                  <div className="flex items-center gap-3 px-2">
+                    <Avatar className="h-10 w-10">
+                      <AvatarFallback>
+                        {utilisateur ? getInitials(utilisateur.nom_prenom) : 'U'}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-medium truncate">{utilisateur?.nom_prenom}</div>
+                      <div className="text-xs text-muted-foreground truncate">{utilisateur?.poste}</div>
+                      {utilisateur?.type_utilisateur === 'officier_conseil' && (
+                        <Badge variant="secondary" className="text-xs mt-1">Conseil</Badge>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground" asChild>
+                      <Link to="/settings">
+                        <Settings className="h-4 w-4" />
+                        Paramètres
+                      </Link>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start gap-3 text-muted-foreground"
+                      onClick={handleLogout}
+                    >
+                      <LogOut className="h-4 w-4" />
+                      Déconnexion
+                    </Button>
+                  </div>
                 </div>
               </div>
             </SheetContent>
