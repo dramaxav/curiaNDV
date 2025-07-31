@@ -141,11 +141,77 @@ const mockAlertesBase: Alerte[] = [
 ];
 
 export default function Alerts() {
-  const [alertes, setAlertes] = useState<Alerte[]>(mockAlertes);
+  const { utilisateur, hasPermission } = useAuth();
+  const [alertes, setAlertes] = useState<Alerte[]>(mockAlertesBase);
+  const [alertesProbation, setAlertesProbation] = useState<AlerteProbation[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedPriorite, setSelectedPriorite] = useState<string>('all');
   const [selectedStatut, setSelectedStatut] = useState<string>('active');
+
+  // Fonction pour vérifier et générer les alertes de probation
+  const checkProbationAlerts = () => {
+    const now = new Date();
+    const troisMoisEnMs = 3 * 30 * 24 * 60 * 60 * 1000; // Approximation 3 mois
+
+    const membresEnProbationLongue = mockMembres.filter(membre => {
+      if (membre.statut !== 'probationnaire' || !membre.actif) return false;
+
+      const dureeMs = now.getTime() - membre.date_adhesion.getTime();
+      return dureeMs >= troisMoisEnMs;
+    });
+
+    const nouvellesAlertesProbation: AlerteProbation[] = membresEnProbationLongue.map(membre => {
+      const praesidium = mockPraesidia.find(p => p.id_praesidium === membre.id_praesidium);
+      const dureeMois = Math.floor((now.getTime() - membre.date_adhesion.getTime()) / (30 * 24 * 60 * 60 * 1000));
+
+      return {
+        id_alerte: `prob_${membre.id_membre}`,
+        id_membre: membre.id_membre,
+        nom_membre: membre.nom_prenom,
+        id_praesidium: membre.id_praesidium,
+        nom_praesidium: praesidium?.nom_praesidium || 'Praesidium inconnu',
+        date_debut_probation: membre.date_adhesion,
+        duree_probation_mois: dureeMois,
+        statut: 'active',
+        date_creation: now
+      };
+    });
+
+    setAlertesProbation(nouvellesAlertesProbation);
+
+    // Ajouter les alertes de probation aux alertes générales
+    const alertesProbationConverties: Alerte[] = nouvellesAlertesProbation.map(alert => ({
+      id_alerte: alert.id_alerte,
+      type: 'probation_prolongee',
+      titre: `Probation prolongée - ${alert.nom_membre}`,
+      description: `${alert.nom_membre} est en probation depuis ${alert.duree_probation_mois} mois dans le praesidium ${alert.nom_praesidium}. Il est temps de considérer sa promesse.`,
+      priorite: 'haute' as const,
+      date_creation: alert.date_creation,
+      date_echeance: new Date(alert.date_debut_probation.getTime() + (6 * 30 * 24 * 60 * 60 * 1000)), // 6 mois max
+      statut: 'active' as const,
+      entite_concernee: alert.nom_praesidium,
+      actions_suggerees: [
+        'Contacter les officiers du praesidium',
+        'Évaluer la formation du membre',
+        'Programmer la cérémonie de promesse',
+        'Préparer les documents nécessaires'
+      ]
+    }));
+
+    setAlertes(prev => {
+      // Enlever les anciennes alertes de probation et ajouter les nouvelles
+      const alertesSansProbation = prev.filter(a => a.type !== 'probation_prolongee');
+      return [...alertesSansProbation, ...alertesProbationConverties];
+    });
+  };
+
+  // Vérifier les alertes de probation au chargement et toutes les heures
+  useEffect(() => {
+    checkProbationAlerts();
+    const interval = setInterval(checkProbationAlerts, 60 * 60 * 1000); // Toutes les heures
+    return () => clearInterval(interval);
+  }, []);
 
   const filteredAlertes = useMemo(() => {
     return alertes.filter(alerte => {
@@ -253,7 +319,7 @@ export default function Alerts() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Alertes et Notifications</h1>
           <p className="text-muted-foreground">
-            Système d'alertes pour le suivi des activités de la Légion de Marie
+            Syst��me d'alertes pour le suivi des activités de la Légion de Marie
           </p>
         </div>
         <div className="flex items-center gap-2">
