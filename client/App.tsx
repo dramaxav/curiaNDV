@@ -6,6 +6,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute, { PublicOnlyRoute } from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
@@ -20,6 +22,8 @@ import Manifestations from "./pages/Manifestations";
 import Settings from "./pages/Settings";
 import CouncilOfficers from "./pages/CouncilOfficers";
 import Archives from "./pages/Archives";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,23 +34,94 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout><Index /></Layout>} />
-          <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
-          <Route path="/zones" element={<Layout><Zones /></Layout>} />
-          <Route path="/praesidia" element={<Layout><Praesidia /></Layout>} />
-          <Route path="/officers" element={<Layout><Officers /></Layout>} />
-          <Route path="/members" element={<Layout><Members /></Layout>} />
-          <Route path="/attendance" element={<Layout><Attendance /></Layout>} />
-          <Route path="/finances" element={<Layout><Finances /></Layout>} />
-          <Route path="/alerts" element={<Layout><Alerts /></Layout>} />
-          <Route path="/meetings" element={<Layout><Manifestations /></Layout>} />
-          <Route path="/council-officers" element={<Layout><CouncilOfficers /></Layout>} />
-          <Route path="/archives" element={<Layout><Archives /></Layout>} />
-          <Route path="/settings" element={<Layout><Settings /></Layout>} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<Layout><NotFound /></Layout>} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            {/* Routes publiques */}
+            <Route path="/login" element={
+              <PublicOnlyRoute>
+                <Login />
+              </PublicOnlyRoute>
+            } />
+            <Route path="/register" element={
+              <PublicOnlyRoute>
+                <Register />
+              </PublicOnlyRoute>
+            } />
+
+            {/* Routes protégées */}
+            <Route path="/" element={
+              <ProtectedRoute>
+                <Layout><Index /></Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Layout><Dashboard /></Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/zones" element={
+              <ProtectedRoute requiredPermission="view_all_praesidia">
+                <Layout><Zones /></Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/praesidia" element={
+              <ProtectedRoute>
+                <Layout><Praesidia /></Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/officers" element={
+              <ProtectedRoute>
+                <Layout><Officers /></Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/members" element={
+              <ProtectedRoute>
+                <Layout><Members /></Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/attendance" element={
+              <ProtectedRoute>
+                <Layout><Attendance /></Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/finances" element={
+              <ProtectedRoute requiredPermission="view_finances">
+                <Layout><Finances /></Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/alerts" element={
+              <ProtectedRoute>
+                <Layout><Alerts /></Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/meetings" element={
+              <ProtectedRoute>
+                <Layout><Manifestations /></Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/council-officers" element={
+              <ProtectedRoute requiredPermission="view_all_praesidia">
+                <Layout><CouncilOfficers /></Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/archives" element={
+              <ProtectedRoute requiredPermission="view_all_reports">
+                <Layout><Archives /></Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/settings" element={
+              <ProtectedRoute>
+                <Layout><Settings /></Layout>
+              </ProtectedRoute>
+            } />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={
+              <ProtectedRoute>
+                <Layout><NotFound /></Layout>
+              </ProtectedRoute>
+            } />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
