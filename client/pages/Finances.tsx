@@ -109,6 +109,8 @@ export default function Finances() {
 
   const [activeTab, setActiveTab] = useState("praesidia");
   const [finances] = useState<Finance[]>(mockFinances);
+  const [selectedPeriode, setSelectedPeriode] = useState("2024-01");
+  const [selectedTypeRapport, setSelectedTypeRapport] = useState<"mensuel" | "annuel">("mensuel");
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("fr-FR", {
