@@ -45,7 +45,7 @@ const navigationItems = [
 ];
 
 export default function Layout({ children }: LayoutProps) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { utilisateur, logout, hasPermission } = useAuth();
@@ -64,6 +64,10 @@ export default function Layout({ children }: LayoutProps) {
       if (!item.permission) return true;
       return hasPermission(item.permission);
     });
+  };
+
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
   };
 
   const NavItems = ({ mobile = false }) => (
