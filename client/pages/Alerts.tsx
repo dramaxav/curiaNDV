@@ -1,10 +1,11 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { 
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import {
   Bell,
   Search,
   AlertTriangle,
@@ -15,12 +16,16 @@ import {
   Shield,
   UserCheck,
   Heart,
-  Filter
+  Filter,
+  UserX,
+  FileText
 } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import type { AlerteProbation, Membre, Praesidium } from '@shared/types';
 
 interface Alerte {
   id_alerte: string;
-  type: 'fin_mandat' | 'reunion_manquee' | 'contribution_manquante' | 'membre_inactif' | 'promesse_due';
+  type: 'fin_mandat' | 'reunion_manquee' | 'contribution_manquante' | 'membre_inactif' | 'promesse_due' | 'probation_prolongee';
   titre: string;
   description: string;
   priorite: 'haute' | 'moyenne' | 'basse';
@@ -31,7 +36,40 @@ interface Alerte {
   actions_suggerees: string[];
 }
 
-const mockAlertes: Alerte[] = [
+// Mock data pour les membres en probation
+const mockMembres: Membre[] = [
+  {
+    id_membre: '1',
+    id_praesidium: '1',
+    nom_prenom: 'Jean Martin',
+    statut: 'probationnaire',
+    date_adhesion: new Date('2023-10-15'), // Plus de 3 mois
+    actif: true
+  },
+  {
+    id_membre: '2',
+    id_praesidium: '1',
+    nom_prenom: 'Sophie Dubois',
+    statut: 'probationnaire',
+    date_adhesion: new Date('2023-08-20'), // Plus de 5 mois
+    actif: true
+  },
+  {
+    id_membre: '3',
+    id_praesidium: '2',
+    nom_prenom: 'Paul Ngata',
+    statut: 'probationnaire',
+    date_adhesion: new Date('2024-01-10'), // Moins de 3 mois
+    actif: true
+  }
+];
+
+const mockPraesidia: Praesidium[] = [
+  { id_praesidium: '1', id_zone: '1', nom_praesidium: 'Notre-Dame du Rosaire', date_creation: new Date(), directeur_spirituel: 'Père Jean', type_praesidium: 'adulte', actif: true },
+  { id_praesidium: '2', id_zone: '1', nom_praesidium: 'Saint-Jean-Baptiste', date_creation: new Date(), directeur_spirituel: 'Père Jean', type_praesidium: 'adulte', actif: true }
+];
+
+const mockAlertesBase: Alerte[] = [
   {
     id_alerte: '1',
     type: 'fin_mandat',
