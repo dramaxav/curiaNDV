@@ -219,8 +219,10 @@ function App() {
 // Éviter le double mounting en développement
 const rootElement = document.getElementById("root");
 if (rootElement) {
-  // Nettoyer l'élément root avant de créer un nouveau root
-  rootElement.innerHTML = "";
-  const reactRoot = createRoot(rootElement);
-  reactRoot.render(<App />);
+  // Vérifier si un root existe déjà pour éviter la double création
+  if (!rootElement._reactRootContainer) {
+    const reactRoot = createRoot(rootElement);
+    rootElement._reactRootContainer = reactRoot;
+    reactRoot.render(<App />);
+  }
 }
