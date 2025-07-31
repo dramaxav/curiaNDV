@@ -245,18 +245,29 @@ export default function Layout({ children }: LayoutProps) {
         </div>
       </div>
 
-      {/* Header simple pour notifications */}
+      {/* Main content area */}
       <div className={cn(
         "flex-1 flex flex-col transition-all duration-300",
-        isCollapsed ? "ml-16" : "ml-64"
+        // Desktop margins
+        "md:ml-16 md:ml-64",
+        isCollapsed ? "md:ml-16" : "md:ml-64",
+        // Mobile - no margin when sidebar is hidden
+        "ml-0"
       )}>
         <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="flex h-14 items-center justify-end px-4 gap-2">
-            <Button variant="ghost" size="icon" asChild>
-              <Link to="/alerts">
-                <Bell className="h-4 w-4" />
-              </Link>
+          <div className="flex h-14 items-center justify-between px-4">
+            {/* Mobile menu button */}
+            <Button variant="ghost" size="icon" className="md:hidden" onClick={toggleMobileMenu}>
+              <Menu className="h-5 w-5" />
             </Button>
+
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" size="icon" asChild>
+                <Link to="/alerts">
+                  <Bell className="h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
           </div>
         </header>
 
