@@ -106,7 +106,8 @@ export default function Officers() {
     date_debut_mandat: new Date(),
     date_fin_mandat: new Date(),
     telephone: '',
-    email: ''
+    email: '',
+    photo: ''
   });
 
   const filteredOfficiers = useMemo(() => {
@@ -199,7 +200,8 @@ export default function Officers() {
       date_debut_mandat: new Date(),
       date_fin_mandat: new Date(),
       telephone: '',
-      email: ''
+      email: '',
+      photo: ''
     });
     setEditingOfficier(null);
     setIsDialogOpen(false);
@@ -350,6 +352,17 @@ export default function Officers() {
                 </div>
               </div>
 
+              <div className="space-y-2">
+                <Label htmlFor="photo">Photo (URL ou Base64)</Label>
+                <Input
+                  id="photo"
+                  value={formData.photo}
+                  onChange={(e) => setFormData({...formData, photo: e.target.value})}
+                  placeholder="ex: https://example.com/photo.jpg ou data:image/..."
+                />
+                <p className="text-xs text-muted-foreground">Format recommandé: photo passport, 150x200px</p>
+              </div>
+
               <div className="flex justify-end space-x-2 pt-4">
                 <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
                   Annuler
@@ -480,11 +493,29 @@ export default function Officers() {
                   return (
                     <TableRow key={officier.id_officier}>
                       <TableCell className="font-medium">
-                        <div className="flex items-center gap-2">
-                          {getPosteIcon(officier.poste)}
-                          {officier.nom_prenom}
+                      <div className="flex items-center gap-3">
+                        {officier.photo ? (
+                          <img
+                            src={officier.photo}
+                            alt={officier.nom_prenom}
+                            className="w-8 h-8 rounded-full object-cover border"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).style.display = 'none';
+                            }}
+                          />
+                        ) : (
+                          <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+                            {getPosteIcon(officier.poste)}
+                          </div>
+                        )}
+                        <div>
+                          <div className="font-medium">{officier.nom_prenom}</div>
+                          {officier.photo && (
+                            <div className="text-xs text-muted-foreground">Photo disponible</div>
+                          )}
                         </div>
-                      </TableCell>
+                      </div>
+                    </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
                           <Shield className="h-4 w-4 text-muted-foreground" />
