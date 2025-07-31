@@ -46,6 +46,7 @@ export interface Membre {
   email?: string;
   adresse?: string;
   date_naissance?: Date;
+  photo?: string;
   actif: boolean;
 }
 
@@ -132,6 +133,7 @@ export interface MembreFormData {
   email?: string;
   adresse?: string;
   date_naissance?: Date;
+  photo?: string;
 }
 
 // Statistics and dashboard types
