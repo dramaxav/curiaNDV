@@ -391,9 +391,9 @@ export default function Attendance() {
     };
   }, [presences, selectedMonthForStats, selectedYearForStats]);
 
-  const getMemberName = (membreId: string) => {
-    const membre = mockMembres.find((m) => m.id_membre === membreId);
-    return membre ? membre.nom_prenom : "Membre inconnu";
+  const getOfficierName = (officierId: string) => {
+    const officier = mockOfficiers.find((o) => o.id_officier === officierId);
+    return officier ? `${officier.nom_prenom} (${officier.poste})` : "Officier inconnu";
   };
 
   const getPraesidiumName = (praesidiumId: string) => {
@@ -403,9 +403,9 @@ export default function Attendance() {
     return praesidium ? praesidium.nom_praesidium : "Praesidium inconnu";
   };
 
-  const getMemberPraesidium = (membreId: string) => {
-    const membre = mockMembres.find((m) => m.id_membre === membreId);
-    return membre ? getPraesidiumName(membre.id_praesidium) : "";
+  const getOfficierPraesidium = (officierId: string) => {
+    const officier = mockOfficiers.find((o) => o.id_officier === officierId);
+    return officier ? getPraesidiumName(officier.id_praesidium) : "";
   };
 
   const getStatusIcon = (statut: string) => {
