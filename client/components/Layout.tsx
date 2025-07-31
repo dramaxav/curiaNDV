@@ -120,10 +120,23 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <div className="min-h-screen bg-background flex">
+      {/* Mobile overlay */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 md:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
       {/* Sidebar collapsible */}
       <div className={cn(
         "fixed inset-y-0 left-0 z-50 flex flex-col bg-card border-r transition-all duration-300",
-        isCollapsed ? "w-16" : "w-64"
+        // Desktop
+        "hidden md:flex",
+        isCollapsed ? "w-16" : "w-64",
+        // Mobile
+        "md:translate-x-0",
+        isMobileMenuOpen ? "flex w-64 translate-x-0" : "-translate-x-full"
       )}>
         {/* Header avec bouton collapse */}
         <div className="flex items-center justify-between p-4 border-b">
