@@ -114,7 +114,16 @@ interface PublicOnlyRouteProps {
 }
 
 export function PublicOnlyRoute({ children }: PublicOnlyRouteProps) {
-  const { isAuthenticated, isLoading } = useAuth();
+  let authContext;
+
+  try {
+    authContext = useAuth();
+  } catch (error) {
+    // Si le contexte n'est pas disponible, afficher le contenu public
+    return <>{children}</>;
+  }
+
+  const { isAuthenticated, isLoading } = authContext;
 
   if (isLoading) {
     return (
