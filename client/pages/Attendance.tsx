@@ -559,7 +559,7 @@ export default function Attendance() {
               <DialogHeader>
                 <DialogTitle>Saisie de Présences en Groupe</DialogTitle>
                 <DialogDescription>
-                  Enregistrer les présences pour tous les membres d'un
+                  Enregistrer les présences pour tous les officiers d'un
                   praesidium
                 </DialogDescription>
               </DialogHeader>
