@@ -178,33 +178,33 @@ const mockMembres: Membre[] = [
 const mockPresences: Presence[] = [
   {
     id_presence: "1",
-    id_membre: "1",
+    id_officier: "1",
     date_reunion: new Date("2024-01-15"),
     statut_presence: "Présent",
   },
   {
     id_presence: "2",
-    id_membre: "2",
+    id_officier: "2",
     date_reunion: new Date("2024-01-15"),
     statut_presence: "Absent",
     notes: "Voyage professionnel",
   },
   {
     id_presence: "3",
-    id_membre: "3",
+    id_officier: "3",
     date_reunion: new Date("2024-01-15"),
     statut_presence: "Excusé",
     notes: "Maladie",
   },
   {
     id_presence: "4",
-    id_membre: "1",
+    id_officier: "1",
     date_reunion: new Date("2024-01-22"),
     statut_presence: "Présent",
   },
   {
     id_presence: "5",
-    id_membre: "2",
+    id_officier: "2",
     date_reunion: new Date("2024-01-22"),
     statut_presence: "Présent",
   },
