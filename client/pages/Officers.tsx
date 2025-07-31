@@ -34,6 +34,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import PhotoUpload from "@/components/PhotoUpload";
 import {
   UserCheck,
   Plus,
