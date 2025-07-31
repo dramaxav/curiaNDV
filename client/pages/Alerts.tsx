@@ -244,6 +244,7 @@ export default function Alerts() {
       case 'contribution_manquante': return <Bell className="h-4 w-4 text-yellow-500" />;
       case 'membre_inactif': return <Users className="h-4 w-4 text-blue-500" />;
       case 'promesse_due': return <Heart className="h-4 w-4 text-purple-500" />;
+      case 'probation_prolongee': return <UserX className="h-4 w-4 text-red-600" />;
       default: return <Bell className="h-4 w-4 text-gray-500" />;
     }
   };
@@ -255,6 +256,7 @@ export default function Alerts() {
       case 'contribution_manquante': return 'Contribution manquante';
       case 'membre_inactif': return 'Membre inactif';
       case 'promesse_due': return 'Promesse due';
+      case 'probation_prolongee': return 'Probation prolongée';
       default: return type;
     }
   };
