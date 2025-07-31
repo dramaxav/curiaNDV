@@ -47,8 +47,8 @@ import { fr } from 'date-fns/locale';
 
 // Mock data
 const mockPraesidia: Praesidium[] = [
-  { id_praesidium: '1', id_zone: '1', nom_praesidium: 'Notre-Dame du Rosaire', date_creation: new Date(), directeur_spirituel: 'Père Jean', type_praesidium: 'senior', actif: true },
-  { id_praesidium: '2', id_zone: '1', nom_praesidium: 'Saint-Jean-Baptiste', date_creation: new Date(), directeur_spirituel: 'Père Jean', type_praesidium: 'senior', actif: true },
+  { id_praesidium: '1', id_zone: '1', nom_praesidium: 'Notre-Dame du Rosaire', date_creation: new Date(), directeur_spirituel: 'Père Jean', type_praesidium: 'adulte', actif: true },
+  { id_praesidium: '2', id_zone: '1', nom_praesidium: 'Saint-Jean-Baptiste', date_creation: new Date(), directeur_spirituel: 'Père Jean', type_praesidium: 'adulte', actif: true },
   { id_praesidium: '3', id_zone: '2', nom_praesidium: 'Sainte-Thérèse', date_creation: new Date(), directeur_spirituel: 'Père Michel', type_praesidium: 'junior', actif: true }
 ];
 
@@ -317,7 +317,7 @@ export default function Attendance() {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="date_reunion_bulk">Date de r��union</Label>
+                    <Label htmlFor="date_reunion_bulk">Date de réunion</Label>
                     <Input
                       id="date_reunion_bulk"
                       type="date"
