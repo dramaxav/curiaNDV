@@ -18,6 +18,8 @@ import Finances from "./pages/Finances";
 import Alerts from "./pages/Alerts";
 import Meetings from "./pages/Meetings";
 import Settings from "./pages/Settings";
+import CouncilOfficers from "./pages/CouncilOfficers";
+import Archives from "./pages/Archives";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +41,8 @@ const App = () => (
           <Route path="/finances" element={<Layout><Finances /></Layout>} />
           <Route path="/alerts" element={<Layout><Alerts /></Layout>} />
           <Route path="/meetings" element={<Layout><Meetings /></Layout>} />
+          <Route path="/council-officers" element={<Layout><CouncilOfficers /></Layout>} />
+          <Route path="/archives" element={<Layout><Archives /></Layout>} />
           <Route path="/settings" element={<Layout><Settings /></Layout>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<Layout><NotFound /></Layout>} />
