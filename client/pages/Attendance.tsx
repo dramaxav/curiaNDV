@@ -723,27 +723,27 @@ export default function Attendance() {
               </DialogHeader>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="membre">Membre</Label>
+                  <Label htmlFor="officier">Officier</Label>
                   <Select
-                    value={formData.id_membre}
+                    value={formData.id_officier}
                     onValueChange={(value) =>
-                      setFormData({ ...formData, id_membre: value })
+                      setFormData({ ...formData, id_officier: value })
                     }
                     required
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Sélectionner un membre" />
+                      <SelectValue placeholder="Sélectionner un officier" />
                     </SelectTrigger>
                     <SelectContent>
-                      {mockMembres
-                        .filter((m) => m.actif)
-                        .map((membre) => (
+                      {mockOfficiers
+                        .filter((o) => o.actif)
+                        .map((officier) => (
                           <SelectItem
-                            key={membre.id_membre}
-                            value={membre.id_membre}
+                            key={officier.id_officier}
+                            value={officier.id_officier}
                           >
-                            {membre.nom_prenom} -{" "}
-                            {getPraesidiumName(membre.id_praesidium)}
+                            {officier.nom_prenom} ({officier.poste}) -{" "}
+                            {getPraesidiumName(officier.id_praesidium)}
                           </SelectItem>
                         ))}
                     </SelectContent>
