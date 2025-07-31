@@ -49,8 +49,15 @@ import {
   Calendar,
   FileText,
   PieChart,
+  Building,
+  Crown,
+  CheckCircle,
+  XCircle,
+  BarChart3,
+  AlertTriangle,
 } from "lucide-react";
-import type { Finance, TransactionFinanciere, Praesidium } from "@shared/types";
+import { useAuth, usePermission } from "@/contexts/AuthContext";
+import type { Finance, TransactionFinanciere, Praesidium, RapportConseil } from "@shared/types";
 
 // Mock data
 const mockPraesidia: Praesidium[] = [
