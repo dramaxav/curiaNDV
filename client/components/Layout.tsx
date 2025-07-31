@@ -70,28 +70,45 @@ export default function Layout({ children }: LayoutProps) {
     setIsCollapsed(!isCollapsed);
   };
 
-  const NavItems = ({ mobile = false }) => (
-    <nav className={cn("space-y-2", mobile && "pt-4")}>
+  const NavItems = () => (
+    <nav className="space-y-1">
       {getVisibleNavigationItems().map((item) => {
         const Icon = item.icon;
         const isActive = location.pathname === item.href;
-        
-        return (
+
+        const linkContent = (
           <Link
             key={item.name}
             to={item.href}
-            onClick={() => mobile && setIsMobileMenuOpen(false)}
             className={cn(
-              "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+              "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200",
               isActive
                 ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                : "text-muted-foreground hover:text-foreground hover:bg-accent",
+              isCollapsed && "justify-center px-2"
             )}
           >
-            <Icon className="h-4 w-4" />
-            {item.name}
+            <Icon className="h-5 w-5 flex-shrink-0" />
+            {!isCollapsed && <span className="truncate">{item.name}</span>}
           </Link>
         );
+
+        if (isCollapsed) {
+          return (
+            <TooltipProvider key={item.name}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  {linkContent}
+                </TooltipTrigger>
+                <TooltipContent side="right" className="ml-2">
+                  {item.name}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          );
+        }
+
+        return linkContent;
       })}
     </nav>
   );
