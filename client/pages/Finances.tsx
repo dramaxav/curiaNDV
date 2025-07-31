@@ -411,7 +411,7 @@ export default function Finances() {
         {/* Onglet Rapport du Conseil */}
         {canViewAllReports && (
           <TabsContent value="rapport-conseil" className="space-y-6">
-            {/* Contrôles de génération de rapport */}
+            {/* Contrôles de gén��ration de rapport */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -653,6 +653,7 @@ export default function Finances() {
                     <TableRow>
                       <TableHead>Praesidium</TableHead>
                       <TableHead>Montant</TableHead>
+                      <TableHead>Date Paiement</TableHead>
                       <TableHead>Statut</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -665,6 +666,12 @@ export default function Finances() {
                           </TableCell>
                           <TableCell>
                             {formatCurrency(contrib.montant)}
+                          </TableCell>
+                          <TableCell className="text-muted-foreground">
+                            {contrib.date_paiement
+                              ? contrib.date_paiement.toLocaleDateString("fr-FR")
+                              : "-"
+                            }
                           </TableCell>
                           <TableCell>
                             <Badge
