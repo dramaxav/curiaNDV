@@ -365,6 +365,17 @@ export default function Alerts() {
         </div>
       </div>
 
+      {/* Information sur les alertes de probation */}
+      {stats.probations > 0 && (
+        <Alert>
+          <UserX className="h-4 w-4" />
+          <AlertDescription>
+            <strong>Nouveautés :</strong> Le système détecte automatiquement les membres en probation depuis plus de 3 mois
+            et alerte les officiers pour organiser leur promesse. {stats.probations} membre(s) concerné(s).
+          </AlertDescription>
+        </Alert>
+      )}
+
       {/* Statistics */}
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
