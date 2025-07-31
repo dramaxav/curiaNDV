@@ -1062,17 +1062,17 @@ export default function Attendance() {
                 ))}
               </SelectContent>
             </Select>
-            <Select value={selectedMember} onValueChange={setSelectedMember}>
+            <Select value={selectedOfficier} onValueChange={setSelectedOfficier}>
               <SelectTrigger className="w-56">
-                <SelectValue placeholder="Tous les membres" />
+                <SelectValue placeholder="Tous les officiers" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Tous les membres</SelectItem>
-                {mockMembres
-                  .filter((m) => m.actif)
-                  .map((membre) => (
-                    <SelectItem key={membre.id_membre} value={membre.id_membre}>
-                      {membre.nom_prenom}
+                <SelectItem value="all">Tous les officiers</SelectItem>
+                {mockOfficiers
+                  .filter((o) => o.actif)
+                  .map((officier) => (
+                    <SelectItem key={officier.id_officier} value={officier.id_officier}>
+                      {officier.nom_prenom} ({officier.poste})
                     </SelectItem>
                   ))}
               </SelectContent>
