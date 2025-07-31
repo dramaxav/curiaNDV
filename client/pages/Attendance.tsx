@@ -622,13 +622,13 @@ export default function Attendance() {
                         </TableHeader>
                         <TableBody>
                           {bulkFormData.presences.map((presence) => {
-                            const membre = mockMembres.find(
-                              (m) => m.id_membre === presence.id_membre,
+                            const officier = mockOfficiers.find(
+                              (o) => o.id_officier === presence.id_officier,
                             );
                             return (
-                              <TableRow key={presence.id_membre}>
+                              <TableRow key={presence.id_officier}>
                                 <TableCell className="font-medium">
-                                  {membre?.nom_prenom}
+                                  {officier?.nom_prenom} ({officier?.poste})
                                 </TableCell>
                                 <TableCell>
                                   <Select
@@ -637,7 +637,7 @@ export default function Attendance() {
                                       value: "Présent" | "Absent" | "Excusé",
                                     ) =>
                                       updateBulkPresence(
-                                        presence.id_membre,
+                                        presence.id_officier,
                                         "statut",
                                         value,
                                       )
@@ -665,7 +665,7 @@ export default function Attendance() {
                                     value={presence.notes || ""}
                                     onChange={(e) =>
                                       updateBulkPresence(
-                                        presence.id_membre,
+                                        presence.id_officier,
                                         "notes",
                                         e.target.value,
                                       )
