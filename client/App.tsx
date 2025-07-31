@@ -216,7 +216,10 @@ function App() {
   );
 }
 
-const root = document.getElementById("root");
-if (root && !root._reactRootContainer) {
-  createRoot(root).render(<App />);
+const rootElement = document.getElementById("root");
+if (rootElement) {
+  // Vérifier si le root a déjà été créé
+  if (!rootElement.hasChildNodes()) {
+    createRoot(rootElement).render(<App />);
+  }
 }
