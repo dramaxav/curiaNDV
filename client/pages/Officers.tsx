@@ -447,18 +447,14 @@ export default function Officers() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="photo">Photo (URL ou Base64)</Label>
-                <Input
-                  id="photo"
-                  value={formData.photo}
-                  onChange={(e) =>
-                    setFormData({ ...formData, photo: e.target.value })
+                <Label>Photo de l'officier</Label>
+                <PhotoUpload
+                  currentPhotoUrl={formData.photo}
+                  onPhotoChange={(photoUrl) =>
+                    setFormData({ ...formData, photo: photoUrl || "" })
                   }
-                  placeholder="ex: https://example.com/photo.jpg ou data:image/..."
+                  size="md"
                 />
-                <p className="text-xs text-muted-foreground">
-                  Format recommandé: photo passport, 150x200px
-                </p>
               </div>
 
               <div className="flex justify-end space-x-2 pt-4">
