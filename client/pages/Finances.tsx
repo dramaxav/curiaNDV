@@ -231,58 +231,37 @@ export default function Finances() {
     };
   };
 
-  // Mock data pour rapport conseil
-  const rapportConseil: RapportConseil = {
-    id_rapport: "1",
-    periode: "2024-01",
-    type_rapport: "mensuel",
-    total_contributions: stats.totalContributions,
-    total_depenses: stats.totalDepenses,
-    solde_global: stats.totalSolde,
-    nombre_praesidia_actifs: mockPraesidia.filter((p) => p.actif).length,
-    contributions_par_praesidium: [
-      {
-        id_praesidium: "1",
-        nom_praesidium: "Notre-Dame du Rosaire",
-        montant: 350000,
-        statut: "paye",
-      },
-      {
-        id_praesidium: "2",
-        nom_praesidium: "Saint-Jean-Baptiste",
-        montant: 250000,
-        statut: "paye",
-      },
-      {
-        id_praesidium: "3",
-        nom_praesidium: "Sainte-Thérèse",
-        montant: 150000,
-        statut: "en_retard",
-      },
-    ],
-    depenses_principales: [
-      {
-        categorie: "Missions et evangelisation",
-        montant: 120000,
-        description: "Financement des missions",
-      },
-      {
-        categorie: "Formation des membres",
-        montant: 35000,
-        description: "Séminaires et livres",
-      },
-      {
-        categorie: "Frais administratifs",
-        montant: 25000,
-        description: "Papeterie et communications",
-      },
-    ],
-    observations:
-      "Excellente performance ce mois-ci. Le praesidium Sainte-Thérèse nécessite un suivi pour les retards de contribution.",
-    cree_par: utilisateur?.id_utilisateur || "1",
-    date_creation: new Date(),
-    approuve_par: undefined,
-    date_approbation: undefined,
+  // Générer le rapport conseil basé sur la période sélectionnée
+  const rapportConseil = useMemo(() => {
+    return generateRapportConseil(selectedPeriode, selectedTypeRapport);
+  }, [selectedPeriode, selectedTypeRapport, stats]);
+
+  const handleGenererRapport = () => {
+    // Ici on pourrait sauvegarder le rapport en base
+    console.log("Génération du rapport:", rapportConseil);
+  };
+
+  const handleApprouverRapport = () => {
+    // Mettre à jour le statut du rapport
+    console.log("Approbation du rapport:", rapportConseil.id_rapport);
+  };
+
+  const getPeriodesDisponibles = () => {
+    if (selectedTypeRapport === "mensuel") {
+      return [
+        { value: "2024-01", label: "Janvier 2024" },
+        { value: "2024-02", label: "Février 2024" },
+        { value: "2024-03", label: "Mars 2024" },
+        { value: "2023-12", label: "Décembre 2023" },
+        { value: "2023-11", label: "Novembre 2023" }
+      ];
+    } else {
+      return [
+        { value: "2024", label: "Année 2024" },
+        { value: "2023", label: "Année 2023" },
+        { value: "2022", label: "Année 2022" }
+      ];
+    }
   };
 
   const getStatutColor = (statut: string) => {
