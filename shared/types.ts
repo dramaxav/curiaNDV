@@ -337,28 +337,38 @@ export interface AlerteNonContribution {
 
 export interface RapportConseil {
   id_rapport: string;
-  periode: string; // Format YYYY-MM
+  periode: string; // Format YYYY-MM ou YYYY pour annuel
   type_rapport: "mensuel" | "trimestriel" | "annuel";
-  total_contributions: number;
-  total_depenses: number;
-  solde_global: number;
+  solde_initial: number; // Solde au début de la période
+  total_contributions: number; // Total des contributions reçues des praesidia
+  total_depenses: number; // Total des dépenses du conseil durant la période
+  solde_final: number; // Solde final = solde_initial + contributions - dépenses
   nombre_praesidia_actifs: number;
   contributions_par_praesidium: {
     id_praesidium: string;
     nom_praesidium: string;
     montant: number;
     statut: "paye" | "en_retard" | "non_paye";
+    date_paiement?: Date;
   }[];
   depenses_principales: {
     categorie: string;
     montant: number;
     description?: string;
+    date_depense: Date;
   }[];
+  analyse_comparative?: {
+    periode_precedente: string;
+    evolution_contributions: number; // % d'évolution
+    evolution_depenses: number; // % d'évolution
+    evolution_solde: number; // % d'évolution
+  };
   observations: string;
   cree_par: string; // ID du trésorier conseil
   date_creation: Date;
   approuve_par?: string; // ID du président conseil
   date_approbation?: Date;
+  statut: "brouillon" | "soumis" | "approuve" | "rejete";
 }
 
 // Types pour l'authentification
