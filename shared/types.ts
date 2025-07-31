@@ -183,3 +183,33 @@ export interface OfficierFilters {
   poste?: string;
   fin_mandat_proche?: boolean;
 }
+
+export interface Manifestation {
+  id_manifestation: string;
+  titre: string;
+  description?: string;
+  date_manifestation: Date;
+  heure_debut: string;
+  heure_fin: string;
+  lieu: string;
+  type_manifestation: 'reunion' | 'activite_spirituelle' | 'formation' | 'service_social' | 'pelerinage' | 'autre';
+  pour_tous_praesidia: boolean;
+  praesidia_concernes?: string[]; // IDs des praesidia si pour_tous_praesidia = false
+  organisateur_contact?: string;
+  statut: 'planifiee' | 'en_cours' | 'terminee' | 'annulee';
+  participants_attendus: number;
+  participants_presents?: number;
+  rappel_envoye?: {
+    une_semaine: boolean;
+    trois_jours: boolean;
+  };
+  date_creation: Date;
+}
+
+export interface RappelManifestation {
+  id_rappel: string;
+  id_manifestation: string;
+  type_rappel: 'une_semaine' | 'trois_jours';
+  date_envoi: Date;
+  statut: 'programme' | 'envoye' | 'echec';
+}
