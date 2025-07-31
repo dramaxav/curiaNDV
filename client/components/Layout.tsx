@@ -136,7 +136,7 @@ export default function Layout({ children }: LayoutProps) {
 
           <div className="flex flex-1 items-center justify-end space-x-4">
             <nav className="hidden xl:flex items-center space-x-1">
-              {navigationItems.map((item) => {
+              {getVisibleNavigationItems().map((item) => {
                 const Icon = item.icon;
                 const isActive = location.pathname === item.href;
 
@@ -163,18 +163,41 @@ export default function Layout({ children }: LayoutProps) {
                 );
               })}
             </nav>
-            
-            <div className="flex items-center gap-2">
-              <Button variant="ghost" size="icon" asChild>
-                <Link to="/alerts">
-                  <Bell className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button variant="ghost" size="icon" asChild>
-                <Link to="/settings">
-                  <Settings className="h-4 w-4" />
-                </Link>
-              </Button>
+
+            <div className="flex items-center gap-3">
+              {/* User Info */}
+              <div className="hidden md:flex items-center gap-3">
+                <div className="text-right">
+                  <div className="text-sm font-medium">{utilisateur?.nom_prenom}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {utilisateur?.poste}
+                    {utilisateur?.type_utilisateur === 'officier_conseil' && (
+                      <Badge variant="secondary" className="ml-1 text-xs">Conseil</Badge>
+                    )}
+                  </div>
+                </div>
+                <Avatar className="h-8 w-8">
+                  <AvatarFallback className="text-xs">
+                    {utilisateur ? getInitials(utilisateur.nom_prenom) : 'U'}
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" size="icon" asChild>
+                  <Link to="/alerts">
+                    <Bell className="h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button variant="ghost" size="icon" asChild>
+                  <Link to="/settings">
+                    <Settings className="h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button variant="ghost" size="icon" onClick={handleLogout} title="Déconnexion">
+                  <LogOut className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
