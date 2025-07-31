@@ -85,6 +85,7 @@ export default function Layout({ children }: LayoutProps) {
           <Link
             key={item.name}
             to={item.href}
+            onClick={() => setIsMobileMenuOpen(false)}
             className={cn(
               "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200",
               isActive
