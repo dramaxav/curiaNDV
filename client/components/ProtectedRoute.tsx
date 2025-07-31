@@ -148,7 +148,18 @@ export function useProtectedComponent(
   requiredPermission: PermissionType,
   praesidiumId?: string,
 ) {
-  const { hasPermission } = useAuth();
+  let authContext;
+
+  try {
+    authContext = useAuth();
+  } catch (error) {
+    // Si le contexte n'est pas disponible, retourner un composant qui ne rend rien
+    return function ProtectedComponent({ fallback }: { children: ReactNode; fallback?: ReactNode }) {
+      return <>{fallback || null}</>;
+    };
+  }
+
+  const { hasPermission } = authContext;
 
   return function ProtectedComponent({
     children,
