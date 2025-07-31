@@ -91,7 +91,7 @@ const mockAlertesBase: Alerte[] = [
     date_creation: new Date('2024-01-25'),
     statut: 'active',
     entite_concernee: 'Saint-Jean-Baptiste',
-    actions_suggerees: ['Contacter le président', 'Vérifier les disponibilités', 'Reprogrammer la réunion']
+    actions_suggerees: ['Contacter le pr��sident', 'Vérifier les disponibilités', 'Reprogrammer la réunion']
   },
   {
     id_alerte: '3',
@@ -438,6 +438,7 @@ export default function Alerts() {
                 <SelectItem value="contribution_manquante">Contribution manquante</SelectItem>
                 <SelectItem value="membre_inactif">Membre inactif</SelectItem>
                 <SelectItem value="promesse_due">Promesse due</SelectItem>
+                <SelectItem value="probation_prolongee">Probation prolongée</SelectItem>
               </SelectContent>
             </Select>
             <Select value={selectedPriorite} onValueChange={setSelectedPriorite}>
