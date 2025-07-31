@@ -230,6 +230,7 @@ export default function Alerts() {
     total: alertes.length,
     actives: alertes.filter(a => a.statut === 'active').length,
     hautes: alertes.filter(a => a.priorite === 'haute' && a.statut === 'active').length,
+    probations: alertes.filter(a => a.type === 'probation_prolongee' && a.statut === 'active').length,
     resolues_semaine: alertes.filter(a => {
       const weekAgo = new Date();
       weekAgo.setDate(weekAgo.getDate() - 7);
