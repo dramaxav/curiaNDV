@@ -22,6 +22,7 @@ import Manifestations from "./pages/Manifestations";
 import Settings from "./pages/Settings";
 import CouncilOfficers from "./pages/CouncilOfficers";
 import Archives from "./pages/Archives";
+import Approvals from "./pages/Approvals";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
