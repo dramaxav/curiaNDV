@@ -220,7 +220,7 @@ export default function Attendance() {
   const [selectedYearForStats, setSelectedYearForStats] = useState<string>(
     new Date().getFullYear().toString(),
   );
-  const [selectedMember, setSelectedMember] = useState<string>("all");
+  const [selectedOfficier, setSelectedOfficier] = useState<string>("all");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isBulkDialogOpen, setIsBulkDialogOpen] = useState(false);
   const [editingPresence, setEditingPresence] = useState<Presence | null>(null);
