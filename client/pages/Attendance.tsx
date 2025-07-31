@@ -473,7 +473,7 @@ export default function Attendance() {
 
   const resetForm = () => {
     setFormData({
-      id_membre: "",
+      id_officier: "",
       date_reunion: new Date(),
       statut_presence: "Présent",
       notes: "",
@@ -494,7 +494,7 @@ export default function Attendance() {
   const handleEdit = (presence: Presence) => {
     setEditingPresence(presence);
     setFormData({
-      id_membre: presence.id_membre,
+      id_officier: presence.id_officier,
       date_reunion: presence.date_reunion,
       statut_presence: presence.statut_presence,
       notes: presence.notes || "",
