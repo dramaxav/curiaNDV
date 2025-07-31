@@ -16,7 +16,7 @@ export interface Praesidium {
   nom_praesidium: string;
   date_creation: Date;
   directeur_spirituel: string;
-  type_praesidium: 'senior' | 'junior' | 'auxiliaire';
+  type_praesidium: 'adulte' | 'junior';
   actif: boolean;
   lieu_reunion?: string;
   horaire_reunion?: string;
