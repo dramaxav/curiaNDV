@@ -289,6 +289,73 @@ export interface AlerteProbation {
   date_traitement?: Date;
 }
 
+export interface AlerteAnniversaire {
+  id_alerte: string;
+  type_anniversaire: 'naissance' | 'bapteme' | 'confirmation' | 'creation_praesidium' | 'creation_conseil';
+  id_concerne: string; // ID de la personne ou entité concernée
+  nom_concerne: string;
+  date_anniversaire: Date;
+  age_ou_annees?: number; // Âge pour naissance, années depuis création pour entités
+  id_praesidium?: string; // Si c'est lié à un praesidium
+  destinataires: string[]; // IDs des personnes à alerter
+  statut: "active" | "envoyee" | "ignoree";
+  date_creation: Date;
+  date_envoi?: Date;
+}
+
+export interface AlerteFinMandat {
+  id_alerte: string;
+  id_officier: string;
+  nom_officier: string;
+  poste: string;
+  id_praesidium?: string; // null si officier du conseil
+  nom_praesidium?: string;
+  date_fin_mandat: Date;
+  jours_restants: number;
+  destinataires: string[]; // IDs des personnes à alerter + vice-président conseil
+  statut: "active" | "envoyee" | "traitee";
+  date_creation: Date;
+}
+
+export interface AlerteNonContribution {
+  id_alerte: string;
+  id_praesidium: string;
+  nom_praesidium: string;
+  mois_manque: string; // Format YYYY-MM
+  montant_attendu?: number;
+  officiers_praesidium: string[]; // IDs des officiers du praesidium
+  tresoriere_conseil: string; // ID de la trésorière du conseil
+  statut: "active" | "envoyee" | "resolue";
+  date_creation: Date;
+  date_limite: Date; // Date limite pour la contribution
+}
+
+export interface RapportConseil {
+  id_rapport: string;
+  periode: string; // Format YYYY-MM
+  type_rapport: 'mensuel' | 'trimestriel' | 'annuel';
+  total_contributions: number;
+  total_depenses: number;
+  solde_global: number;
+  nombre_praesidia_actifs: number;
+  contributions_par_praesidium: {
+    id_praesidium: string;
+    nom_praesidium: string;
+    montant: number;
+    statut: 'paye' | 'en_retard' | 'non_paye';
+  }[];
+  depenses_principales: {
+    categorie: string;
+    montant: number;
+    description?: string;
+  }[];
+  observations: string;
+  cree_par: string; // ID du trésorier conseil
+  date_creation: Date;
+  approuve_par?: string; // ID du président conseil
+  date_approbation?: Date;
+}
+
 // Types pour l'authentification
 export interface AuthContextType {
   utilisateur: Utilisateur | null;
