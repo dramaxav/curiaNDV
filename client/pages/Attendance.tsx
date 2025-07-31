@@ -226,7 +226,7 @@ export default function Attendance() {
   const [editingPresence, setEditingPresence] = useState<Presence | null>(null);
 
   const [formData, setFormData] = useState({
-    id_membre: "",
+    id_officier: "",
     date_reunion: new Date(),
     statut_presence: "Présent" as "Présent" | "Absent" | "Excusé",
     notes: "",
@@ -236,7 +236,7 @@ export default function Attendance() {
     id_praesidium: "",
     date_reunion: new Date(),
     presences: [] as {
-      id_membre: string;
+      id_officier: string;
       statut: "Présent" | "Absent" | "Excusé";
       notes?: string;
     }[],
