@@ -718,7 +718,7 @@ export default function Attendance() {
                 <DialogDescription>
                   {editingPresence
                     ? "Modifiez les informations de présence."
-                    : "Enregistrez la présence d'un membre à une réunion."}
+                    : "Enregistrez la présence d'un officier à une réunion."}
                 </DialogDescription>
               </DialogHeader>
               <form onSubmit={handleSubmit} className="space-y-4">
