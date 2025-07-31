@@ -22,9 +22,9 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
-import { 
-  Crown, 
-  Plus, 
+import {
+  Crown,
+  Plus,
   Search,
   Edit,
   Trash2,
@@ -34,7 +34,8 @@ import {
   Mail,
   Shield,
   Users,
-  Award
+  Award,
+  Calculator
 } from 'lucide-react';
 
 interface OfficierConseil {
