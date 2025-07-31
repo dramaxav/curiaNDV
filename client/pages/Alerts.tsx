@@ -43,7 +43,13 @@ interface Alerte {
     | "contribution_manquante"
     | "membre_inactif"
     | "promesse_due"
-    | "probation_prolongee";
+    | "probation_prolongee"
+    | "anniversaire_naissance"
+    | "anniversaire_bapteme"
+    | "anniversaire_confirmation"
+    | "anniversaire_creation_praesidium"
+    | "anniversaire_creation_conseil"
+    | "non_contribution_mensuelle";
   titre: string;
   description: string;
   priorite: "haute" | "moyenne" | "basse";
@@ -52,6 +58,7 @@ interface Alerte {
   statut: "active" | "resolue" | "ignoree";
   entite_concernee: string;
   actions_suggerees: string[];
+  destinataires?: string[]; // IDs des destinataires
 }
 
 // Mock data pour les membres en probation
