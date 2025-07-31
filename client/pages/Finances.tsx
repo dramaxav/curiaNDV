@@ -170,8 +170,9 @@ export default function Finances() {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('fr-FR', {
       style: 'currency',
-      currency: 'EUR'
-    }).format(amount);
+      currency: 'XOF',
+      minimumFractionDigits: 0
+    }).format(amount).replace('XOF', 'F CFA');
   };
 
   const getMoisOptions = () => {
@@ -322,7 +323,7 @@ export default function Finances() {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="montant_transaction">Montant (€)</Label>
+                  <Label htmlFor="montant_transaction">Montant (F CFA)</Label>
                     <Input
                       id="montant_transaction"
                       type="number"
@@ -425,7 +426,7 @@ export default function Finances() {
                 </div>
                 <div className="grid grid-cols-3 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="solde_initial">Solde Initial (€)</Label>
+                  <Label htmlFor="solde_initial">Solde Initial (F CFA)</Label>
                     <Input
                       id="solde_initial"
                       type="number"
@@ -436,7 +437,7 @@ export default function Finances() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="contributions">Contributions (€)</Label>
+                  <Label htmlFor="contributions">Contributions (F CFA)</Label>
                     <Input
                       id="contributions"
                       type="number"
@@ -447,7 +448,7 @@ export default function Finances() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="depenses">Dépenses (€)</Label>
+                  <Label htmlFor="depenses">Dépenses (F CFA)</Label>
                     <Input
                       id="depenses"
                       type="number"
