@@ -124,6 +124,21 @@ export default function Finances() {
     "mensuel" | "annuel"
   >("mensuel");
 
+  // États pour les formulaires
+  const [contributionForm, setContributionForm] = useState({
+    id_praesidium: "",
+    montant: "",
+    mois: new Date().toISOString().slice(0, 7), // Format YYYY-MM
+    description: "",
+  });
+
+  const [depenseForm, setDepenseForm] = useState({
+    categorie: "",
+    montant: "",
+    description: "",
+    date_depense: new Date().toISOString().slice(0, 10), // Format YYYY-MM-DD
+  });
+
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("fr-FR", {
       style: "currency",
