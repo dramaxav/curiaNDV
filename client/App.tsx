@@ -220,7 +220,7 @@ function App() {
 const rootElement = document.getElementById("root");
 if (rootElement) {
   // Nettoyer l'élément root avant de créer un nouveau root
-  rootElement.innerHTML = '';
+  rootElement.innerHTML = "";
   const reactRoot = createRoot(rootElement);
   reactRoot.render(<App />);
 }
