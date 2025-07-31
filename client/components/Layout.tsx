@@ -32,7 +32,7 @@ const navigationItems = [
   { name: 'Officiers du Conseil', href: '/council-officers', icon: Crown },
   { name: 'Membres', href: '/members', icon: Users },
   { name: 'Présences', href: '/attendance', icon: UserCheck },
-  { name: 'Réunions', href: '/meetings', icon: Calendar },
+  { name: 'Manifestations', href: '/meetings', icon: Calendar },
   { name: 'Finances', href: '/finances', icon: Calculator },
   { name: 'Archives', href: '/archives', icon: Archive },
   { name: 'Alertes', href: '/alerts', icon: Bell },
