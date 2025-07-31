@@ -494,6 +494,299 @@ export default function Finances() {
           </Card>
         </TabsContent>
 
+        {/* Onglet Contributions */}
+        <TabsContent value="contributions" className="space-y-6">
+          <div className="grid gap-6 md:grid-cols-2">
+            {/* Contribution par Praesidium */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Building className="h-5 w-5 text-primary" />
+                  Contribution par Praesidium
+                </CardTitle>
+                <CardDescription>
+                  Enregistrer une contribution mensuelle d'un praesidium
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="contrib_praesidium">Praesidium</Label>
+                      <Select
+                        value={contributionForm.id_praesidium}
+                        onValueChange={(value) =>
+                          setContributionForm({
+                            ...contributionForm,
+                            id_praesidium: value,
+                          })
+                        }
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Sélectionner un praesidium" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {mockPraesidia
+                            .filter((p) => p.actif)
+                            .map((praesidium) => (
+                              <SelectItem
+                                key={praesidium.id_praesidium}
+                                value={praesidium.id_praesidium}
+                              >
+                                {praesidium.nom_praesidium}
+                              </SelectItem>
+                            ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="contrib_mois">Mois</Label>
+                      <Input
+                        id="contrib_mois"
+                        type="month"
+                        value={contributionForm.mois}
+                        onChange={(e) =>
+                          setContributionForm({
+                            ...contributionForm,
+                            mois: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="contrib_montant">Montant (F CFA)</Label>
+                    <Input
+                      id="contrib_montant"
+                      type="number"
+                      placeholder="Ex: 50000"
+                      value={contributionForm.montant}
+                      onChange={(e) =>
+                        setContributionForm({
+                          ...contributionForm,
+                          montant: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="contrib_description">
+                      Description (optionnel)
+                    </Label>
+                    <Textarea
+                      id="contrib_description"
+                      placeholder="Notes sur cette contribution..."
+                      value={contributionForm.description}
+                      onChange={(e) =>
+                        setContributionForm({
+                          ...contributionForm,
+                          description: e.target.value,
+                        })
+                      }
+                      rows={2}
+                    />
+                  </div>
+                  <Button onClick={handleAjouterContribution} className="w-full">
+                    <TrendingUp className="mr-2 h-4 w-4" />
+                    Enregistrer la Contribution
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Autres Recettes du Conseil */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Euro className="h-5 w-5 text-green-600" />
+                  Autres Recettes du Conseil
+                </CardTitle>
+                <CardDescription>
+                  Enregistrer d'autres sources de recettes
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="recette_categorie">Catégorie</Label>
+                      <Select
+                        value={depenseForm.categorie}
+                        onValueChange={(value) =>
+                          setDepenseForm({
+                            ...depenseForm,
+                            categorie: value,
+                          })
+                        }
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Type de recette" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="dons">Dons</SelectItem>
+                          <SelectItem value="collectes">Collectes spéciales</SelectItem>
+                          <SelectItem value="ventes">Ventes</SelectItem>
+                          <SelectItem value="subventions">Subventions</SelectItem>
+                          <SelectItem value="autres">Autres</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="recette_montant">Montant (F CFA)</Label>
+                      <Input
+                        id="recette_montant"
+                        type="number"
+                        placeholder="Ex: 25000"
+                        value={depenseForm.montant}
+                        onChange={(e) =>
+                          setDepenseForm({
+                            ...depenseForm,
+                            montant: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="recette_date">Date</Label>
+                    <Input
+                      id="recette_date"
+                      type="date"
+                      value={depenseForm.date_depense}
+                      onChange={(e) =>
+                        setDepenseForm({
+                          ...depenseForm,
+                          date_depense: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="recette_description">Description</Label>
+                    <Textarea
+                      id="recette_description"
+                      placeholder="Détails sur cette recette..."
+                      value={depenseForm.description}
+                      onChange={(e) =>
+                        setDepenseForm({
+                          ...depenseForm,
+                          description: e.target.value,
+                        })
+                      }
+                      rows={2}
+                    />
+                  </div>
+                  <Button
+                    onClick={() => {
+                      console.log("Ajout recette:", depenseForm);
+                      alert("Recette enregistrée avec succès");
+                    }}
+                    className="w-full"
+                    variant="outline"
+                  >
+                    <Euro className="mr-2 h-4 w-4" />
+                    Enregistrer la Recette
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        {/* Onglet Dépenses Conseil */}
+        <TabsContent value="depenses" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <TrendingDown className="h-5 w-5 text-red-600" />
+                Dépenses du Conseil
+              </CardTitle>
+              <CardDescription>
+                Enregistrer les dépenses effectuées par le conseil
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="max-w-md space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="depense_categorie">Catégorie</Label>
+                    <Select
+                      value={depenseForm.categorie}
+                      onValueChange={(value) =>
+                        setDepenseForm({
+                          ...depenseForm,
+                          categorie: value,
+                        })
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Type de dépense" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="missions">Missions et évangélisation</SelectItem>
+                        <SelectItem value="formation">Formation spirituelle</SelectItem>
+                        <SelectItem value="administratif">Frais administratifs</SelectItem>
+                        <SelectItem value="materiel">Matériel liturgique</SelectItem>
+                        <SelectItem value="transport">Transport</SelectItem>
+                        <SelectItem value="communication">Communication</SelectItem>
+                        <SelectItem value="autres">Autres</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="depense_montant">Montant (F CFA)</Label>
+                    <Input
+                      id="depense_montant"
+                      type="number"
+                      placeholder="Ex: 15000"
+                      value={depenseForm.montant}
+                      onChange={(e) =>
+                        setDepenseForm({
+                          ...depenseForm,
+                          montant: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="depense_date">Date de la dépense</Label>
+                  <Input
+                    id="depense_date"
+                    type="date"
+                    value={depenseForm.date_depense}
+                    onChange={(e) =>
+                      setDepenseForm({
+                        ...depenseForm,
+                        date_depense: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="depense_description">Description</Label>
+                  <Textarea
+                    id="depense_description"
+                    placeholder="Détails sur cette dépense..."
+                    value={depenseForm.description}
+                    onChange={(e) =>
+                      setDepenseForm({
+                        ...depenseForm,
+                        description: e.target.value,
+                      })
+                    }
+                    rows={3}
+                  />
+                </div>
+                <Button onClick={handleAjouterDepense} className="w-full">
+                  <TrendingDown className="mr-2 h-4 w-4" />
+                  Enregistrer la Dépense
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
         {/* Onglet Rapport du Conseil */}
         {canViewAllReports && (
           <TabsContent value="rapport-conseil" className="space-y-6">
