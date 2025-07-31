@@ -169,6 +169,33 @@ export default function Finances() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isTransactionDialogOpen, setIsTransactionDialogOpen] = useState(false);
   const [editingFinance, setEditingFinance] = useState<Finance | null>(null);
+  const [activeTab, setActiveTab] = useState('praesidia');
+
+  // Mock data pour rapport conseil
+  const rapportConseil: RapportConseil = {
+    id_rapport: '1',
+    periode: '2024-01',
+    type_rapport: 'mensuel',
+    total_contributions: 750000,
+    total_depenses: 180000,
+    solde_global: 570000,
+    nombre_praesidia_actifs: 3,
+    contributions_par_praesidium: [
+      { id_praesidium: '1', nom_praesidium: 'Notre-Dame du Rosaire', montant: 350000, statut: 'paye' },
+      { id_praesidium: '2', nom_praesidium: 'Saint-Jean-Baptiste', montant: 250000, statut: 'paye' },
+      { id_praesidium: '3', nom_praesidium: 'Sainte-Thérèse', montant: 150000, statut: 'en_retard' }
+    ],
+    depenses_principales: [
+      { categorie: 'Missions et evangelisation', montant: 120000, description: 'Financement des missions' },
+      { categorie: 'Formation des membres', montant: 35000, description: 'Séminaires et livres' },
+      { categorie: 'Frais administratifs', montant: 25000, description: 'Papeterie et communications' }
+    ],
+    observations: 'Excellente performance ce mois-ci. Le praesidium Sainte-Thérèse nécessite un suivi.',
+    cree_par: utilisateur?.id_utilisateur || '1',
+    date_creation: new Date(),
+    approuve_par: undefined,
+    date_approbation: undefined
+  };
 
   const [financeFormData, setFinanceFormData] = useState({
     id_praesidium: "",
