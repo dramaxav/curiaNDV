@@ -52,7 +52,7 @@ export interface Membre {
 
 export interface Presence {
   id_presence: string;
-  id_membre: string;
+  id_officier: string;
   date_reunion: Date;
   statut_presence: "Présent" | "Absent" | "Excusé";
   notes?: string;
