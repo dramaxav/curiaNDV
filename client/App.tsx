@@ -216,10 +216,11 @@ function App() {
   );
 }
 
+// Éviter le double mounting en développement
 const rootElement = document.getElementById("root");
 if (rootElement) {
-  // Vérifier si le root a déjà été créé
-  if (!rootElement.hasChildNodes()) {
-    createRoot(rootElement).render(<App />);
-  }
+  // Nettoyer l'élément root avant de créer un nouveau root
+  rootElement.innerHTML = '';
+  const reactRoot = createRoot(rootElement);
+  reactRoot.render(<App />);
 }
