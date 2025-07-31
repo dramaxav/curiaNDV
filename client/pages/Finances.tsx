@@ -157,6 +157,10 @@ const mockTransactions: TransactionFinanciere[] = [
 ];
 
 export default function Finances() {
+  const { utilisateur } = useAuth();
+  const canViewAllReports = usePermission('view_all_reports');
+  const canApproveFinances = usePermission('approve_finances');
+
   const [finances, setFinances] = useState<Finance[]>(mockFinances);
   const [transactions, setTransactions] =
     useState<TransactionFinanciere[]>(mockTransactions);
