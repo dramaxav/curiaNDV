@@ -305,7 +305,7 @@ export default function Alerts() {
 
     setAlertesProbation(nouvellesAlertesProbation);
 
-    // Ajouter les alertes de probation aux alertes g��nérales
+    // Ajouter les alertes de probation aux alertes générales
     const alertesProbationConverties: Alerte[] = nouvellesAlertesProbation.map(
       (alert) => ({
         id_alerte: alert.id_alerte,
@@ -424,6 +424,18 @@ export default function Alerts() {
         return "Promesse due";
       case "probation_prolongee":
         return "Probation prolongée";
+      case "anniversaire_naissance":
+        return "Anniversaire de naissance";
+      case "anniversaire_bapteme":
+        return "Anniversaire de baptême";
+      case "anniversaire_confirmation":
+        return "Anniversaire de confirmation";
+      case "anniversaire_creation_praesidium":
+        return "Anniversaire création praesidium";
+      case "anniversaire_creation_conseil":
+        return "Anniversaire création conseil";
+      case "non_contribution_mensuelle":
+        return "Non-contribution mensuelle";
       default:
         return type;
     }
