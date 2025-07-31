@@ -20,37 +20,59 @@ import {
 
 export default function Dashboard() {
   const kpis = [
-    { 
-      title: 'Zones Actives', 
-      value: '12', 
+    {
+      title: 'Zones Actives',
+      value: '12',
       change: '+2',
       changeType: 'positive',
       icon: MapPin,
-      description: '2 nouvelles zones ce mois'
+      description: '2 nouvelles zones ce mois',
+      href: '/zones'
     },
-    { 
-      title: 'Praesidia', 
-      value: '48', 
+    {
+      title: 'Praesidia',
+      value: '48',
       change: '+5',
       changeType: 'positive',
       icon: Shield,
-      description: '5 nouveaux praesidia'
+      description: '5 nouveaux praesidia',
+      href: '/praesidia'
     },
-    { 
-      title: 'Membres Actifs', 
-      value: '324', 
+    {
+      title: 'Membres Actifs',
+      value: '324',
       change: '+18',
       changeType: 'positive',
       icon: Users,
-      description: '18 nouvelles adhésions'
+      description: '18 nouvelles adhésions',
+      href: '/members'
     },
-    { 
-      title: 'Taux de Présence', 
-      value: '87%', 
+    {
+      title: 'Taux de Présence',
+      value: '87%',
       change: '-3%',
       changeType: 'negative',
       icon: Activity,
-      description: 'Moyenne mensuelle'
+      description: 'Moyenne mensuelle',
+      href: '/attendance'
+    },
+    {
+      title: 'Présences Mensuelles',
+      value: '156',
+      change: '+12',
+      changeType: 'positive',
+      icon: Calendar,
+      description: 'Ce mois-ci',
+      href: '/attendance'
+    },
+    {
+      title: 'Présences Annuelles',
+      value: '1,847',
+      change: '+234',
+      changeType: 'positive',
+      icon: CheckCircle,
+      description: 'Cette année',
+      href: '/attendance'
     }
   ];
 
@@ -126,30 +148,32 @@ export default function Dashboard() {
       </div>
 
       {/* KPIs */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         {kpis.map((kpi) => {
           const Icon = kpi.icon;
           return (
-            <Card key={kpi.title}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
-                <Icon className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{kpi.value}</div>
-                <div className="flex items-center text-xs text-muted-foreground mt-1">
-                  {kpi.changeType === 'positive' ? (
-                    <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
-                  ) : (
-                    <TrendingDown className="h-3 w-3 mr-1 text-red-500" />
-                  )}
-                  <span className={kpi.changeType === 'positive' ? 'text-green-500' : 'text-red-500'}>
-                    {kpi.change}
-                  </span>
-                  <span className="ml-1">{kpi.description}</span>
-                </div>
-              </CardContent>
-            </Card>
+            <Link key={kpi.title} to={kpi.href}>
+              <Card className="hover:shadow-md transition-shadow cursor-pointer">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
+                  <Icon className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{kpi.value}</div>
+                  <div className="flex items-center text-xs text-muted-foreground mt-1">
+                    {kpi.changeType === 'positive' ? (
+                      <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
+                    ) : (
+                      <TrendingDown className="h-3 w-3 mr-1 text-red-500" />
+                    )}
+                    <span className={kpi.changeType === 'positive' ? 'text-green-500' : 'text-red-500'}>
+                      {kpi.change}
+                    </span>
+                    <span className="ml-1">{kpi.description}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           );
         })}
       </div>
