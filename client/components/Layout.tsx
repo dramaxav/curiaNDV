@@ -28,6 +28,7 @@ const navigationItems = [
   { name: 'Officiers', href: '/officers', icon: UserCheck },
   { name: 'Membres', href: '/members', icon: Users },
   { name: 'Présences', href: '/attendance', icon: UserCheck },
+  { name: 'Réunions', href: '/meetings', icon: Calendar },
   { name: 'Finances', href: '/finances', icon: Calculator },
   { name: 'Alertes', href: '/alerts', icon: Bell },
 ];
