@@ -86,9 +86,11 @@ export default function Layout({ children }: LayoutProps) {
                 </div>
                 <NavItems mobile />
                 <div className="mt-auto pt-4 border-t">
-                  <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground">
-                    <Settings className="h-4 w-4" />
-                    Paramètres
+                  <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground" asChild>
+                    <Link to="/settings">
+                      <Settings className="h-4 w-4" />
+                      Paramètres
+                    </Link>
                   </Button>
                   <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground">
                     <LogOut className="h-4 w-4" />
@@ -136,8 +138,10 @@ export default function Layout({ children }: LayoutProps) {
                   <Bell className="h-4 w-4" />
                 </Link>
               </Button>
-              <Button variant="ghost" size="icon">
-                <Settings className="h-4 w-4" />
+              <Button variant="ghost" size="icon" asChild>
+                <Link to="/settings">
+                  <Settings className="h-4 w-4" />
+                </Link>
               </Button>
             </div>
           </div>
@@ -152,9 +156,11 @@ export default function Layout({ children }: LayoutProps) {
           </div>
           <div className="border-t p-4">
             <div className="space-y-2">
-              <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground">
-                <Settings className="h-4 w-4" />
-                Paramètres
+              <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground" asChild>
+                <Link to="/settings">
+                  <Settings className="h-4 w-4" />
+                  Paramètres
+                </Link>
               </Button>
               <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground">
                 <LogOut className="h-4 w-4" />
