@@ -1,22 +1,22 @@
-import { useState, useRef } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Upload, Camera, X, Check } from 'lucide-react';
+import { useState, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Upload, Camera, X, Check } from "lucide-react";
 
 interface PhotoUploadProps {
   currentPhotoUrl?: string;
   onPhotoChange: (photoUrl: string | null) => void;
   className?: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
 }
 
-export default function PhotoUpload({ 
-  currentPhotoUrl, 
-  onPhotoChange, 
-  className = '',
-  size = 'md' 
+export default function PhotoUpload({
+  currentPhotoUrl,
+  onPhotoChange,
+  className = "",
+  size = "md",
 }: PhotoUploadProps) {
   const [dragOver, setDragOver] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -24,26 +24,31 @@ export default function PhotoUpload({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const sizeClasses = {
-    sm: 'h-16 w-16',
-    md: 'h-24 w-24',
-    lg: 'h-32 w-32'
+    sm: "h-16 w-16",
+    md: "h-24 w-24",
+    lg: "h-32 w-32",
   };
 
   const validateFile = (file: File): string | null => {
     // Vérifier le type de fichier
-    if (!file.type.startsWith('image/')) {
-      return 'Veuillez sélectionner un fichier image valide.';
+    if (!file.type.startsWith("image/")) {
+      return "Veuillez sélectionner un fichier image valide.";
     }
 
     // Vérifier la taille (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-      return 'La taille du fichier ne doit pas dépasser 5 MB.';
+      return "La taille du fichier ne doit pas dépasser 5 MB.";
     }
 
     // Vérifier les formats supportés
-    const supportedFormats = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+    const supportedFormats = [
+      "image/jpeg",
+      "image/jpg",
+      "image/png",
+      "image/webp",
+    ];
     if (!supportedFormats.includes(file.type)) {
-      return 'Formats supportés : JPEG, PNG, WebP.';
+      return "Formats supportés : JPEG, PNG, WebP.";
     }
 
     return null;
@@ -51,7 +56,7 @@ export default function PhotoUpload({
 
   const handleFileUpload = async (file: File) => {
     setError(null);
-    
+
     const validationError = validateFile(file);
     if (validationError) {
       setError(validationError);
@@ -79,9 +84,8 @@ export default function PhotoUpload({
       // });
       // const { url } = await response.json();
       // onPhotoChange(url);
-      
     } catch (err) {
-      setError('Erreur lors du téléchargement de la photo.');
+      setError("Erreur lors du téléchargement de la photo.");
       setUploading(false);
     }
   };
@@ -89,7 +93,7 @@ export default function PhotoUpload({
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setDragOver(false);
-    
+
     const files = Array.from(e.dataTransfer.files);
     if (files.length > 0) {
       handleFileUpload(files[0]);
@@ -106,7 +110,7 @@ export default function PhotoUpload({
   const removePhoto = () => {
     onPhotoChange(null);
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = "";
     }
   };
 
@@ -125,9 +129,9 @@ export default function PhotoUpload({
         </Avatar>
 
         {/* Zone de upload */}
-        <Card 
+        <Card
           className={`flex-1 cursor-pointer transition-colors ${
-            dragOver ? 'border-primary bg-primary/5' : 'border-dashed'
+            dragOver ? "border-primary bg-primary/5" : "border-dashed"
           }`}
           onDragOver={(e) => {
             e.preventDefault();
@@ -141,8 +145,13 @@ export default function PhotoUpload({
             <div className="flex flex-col items-center justify-center space-y-2 text-center">
               <Upload className="h-8 w-8 text-muted-foreground" />
               <div className="text-sm">
-                <span className="font-medium text-primary">Cliquez pour choisir</span>
-                <span className="text-muted-foreground"> ou glissez une photo ici</span>
+                <span className="font-medium text-primary">
+                  Cliquez pour choisir
+                </span>
+                <span className="text-muted-foreground">
+                  {" "}
+                  ou glissez une photo ici
+                </span>
               </div>
               <div className="text-xs text-muted-foreground">
                 JPEG, PNG, WebP - Max 5MB
@@ -204,9 +213,7 @@ export default function PhotoUpload({
       {currentPhotoUrl && !uploading && !error && (
         <Alert>
           <Check className="h-4 w-4" />
-          <AlertDescription>
-            Photo téléchargée avec succès
-          </AlertDescription>
+          <AlertDescription>Photo téléchargée avec succès</AlertDescription>
         </Alert>
       )}
     </div>

@@ -291,7 +291,12 @@ export interface AlerteProbation {
 
 export interface AlerteAnniversaire {
   id_alerte: string;
-  type_anniversaire: 'naissance' | 'bapteme' | 'confirmation' | 'creation_praesidium' | 'creation_conseil';
+  type_anniversaire:
+    | "naissance"
+    | "bapteme"
+    | "confirmation"
+    | "creation_praesidium"
+    | "creation_conseil";
   id_concerne: string; // ID de la personne ou entité concernée
   nom_concerne: string;
   date_anniversaire: Date;
@@ -333,7 +338,7 @@ export interface AlerteNonContribution {
 export interface RapportConseil {
   id_rapport: string;
   periode: string; // Format YYYY-MM
-  type_rapport: 'mensuel' | 'trimestriel' | 'annuel';
+  type_rapport: "mensuel" | "trimestriel" | "annuel";
   total_contributions: number;
   total_depenses: number;
   solde_global: number;
@@ -342,7 +347,7 @@ export interface RapportConseil {
     id_praesidium: string;
     nom_praesidium: string;
     montant: number;
-    statut: 'paye' | 'en_retard' | 'non_paye';
+    statut: "paye" | "en_retard" | "non_paye";
   }[];
   depenses_principales: {
     categorie: string;

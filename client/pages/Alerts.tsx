@@ -209,52 +209,67 @@ const mockAlertesBase: Alerte[] = [
     id_alerte: "7",
     type: "anniversaire_naissance",
     titre: "Anniversaire - Marie Dupont",
-    description: "Marie Dupont, Présidente du praesidium Notre-Dame du Rosaire, fête ses 45 ans aujourd'hui.",
+    description:
+      "Marie Dupont, Présidente du praesidium Notre-Dame du Rosaire, fête ses 45 ans aujourd'hui.",
     priorite: "basse",
     date_creation: new Date(),
     statut: "active",
     entite_concernee: "Marie Dupont",
     destinataires: ["vice-president-conseil", "officiers-praesidium-1"],
-    actions_suggerees: ["Envoyer une carte", "Organiser une petite célébration"]
+    actions_suggerees: [
+      "Envoyer une carte",
+      "Organiser une petite célébration",
+    ],
   },
   {
     id_alerte: "8",
     type: "anniversaire_creation_praesidium",
     titre: "10e anniversaire - Notre-Dame du Rosaire",
-    description: "Le praesidium Notre-Dame du Rosaire célèbre ses 10 ans de création le 15 février.",
+    description:
+      "Le praesidium Notre-Dame du Rosaire célèbre ses 10 ans de création le 15 février.",
     priorite: "moyenne",
     date_creation: new Date(),
     date_echeance: new Date("2024-02-15"),
     statut: "active",
     entite_concernee: "Notre-Dame du Rosaire",
     destinataires: ["vice-president-conseil", "officiers-praesidium-1"],
-    actions_suggerees: ["Organiser une messe d'action de grâce", "Préparer un historique", "Inviter les anciens membres"]
+    actions_suggerees: [
+      "Organiser une messe d'action de grâce",
+      "Préparer un historique",
+      "Inviter les anciens membres",
+    ],
   },
   {
     id_alerte: "9",
     type: "non_contribution_mensuelle",
     titre: "Contribution manquante - Janvier 2024",
-    description: "Le praesidium Sainte-Thérèse n'a pas versé sa contribution mensuelle pour janvier 2024.",
+    description:
+      "Le praesidium Sainte-Thérèse n'a pas versé sa contribution mensuelle pour janvier 2024.",
     priorite: "haute",
     date_creation: new Date(),
     date_echeance: new Date("2024-02-10"),
     statut: "active",
     entite_concernee: "Sainte-Thérèse",
     destinataires: ["tresoriere-conseil", "officiers-praesidium-3"],
-    actions_suggerees: ["Contacter le trésorier du praesidium", "Vérifier les difficultés financières", "Programmer un suivi"]
+    actions_suggerees: [
+      "Contacter le trésorier du praesidium",
+      "Vérifier les difficultés financières",
+      "Programmer un suivi",
+    ],
   },
   {
     id_alerte: "10",
     type: "anniversaire_bapteme",
     titre: "Anniversaire de baptême - Jean Martin",
-    description: "Jean Martin, Vice-Président du praesidium Notre-Dame du Rosaire, célèbre ses 30 ans de baptême.",
+    description:
+      "Jean Martin, Vice-Président du praesidium Notre-Dame du Rosaire, célèbre ses 30 ans de baptême.",
     priorite: "basse",
     date_creation: new Date(),
     statut: "active",
     entite_concernee: "Jean Martin",
     destinataires: ["vice-president-conseil", "officiers-praesidium-1"],
-    actions_suggerees: ["Féliciter personnellement", "Partager en réunion"]
-  }
+    actions_suggerees: ["Féliciter personnellement", "Partager en réunion"],
+  },
 ];
 
 export default function Alerts() {
