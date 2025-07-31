@@ -129,18 +129,44 @@ export default function Attendance() {
   }, [presences, selectedPraesidium, selectedMember, selectedDate]);
 
   const stats = useMemo(() => {
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+
     const totalPresences = presences.length;
     const presents = presences.filter(p => p.statut_presence === 'Présent').length;
     const absents = presences.filter(p => p.statut_presence === 'Absent').length;
     const excuses = presences.filter(p => p.statut_presence === 'Excusé').length;
     const tauxPresence = totalPresences > 0 ? (presents / totalPresences) * 100 : 0;
 
+    // Statistiques mensuelles
+    const presencesMensuel = presences.filter(p => {
+      const date = new Date(p.date_reunion);
+      return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+    });
+    const presentsMensuel = presencesMensuel.filter(p => p.statut_presence === 'Présent').length;
+    const tauxMensuel = presencesMensuel.length > 0 ? (presentsMensuel / presencesMensuel.length) * 100 : 0;
+
+    // Statistiques annuelles
+    const presencesAnnuel = presences.filter(p => {
+      const date = new Date(p.date_reunion);
+      return date.getFullYear() === currentYear;
+    });
+    const presentsAnnuel = presencesAnnuel.filter(p => p.statut_presence === 'Présent').length;
+    const tauxAnnuel = presencesAnnuel.length > 0 ? (presentsAnnuel / presencesAnnuel.length) * 100 : 0;
+
     return {
       totalPresences,
       presents,
       absents,
       excuses,
-      tauxPresence
+      tauxPresence,
+      presencesMensuel: presencesMensuel.length,
+      presentsMensuel,
+      tauxMensuel,
+      presencesAnnuel: presencesAnnuel.length,
+      presentsAnnuel,
+      tauxAnnuel
     };
   }, [presences]);
 
@@ -488,7 +514,7 @@ export default function Attendance() {
         </div>
       </div>
 
-      {/* Statistics */}
+      {/* Statistics Globales */}
       <div className="grid gap-4 md:grid-cols-5">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -533,6 +559,65 @@ export default function Attendance() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-purple-600">{stats.tauxPresence.toFixed(1)}%</div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Statistics Mensuelle et Annuelle */}
+      <div className="grid gap-6 md:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Calendar className="h-5 w-5 text-blue-500" />
+              Statistiques Mensuelles
+            </CardTitle>
+            <CardDescription>
+              Présences pour le mois en cours
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-blue-600">{stats.presencesMensuel}</div>
+                <p className="text-sm text-muted-foreground">Réunions</p>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-green-600">{stats.presentsMensuel}</div>
+                <p className="text-sm text-muted-foreground">Présents</p>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-purple-600">{stats.tauxMensuel.toFixed(1)}%</div>
+                <p className="text-sm text-muted-foreground">Taux</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <CheckCircle className="h-5 w-5 text-green-500" />
+              Statistiques Annuelles
+            </CardTitle>
+            <CardDescription>
+              Présences pour l'année en cours
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-blue-600">{stats.presencesAnnuel}</div>
+                <p className="text-sm text-muted-foreground">Réunions</p>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-green-600">{stats.presentsAnnuel}</div>
+                <p className="text-sm text-muted-foreground">Présents</p>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-purple-600">{stats.tauxAnnuel.toFixed(1)}%</div>
+                <p className="text-sm text-muted-foreground">Taux</p>
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>
