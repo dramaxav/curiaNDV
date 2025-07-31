@@ -278,6 +278,52 @@ export default function Finances() {
     console.log("Approbation du rapport:", rapportConseil.id_rapport);
   };
 
+  const handleAjouterContribution = () => {
+    if (!contributionForm.id_praesidium || !contributionForm.montant) {
+      alert("Veuillez remplir tous les champs obligatoires");
+      return;
+    }
+
+    // Ici on sauvegarderait la contribution en base
+    console.log("Nouvelle contribution:", {
+      ...contributionForm,
+      montant: parseFloat(contributionForm.montant),
+    });
+
+    // Reset du formulaire
+    setContributionForm({
+      id_praesidium: "",
+      montant: "",
+      mois: new Date().toISOString().slice(0, 7),
+      description: "",
+    });
+
+    alert("Contribution enregistrée avec succès");
+  };
+
+  const handleAjouterDepense = () => {
+    if (!depenseForm.categorie || !depenseForm.montant) {
+      alert("Veuillez remplir tous les champs obligatoires");
+      return;
+    }
+
+    // Ici on sauvegarderait la dépense en base
+    console.log("Nouvelle dépense:", {
+      ...depenseForm,
+      montant: parseFloat(depenseForm.montant),
+    });
+
+    // Reset du formulaire
+    setDepenseForm({
+      categorie: "",
+      montant: "",
+      description: "",
+      date_depense: new Date().toISOString().slice(0, 10),
+    });
+
+    alert("Dépense enregistrée avec succès");
+  };
+
   const getPeriodesDisponibles = () => {
     if (selectedTypeRapport === "mensuel") {
       return [
