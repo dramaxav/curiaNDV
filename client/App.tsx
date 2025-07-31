@@ -16,7 +16,7 @@ import Members from "./pages/Members";
 import Attendance from "./pages/Attendance";
 import Finances from "./pages/Finances";
 import Alerts from "./pages/Alerts";
-import Meetings from "./pages/Meetings";
+import Manifestations from "./pages/Manifestations";
 import Settings from "./pages/Settings";
 import CouncilOfficers from "./pages/CouncilOfficers";
 import Archives from "./pages/Archives";
@@ -40,7 +40,7 @@ const App = () => (
           <Route path="/attendance" element={<Layout><Attendance /></Layout>} />
           <Route path="/finances" element={<Layout><Finances /></Layout>} />
           <Route path="/alerts" element={<Layout><Alerts /></Layout>} />
-          <Route path="/meetings" element={<Layout><Meetings /></Layout>} />
+          <Route path="/meetings" element={<Layout><Manifestations /></Layout>} />
           <Route path="/council-officers" element={<Layout><CouncilOfficers /></Layout>} />
           <Route path="/archives" element={<Layout><Archives /></Layout>} />
           <Route path="/settings" element={<Layout><Settings /></Layout>} />
