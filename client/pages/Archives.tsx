@@ -1,17 +1,29 @@
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { 
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from "@/components/ui/table";
 import {
   Dialog,
   DialogContent,
@@ -19,10 +31,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { 
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
   Archive,
   Calendar,
   FileText,
@@ -35,150 +47,185 @@ import {
   FolderOpen,
   Clock,
   User,
-  File
-} from 'lucide-react';
+  File,
+} from "lucide-react";
 
 interface Document {
   id_document: string;
   titre: string;
-  type: 'agenda_mensuel' | 'proces_verbal' | 'planning_annuel' | 'rapport_activite' | 'autres';
+  type:
+    | "agenda_mensuel"
+    | "proces_verbal"
+    | "planning_annuel"
+    | "rapport_activite"
+    | "autres";
   description?: string;
   fichier_url: string;
   taille_fichier: string;
   mois_annee: string; // Format: YYYY-MM
   date_upload: Date;
   uploaded_by: string;
-  statut: 'actif' | 'archive';
+  statut: "actif" | "archive";
 }
 
 const mockDocuments: Document[] = [
   {
-    id_document: '1',
-    titre: 'Agenda Janvier 2024',
-    type: 'agenda_mensuel',
-    description: 'Agenda mensuel des activités de janvier 2024',
-    fichier_url: '/documents/agenda-janvier-2024.pdf',
-    taille_fichier: '1.2 MB',
-    mois_annee: '2024-01',
-    date_upload: new Date('2024-01-05'),
-    uploaded_by: 'Marie-Claire Atangana',
-    statut: 'actif'
+    id_document: "1",
+    titre: "Agenda Janvier 2024",
+    type: "agenda_mensuel",
+    description: "Agenda mensuel des activités de janvier 2024",
+    fichier_url: "/documents/agenda-janvier-2024.pdf",
+    taille_fichier: "1.2 MB",
+    mois_annee: "2024-01",
+    date_upload: new Date("2024-01-05"),
+    uploaded_by: "Marie-Claire Atangana",
+    statut: "actif",
   },
   {
-    id_document: '2',
-    titre: 'Procès-verbal Décembre 2023',
-    type: 'proces_verbal',
-    description: 'Procès-verbal de la réunion mensuelle de décembre 2023',
-    fichier_url: '/documents/pv-decembre-2023.pdf',
-    taille_fichier: '856 KB',
-    mois_annee: '2023-12',
-    date_upload: new Date('2024-01-03'),
-    uploaded_by: 'Françoise Eyenga',
-    statut: 'actif'
+    id_document: "2",
+    titre: "Procès-verbal Décembre 2023",
+    type: "proces_verbal",
+    description: "Procès-verbal de la réunion mensuelle de décembre 2023",
+    fichier_url: "/documents/pv-decembre-2023.pdf",
+    taille_fichier: "856 KB",
+    mois_annee: "2023-12",
+    date_upload: new Date("2024-01-03"),
+    uploaded_by: "Françoise Eyenga",
+    statut: "actif",
   },
   {
-    id_document: '3',
-    titre: 'Planning Annuel 2024',
-    type: 'planning_annuel',
-    description: 'Planning des activités pour l\'année 2024',
-    fichier_url: '/documents/planning-2024.pdf',
-    taille_fichier: '2.1 MB',
-    mois_annee: '2024-01',
-    date_upload: new Date('2024-01-15'),
-    uploaded_by: 'Jean-Baptiste Mballa',
-    statut: 'actif'
+    id_document: "3",
+    titre: "Planning Annuel 2024",
+    type: "planning_annuel",
+    description: "Planning des activités pour l'année 2024",
+    fichier_url: "/documents/planning-2024.pdf",
+    taille_fichier: "2.1 MB",
+    mois_annee: "2024-01",
+    date_upload: new Date("2024-01-15"),
+    uploaded_by: "Jean-Baptiste Mballa",
+    statut: "actif",
   },
   {
-    id_document: '4',
-    titre: 'Rapport d\'activité Q4 2023',
-    type: 'rapport_activite',
-    description: 'Rapport trimestriel des activités du 4ème trimestre 2023',
-    fichier_url: '/documents/rapport-q4-2023.pdf',
-    taille_fichier: '3.4 MB',
-    mois_annee: '2023-12',
-    date_upload: new Date('2024-01-10'),
-    uploaded_by: 'Marie-Claire Atangana',
-    statut: 'actif'
+    id_document: "4",
+    titre: "Rapport d'activité Q4 2023",
+    type: "rapport_activite",
+    description: "Rapport trimestriel des activités du 4ème trimestre 2023",
+    fichier_url: "/documents/rapport-q4-2023.pdf",
+    taille_fichier: "3.4 MB",
+    mois_annee: "2023-12",
+    date_upload: new Date("2024-01-10"),
+    uploaded_by: "Marie-Claire Atangana",
+    statut: "actif",
   },
   {
-    id_document: '5',
-    titre: 'Règlement Intérieur 2024',
-    type: 'autres',
-    description: 'Règlement intérieur mis à jour pour 2024',
-    fichier_url: '/documents/reglement-2024.pdf',
-    taille_fichier: '987 KB',
-    mois_annee: '2024-01',
-    date_upload: new Date('2024-01-20'),
-    uploaded_by: 'Monseigneur Paul Nkomo',
-    statut: 'actif'
-  }
+    id_document: "5",
+    titre: "Règlement Intérieur 2024",
+    type: "autres",
+    description: "Règlement intérieur mis à jour pour 2024",
+    fichier_url: "/documents/reglement-2024.pdf",
+    taille_fichier: "987 KB",
+    mois_annee: "2024-01",
+    date_upload: new Date("2024-01-20"),
+    uploaded_by: "Monseigneur Paul Nkomo",
+    statut: "actif",
+  },
 ];
 
 export default function Archives() {
   const [documents, setDocuments] = useState<Document[]>(mockDocuments);
-  const [selectedType, setSelectedType] = useState<string>('all');
-  const [selectedYear, setSelectedYear] = useState<string>('all');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedType, setSelectedType] = useState<string>("all");
+  const [selectedYear, setSelectedYear] = useState<string>("all");
+  const [searchTerm, setSearchTerm] = useState("");
   const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);
-  
+
   const [uploadForm, setUploadForm] = useState({
-    titre: '',
-    type: 'agenda_mensuel' as Document['type'],
-    description: '',
+    titre: "",
+    type: "agenda_mensuel" as Document["type"],
+    description: "",
     mois_annee: new Date().toISOString().slice(0, 7),
-    fichier: null as File | null
+    fichier: null as File | null,
   });
 
   const documentTypes = [
-    { value: 'agenda_mensuel', label: 'Agenda Mensuel', icon: Calendar, color: 'text-blue-500' },
-    { value: 'proces_verbal', label: 'Procès-verbal Mensuel', icon: FileText, color: 'text-green-500' },
-    { value: 'planning_annuel', label: 'Planning Annuel', icon: Clock, color: 'text-purple-500' },
-    { value: 'rapport_activite', label: 'Rapport d\'Activité', icon: File, color: 'text-orange-500' },
-    { value: 'autres', label: 'Autres Documents', icon: FolderOpen, color: 'text-gray-500' }
+    {
+      value: "agenda_mensuel",
+      label: "Agenda Mensuel",
+      icon: Calendar,
+      color: "text-blue-500",
+    },
+    {
+      value: "proces_verbal",
+      label: "Procès-verbal Mensuel",
+      icon: FileText,
+      color: "text-green-500",
+    },
+    {
+      value: "planning_annuel",
+      label: "Planning Annuel",
+      icon: Clock,
+      color: "text-purple-500",
+    },
+    {
+      value: "rapport_activite",
+      label: "Rapport d'Activité",
+      icon: File,
+      color: "text-orange-500",
+    },
+    {
+      value: "autres",
+      label: "Autres Documents",
+      icon: FolderOpen,
+      color: "text-gray-500",
+    },
   ];
 
-  const filteredDocuments = documents.filter(doc => {
-    const matchesType = selectedType === 'all' || doc.type === selectedType;
-    const matchesYear = selectedYear === 'all' || doc.mois_annee.startsWith(selectedYear);
-    const matchesSearch = doc.titre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         (doc.description && doc.description.toLowerCase().includes(searchTerm.toLowerCase()));
-    
+  const filteredDocuments = documents.filter((doc) => {
+    const matchesType = selectedType === "all" || doc.type === selectedType;
+    const matchesYear =
+      selectedYear === "all" || doc.mois_annee.startsWith(selectedYear);
+    const matchesSearch =
+      doc.titre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (doc.description &&
+        doc.description.toLowerCase().includes(searchTerm.toLowerCase()));
+
     return matchesType && matchesYear && matchesSearch;
   });
 
   const getTypeInfo = (type: string) => {
-    return documentTypes.find(t => t.value === type) || documentTypes[4];
+    return documentTypes.find((t) => t.value === type) || documentTypes[4];
   };
 
   const getYearOptions = () => {
-    const years = Array.from(new Set(documents.map(doc => doc.mois_annee.substring(0, 4))));
+    const years = Array.from(
+      new Set(documents.map((doc) => doc.mois_annee.substring(0, 4))),
+    );
     return years.sort().reverse();
   };
 
   const stats = {
     total: documents.length,
-    ce_mois: documents.filter(doc => {
+    ce_mois: documents.filter((doc) => {
       const currentMonth = new Date().toISOString().slice(0, 7);
       return doc.mois_annee === currentMonth;
     }).length,
-    par_type: documentTypes.map(type => ({
+    par_type: documentTypes.map((type) => ({
       ...type,
-      count: documents.filter(doc => doc.type === type.value).length
-    }))
+      count: documents.filter((doc) => doc.type === type.value).length,
+    })),
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setUploadForm({...uploadForm, fichier: file});
+      setUploadForm({ ...uploadForm, fichier: file });
     }
   };
 
   const handleUploadSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!uploadForm.fichier) {
-      alert('Veuillez sélectionner un fichier');
+      alert("Veuillez sélectionner un fichier");
       return;
     }
 
@@ -191,23 +238,23 @@ export default function Archives() {
       taille_fichier: `${(uploadForm.fichier.size / 1024 / 1024).toFixed(1)} MB`,
       mois_annee: uploadForm.mois_annee,
       date_upload: new Date(),
-      uploaded_by: 'Utilisateur Actuel', // À remplacer par l'utilisateur connecté
-      statut: 'actif'
+      uploaded_by: "Utilisateur Actuel", // À remplacer par l'utilisateur connecté
+      statut: "actif",
     };
 
     setDocuments([newDocument, ...documents]);
-    
+
     // Reset form
     setUploadForm({
-      titre: '',
-      type: 'agenda_mensuel',
-      description: '',
+      titre: "",
+      type: "agenda_mensuel",
+      description: "",
       mois_annee: new Date().toISOString().slice(0, 7),
-      fichier: null
+      fichier: null,
     });
     setIsUploadDialogOpen(false);
-    
-    alert('Document uploadé avec succès !');
+
+    alert("Document uploadé avec succès !");
   };
 
   const handleDownload = (document: Document) => {
@@ -216,8 +263,8 @@ export default function Archives() {
   };
 
   const handleDelete = (documentId: string) => {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce document ?')) {
-      setDocuments(documents.filter(doc => doc.id_document !== documentId));
+    if (confirm("Êtes-vous sûr de vouloir supprimer ce document ?")) {
+      setDocuments(documents.filter((doc) => doc.id_document !== documentId));
     }
   };
 
@@ -250,18 +297,22 @@ export default function Archives() {
                 <Input
                   id="titre"
                   value={uploadForm.titre}
-                  onChange={(e) => setUploadForm({...uploadForm, titre: e.target.value})}
+                  onChange={(e) =>
+                    setUploadForm({ ...uploadForm, titre: e.target.value })
+                  }
                   placeholder="ex: Agenda Février 2024"
                   required
                 />
               </div>
-              
+
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="type">Type de document</Label>
-                  <Select 
-                    value={uploadForm.type} 
-                    onValueChange={(value: any) => setUploadForm({...uploadForm, type: value})}
+                  <Select
+                    value={uploadForm.type}
+                    onValueChange={(value: any) =>
+                      setUploadForm({ ...uploadForm, type: value })
+                    }
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -281,7 +332,12 @@ export default function Archives() {
                     id="mois_annee"
                     type="month"
                     value={uploadForm.mois_annee}
-                    onChange={(e) => setUploadForm({...uploadForm, mois_annee: e.target.value})}
+                    onChange={(e) =>
+                      setUploadForm({
+                        ...uploadForm,
+                        mois_annee: e.target.value,
+                      })
+                    }
                     required
                   />
                 </div>
@@ -292,7 +348,12 @@ export default function Archives() {
                 <Textarea
                   id="description"
                   value={uploadForm.description}
-                  onChange={(e) => setUploadForm({...uploadForm, description: e.target.value})}
+                  onChange={(e) =>
+                    setUploadForm({
+                      ...uploadForm,
+                      description: e.target.value,
+                    })
+                  }
                   placeholder="Description du contenu du document"
                   rows={3}
                 />
@@ -313,7 +374,11 @@ export default function Archives() {
               </div>
 
               <div className="flex justify-end space-x-2 pt-4">
-                <Button type="button" variant="outline" onClick={() => setIsUploadDialogOpen(false)}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setIsUploadDialogOpen(false)}
+                >
                   Annuler
                 </Button>
                 <Button type="submit">
@@ -330,7 +395,9 @@ export default function Archives() {
       <div className="grid gap-4 md:grid-cols-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Documents</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Total Documents
+            </CardTitle>
             <Archive className="h-4 w-4 text-blue-500" />
           </CardHeader>
           <CardContent>
@@ -351,7 +418,9 @@ export default function Archives() {
           return (
             <Card key={type.value}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-xs font-medium">{type.label}</CardTitle>
+                <CardTitle className="text-xs font-medium">
+                  {type.label}
+                </CardTitle>
                 <Icon className={`h-4 w-4 ${type.color}`} />
               </CardHeader>
               <CardContent>
@@ -366,9 +435,14 @@ export default function Archives() {
       <div className="grid gap-4 md:grid-cols-5">
         {documentTypes.map((type) => {
           const Icon = type.icon;
-          const typeDocuments = documents.filter(doc => doc.type === type.value);
+          const typeDocuments = documents.filter(
+            (doc) => doc.type === type.value,
+          );
           return (
-            <Card key={type.value} className="cursor-pointer hover:shadow-md transition-shadow">
+            <Card
+              key={type.value}
+              className="cursor-pointer hover:shadow-md transition-shadow"
+            >
               <CardHeader className="text-center">
                 <Icon className={`h-8 w-8 mx-auto ${type.color}`} />
                 <CardTitle className="text-lg">{type.label}</CardTitle>
@@ -461,16 +535,16 @@ export default function Archives() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <Badge variant="outline">
-                          {typeInfo.label}
-                        </Badge>
+                        <Badge variant="outline">{typeInfo.label}</Badge>
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
                           <Calendar className="h-4 w-4 text-muted-foreground" />
-                          {new Date(document.mois_annee + '-01').toLocaleDateString('fr-FR', { 
-                            year: 'numeric', 
-                            month: 'long' 
+                          {new Date(
+                            document.mois_annee + "-01",
+                          ).toLocaleDateString("fr-FR", {
+                            year: "numeric",
+                            month: "long",
                           })}
                         </div>
                       </TableCell>
@@ -482,7 +556,7 @@ export default function Archives() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        {document.date_upload.toLocaleDateString('fr-FR')}
+                        {document.date_upload.toLocaleDateString("fr-FR")}
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex items-center justify-end gap-2">
@@ -496,7 +570,9 @@ export default function Archives() {
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() => window.open(document.fichier_url, '_blank')}
+                            onClick={() =>
+                              window.open(document.fichier_url, "_blank")
+                            }
                           >
                             <Eye className="h-4 w-4" />
                           </Button>

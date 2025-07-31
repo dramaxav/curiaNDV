@@ -1,18 +1,30 @@
-import { useState, useMemo } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { 
+import { useState, useMemo } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from "@/components/ui/table";
 import {
   Dialog,
   DialogContent,
@@ -20,11 +32,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { 
-  UserCheck, 
-  Plus, 
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import {
+  UserCheck,
+  Plus,
   Search,
   Edit,
   Trash2,
@@ -34,88 +46,117 @@ import {
   Phone,
   Mail,
   Crown,
-  Users
-} from 'lucide-react';
-import type { Officier, OfficierFormData, Praesidium } from '@shared/types';
+  Users,
+} from "lucide-react";
+import type { Officier, OfficierFormData, Praesidium } from "@shared/types";
 
 // Mock data
 const mockPraesidia: Praesidium[] = [
-  { id_praesidium: '1', id_zone: '1', nom_praesidium: 'Notre-Dame du Rosaire', date_creation: new Date(), directeur_spirituel: 'Père Jean', type_praesidium: 'adulte', actif: true },
-  { id_praesidium: '2', id_zone: '1', nom_praesidium: 'Saint-Jean-Baptiste', date_creation: new Date(), directeur_spirituel: 'Père Jean', type_praesidium: 'adulte', actif: true },
-  { id_praesidium: '3', id_zone: '2', nom_praesidium: 'Sainte-Thérèse', date_creation: new Date(), directeur_spirituel: 'Père Michel', type_praesidium: 'junior', actif: true }
+  {
+    id_praesidium: "1",
+    id_zone: "1",
+    nom_praesidium: "Notre-Dame du Rosaire",
+    date_creation: new Date(),
+    directeur_spirituel: "Père Jean",
+    type_praesidium: "adulte",
+    actif: true,
+  },
+  {
+    id_praesidium: "2",
+    id_zone: "1",
+    nom_praesidium: "Saint-Jean-Baptiste",
+    date_creation: new Date(),
+    directeur_spirituel: "Père Jean",
+    type_praesidium: "adulte",
+    actif: true,
+  },
+  {
+    id_praesidium: "3",
+    id_zone: "2",
+    nom_praesidium: "Sainte-Thérèse",
+    date_creation: new Date(),
+    directeur_spirituel: "Père Michel",
+    type_praesidium: "junior",
+    actif: true,
+  },
 ];
 
 const mockOfficiers: Officier[] = [
   {
-    id_officier: '1',
-    id_praesidium: '1',
-    nom_prenom: 'Marie Dupont',
-    poste: 'Président',
-    date_debut_mandat: new Date('2023-01-01'),
-    date_fin_mandat: new Date('2024-12-31'),
-    telephone: '+33 1 23 45 67 89',
-    email: 'marie.dupont@email.com',
-    actif: true
+    id_officier: "1",
+    id_praesidium: "1",
+    nom_prenom: "Marie Dupont",
+    poste: "Président",
+    date_debut_mandat: new Date("2023-01-01"),
+    date_fin_mandat: new Date("2024-12-31"),
+    telephone: "+33 1 23 45 67 89",
+    email: "marie.dupont@email.com",
+    actif: true,
   },
   {
-    id_officier: '2',
-    id_praesidium: '1',
-    nom_prenom: 'Jean Martin',
-    poste: 'Vice-Président',
-    date_debut_mandat: new Date('2023-01-01'),
-    date_fin_mandat: new Date('2024-12-31'),
-    telephone: '+33 1 34 56 78 90',
-    email: 'jean.martin@email.com',
-    actif: true
+    id_officier: "2",
+    id_praesidium: "1",
+    nom_prenom: "Jean Martin",
+    poste: "Vice-Président",
+    date_debut_mandat: new Date("2023-01-01"),
+    date_fin_mandat: new Date("2024-12-31"),
+    telephone: "+33 1 34 56 78 90",
+    email: "jean.martin@email.com",
+    actif: true,
   },
   {
-    id_officier: '3',
-    id_praesidium: '2',
-    nom_prenom: 'Sophie Laurent',
-    poste: 'Secrétaire',
-    date_debut_mandat: new Date('2023-06-01'),
-    date_fin_mandat: new Date('2025-05-31'),
-    telephone: '+33 1 45 67 89 01',
-    email: 'sophie.laurent@email.com',
-    actif: true
+    id_officier: "3",
+    id_praesidium: "2",
+    nom_prenom: "Sophie Laurent",
+    poste: "Secrétaire",
+    date_debut_mandat: new Date("2023-06-01"),
+    date_fin_mandat: new Date("2025-05-31"),
+    telephone: "+33 1 45 67 89 01",
+    email: "sophie.laurent@email.com",
+    actif: true,
   },
   {
-    id_officier: '4',
-    id_praesidium: '2',
-    nom_prenom: 'Pierre Moreau',
-    poste: 'Trésorier',
-    date_debut_mandat: new Date('2022-01-01'),
-    date_fin_mandat: new Date('2024-03-31'),
-    telephone: '+33 1 56 78 90 12',
-    email: 'pierre.moreau@email.com',
-    actif: true
-  }
+    id_officier: "4",
+    id_praesidium: "2",
+    nom_prenom: "Pierre Moreau",
+    poste: "Trésorier",
+    date_debut_mandat: new Date("2022-01-01"),
+    date_fin_mandat: new Date("2024-03-31"),
+    telephone: "+33 1 56 78 90 12",
+    email: "pierre.moreau@email.com",
+    actif: true,
+  },
 ];
 
 export default function Officers() {
   const [officiers, setOfficiers] = useState<Officier[]>(mockOfficiers);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedPraesidium, setSelectedPraesidium] = useState<string>('all');
-  const [selectedPoste, setSelectedPoste] = useState<string>('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedPraesidium, setSelectedPraesidium] = useState<string>("all");
+  const [selectedPoste, setSelectedPoste] = useState<string>("all");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingOfficier, setEditingOfficier] = useState<Officier | null>(null);
   const [formData, setFormData] = useState<OfficierFormData>({
-    id_praesidium: '',
-    nom_prenom: '',
-    poste: 'Président',
+    id_praesidium: "",
+    nom_prenom: "",
+    poste: "Président",
     date_debut_mandat: new Date(),
     date_fin_mandat: new Date(),
-    telephone: '',
-    email: '',
-    photo: ''
+    telephone: "",
+    email: "",
+    photo: "",
   });
 
   const filteredOfficiers = useMemo(() => {
-    return officiers.filter(officier => {
-      const matchesSearch = officier.nom_prenom.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesPraesidium = selectedPraesidium === 'all' || officier.id_praesidium === selectedPraesidium;
-      const matchesPoste = selectedPoste === 'all' || officier.poste === selectedPoste;
-      
+    return officiers.filter((officier) => {
+      const matchesSearch = officier.nom_prenom
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const matchesPraesidium =
+        selectedPraesidium === "all" ||
+        officier.id_praesidium === selectedPraesidium;
+      const matchesPoste =
+        selectedPoste === "all" || officier.poste === selectedPoste;
+
       return matchesSearch && matchesPraesidium && matchesPoste;
     });
   }, [officiers, searchTerm, selectedPraesidium, selectedPoste]);
@@ -126,7 +167,7 @@ export default function Officers() {
     const twoMonthsFromNow = new Date();
     twoMonthsFromNow.setMonth(now.getMonth() + 2);
 
-    return officiers.filter(officier => {
+    return officiers.filter((officier) => {
       const finMandat = new Date(officier.date_fin_mandat);
       return officier.actif && finMandat <= twoMonthsFromNow && finMandat > now;
     });
@@ -134,23 +175,31 @@ export default function Officers() {
 
   const stats = {
     total: officiers.length,
-    actifs: officiers.filter(o => o.actif).length,
-    presidents: officiers.filter(o => o.poste === 'Président' && o.actif).length,
-    fin_mandat_proche: mandatesExpiringSoon.length
+    actifs: officiers.filter((o) => o.actif).length,
+    presidents: officiers.filter((o) => o.poste === "Président" && o.actif)
+      .length,
+    fin_mandat_proche: mandatesExpiringSoon.length,
   };
 
   const getPraesidiumName = (praesidiumId: string) => {
-    const praesidium = mockPraesidia.find(p => p.id_praesidium === praesidiumId);
-    return praesidium ? praesidium.nom_praesidium : 'Praesidium inconnu';
+    const praesidium = mockPraesidia.find(
+      (p) => p.id_praesidium === praesidiumId,
+    );
+    return praesidium ? praesidium.nom_praesidium : "Praesidium inconnu";
   };
 
   const getPosteIcon = (poste: string) => {
     switch (poste) {
-      case 'Président': return <Crown className="h-4 w-4 text-yellow-500" />;
-      case 'Vice-Président': return <Shield className="h-4 w-4 text-blue-500" />;
-      case 'Secrétaire': return <Edit className="h-4 w-4 text-green-500" />;
-      case 'Trésorier': return <UserCheck className="h-4 w-4 text-purple-500" />;
-      default: return <Users className="h-4 w-4 text-gray-500" />;
+      case "Président":
+        return <Crown className="h-4 w-4 text-yellow-500" />;
+      case "Vice-Président":
+        return <Shield className="h-4 w-4 text-blue-500" />;
+      case "Secrétaire":
+        return <Edit className="h-4 w-4 text-green-500" />;
+      case "Trésorier":
+        return <UserCheck className="h-4 w-4 text-purple-500" />;
+      default:
+        return <Users className="h-4 w-4 text-gray-500" />;
     }
   };
 
@@ -164,27 +213,40 @@ export default function Officers() {
 
   const getMandateStatus = (dateFinMandat: Date) => {
     const daysLeft = getDaysUntilExpiry(dateFinMandat);
-    
-    if (daysLeft < 0) return { status: 'expired', color: 'destructive', text: 'Expiré' };
-    if (daysLeft <= 30) return { status: 'critical', color: 'destructive', text: `${daysLeft}j restants` };
-    if (daysLeft <= 60) return { status: 'warning', color: 'default', text: `${daysLeft}j restants` };
-    return { status: 'active', color: 'default', text: 'Actif' };
+
+    if (daysLeft < 0)
+      return { status: "expired", color: "destructive", text: "Expiré" };
+    if (daysLeft <= 30)
+      return {
+        status: "critical",
+        color: "destructive",
+        text: `${daysLeft}j restants`,
+      };
+    if (daysLeft <= 60)
+      return {
+        status: "warning",
+        color: "default",
+        text: `${daysLeft}j restants`,
+      };
+    return { status: "active", color: "default", text: "Actif" };
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (editingOfficier) {
-      setOfficiers(officiers.map(o => 
-        o.id_officier === editingOfficier.id_officier 
-          ? { ...o, ...formData }
-          : o
-      ));
+      setOfficiers(
+        officiers.map((o) =>
+          o.id_officier === editingOfficier.id_officier
+            ? { ...o, ...formData }
+            : o,
+        ),
+      );
     } else {
       const newOfficier: Officier = {
         id_officier: (officiers.length + 1).toString(),
         ...formData,
-        actif: true
+        actif: true,
       };
       setOfficiers([...officiers, newOfficier]);
     }
@@ -194,14 +256,14 @@ export default function Officers() {
 
   const resetForm = () => {
     setFormData({
-      id_praesidium: '',
-      nom_prenom: '',
-      poste: 'Président',
+      id_praesidium: "",
+      nom_prenom: "",
+      poste: "Président",
       date_debut_mandat: new Date(),
       date_fin_mandat: new Date(),
-      telephone: '',
-      email: '',
-      photo: ''
+      telephone: "",
+      email: "",
+      photo: "",
     });
     setEditingOfficier(null);
     setIsDialogOpen(false);
@@ -215,15 +277,15 @@ export default function Officers() {
       poste: officier.poste,
       date_debut_mandat: officier.date_debut_mandat,
       date_fin_mandat: officier.date_fin_mandat,
-      telephone: officier.telephone || '',
-      email: officier.email || ''
+      telephone: officier.telephone || "",
+      email: officier.email || "",
     });
     setIsDialogOpen(true);
   };
 
   const handleDelete = (officierId: string) => {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cet officier ?')) {
-      setOfficiers(officiers.filter(o => o.id_officier !== officierId));
+    if (confirm("Êtes-vous sûr de vouloir supprimer cet officier ?")) {
+      setOfficiers(officiers.filter((o) => o.id_officier !== officierId));
     }
   };
 
@@ -231,7 +293,9 @@ export default function Officers() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Gestion des Officiers</h1>
+          <h1 className="text-3xl font-bold tracking-tight">
+            Gestion des Officiers
+          </h1>
           <p className="text-muted-foreground">
             Suivi des mandats et responsabilités des officiers
           </p>
@@ -246,13 +310,12 @@ export default function Officers() {
           <DialogContent className="sm:max-w-[600px]">
             <DialogHeader>
               <DialogTitle>
-                {editingOfficier ? 'Modifier l\'Officier' : 'Nouvel Officier'}
+                {editingOfficier ? "Modifier l'Officier" : "Nouvel Officier"}
               </DialogTitle>
               <DialogDescription>
-                {editingOfficier 
-                  ? 'Modifiez les informations de l\'officier.'
-                  : 'Ajoutez un nouvel officier à un praesidium.'
-                }
+                {editingOfficier
+                  ? "Modifiez les informations de l'officier."
+                  : "Ajoutez un nouvel officier à un praesidium."}
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -262,27 +325,36 @@ export default function Officers() {
                   <Input
                     id="nom_prenom"
                     value={formData.nom_prenom}
-                    onChange={(e) => setFormData({...formData, nom_prenom: e.target.value})}
+                    onChange={(e) =>
+                      setFormData({ ...formData, nom_prenom: e.target.value })
+                    }
                     placeholder="ex: Marie Dupont"
                     required
                   />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="praesidium">Praesidium</Label>
-                  <Select 
-                    value={formData.id_praesidium} 
-                    onValueChange={(value) => setFormData({...formData, id_praesidium: value})}
+                  <Select
+                    value={formData.id_praesidium}
+                    onValueChange={(value) =>
+                      setFormData({ ...formData, id_praesidium: value })
+                    }
                     required
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Sélectionner un praesidium" />
                     </SelectTrigger>
                     <SelectContent>
-                      {mockPraesidia.filter(p => p.actif).map((praesidium) => (
-                        <SelectItem key={praesidium.id_praesidium} value={praesidium.id_praesidium}>
-                          {praesidium.nom_praesidium}
-                        </SelectItem>
-                      ))}
+                      {mockPraesidia
+                        .filter((p) => p.actif)
+                        .map((praesidium) => (
+                          <SelectItem
+                            key={praesidium.id_praesidium}
+                            value={praesidium.id_praesidium}
+                          >
+                            {praesidium.nom_praesidium}
+                          </SelectItem>
+                        ))}
                     </SelectContent>
                   </Select>
                 </div>
@@ -290,16 +362,20 @@ export default function Officers() {
 
               <div className="space-y-2">
                 <Label htmlFor="poste">Poste</Label>
-                <Select 
-                  value={formData.poste} 
-                  onValueChange={(value: any) => setFormData({...formData, poste: value})}
+                <Select
+                  value={formData.poste}
+                  onValueChange={(value: any) =>
+                    setFormData({ ...formData, poste: value })
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Président">Président</SelectItem>
-                    <SelectItem value="Vice-Président">Vice-Président</SelectItem>
+                    <SelectItem value="Vice-Président">
+                      Vice-Président
+                    </SelectItem>
                     <SelectItem value="Secrétaire">Secrétaire</SelectItem>
                     <SelectItem value="Trésorier">Trésorier</SelectItem>
                   </SelectContent>
@@ -312,8 +388,15 @@ export default function Officers() {
                   <Input
                     id="date_debut_mandat"
                     type="date"
-                    value={formData.date_debut_mandat.toISOString().split('T')[0]}
-                    onChange={(e) => setFormData({...formData, date_debut_mandat: new Date(e.target.value)})}
+                    value={
+                      formData.date_debut_mandat.toISOString().split("T")[0]
+                    }
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        date_debut_mandat: new Date(e.target.value),
+                      })
+                    }
                     required
                   />
                 </div>
@@ -322,8 +405,13 @@ export default function Officers() {
                   <Input
                     id="date_fin_mandat"
                     type="date"
-                    value={formData.date_fin_mandat.toISOString().split('T')[0]}
-                    onChange={(e) => setFormData({...formData, date_fin_mandat: new Date(e.target.value)})}
+                    value={formData.date_fin_mandat.toISOString().split("T")[0]}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        date_fin_mandat: new Date(e.target.value),
+                      })
+                    }
                     required
                   />
                 </div>
@@ -336,7 +424,9 @@ export default function Officers() {
                     id="telephone"
                     type="tel"
                     value={formData.telephone}
-                    onChange={(e) => setFormData({...formData, telephone: e.target.value})}
+                    onChange={(e) =>
+                      setFormData({ ...formData, telephone: e.target.value })
+                    }
                     placeholder="ex: +33 1 23 45 67 89"
                   />
                 </div>
@@ -346,7 +436,9 @@ export default function Officers() {
                     id="email"
                     type="email"
                     value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
                     placeholder="ex: marie.dupont@email.com"
                   />
                 </div>
@@ -357,18 +449,26 @@ export default function Officers() {
                 <Input
                   id="photo"
                   value={formData.photo}
-                  onChange={(e) => setFormData({...formData, photo: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, photo: e.target.value })
+                  }
                   placeholder="ex: https://example.com/photo.jpg ou data:image/..."
                 />
-                <p className="text-xs text-muted-foreground">Format recommandé: photo passport, 150x200px</p>
+                <p className="text-xs text-muted-foreground">
+                  Format recommandé: photo passport, 150x200px
+                </p>
               </div>
 
               <div className="flex justify-end space-x-2 pt-4">
-                <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setIsDialogOpen(false)}
+                >
                   Annuler
                 </Button>
                 <Button type="submit">
-                  {editingOfficier ? 'Modifier' : 'Créer'}
+                  {editingOfficier ? "Modifier" : "Créer"}
                 </Button>
               </div>
             </form>
@@ -381,8 +481,8 @@ export default function Officers() {
         <Alert>
           <AlertTriangle className="h-4 w-4" />
           <AlertDescription>
-            <strong>Attention:</strong> {mandatesExpiringSoon.length} mandat(s) expire(nt) bientôt. 
-            Planifiez les renouvellements nécessaires.
+            <strong>Attention:</strong> {mandatesExpiringSoon.length} mandat(s)
+            expire(nt) bientôt. Planifiez les renouvellements nécessaires.
           </AlertDescription>
         </Alert>
       )}
@@ -391,7 +491,9 @@ export default function Officers() {
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Officiers</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Total Officiers
+            </CardTitle>
             <UserCheck className="h-4 w-4 text-blue-500" />
           </CardHeader>
           <CardContent>
@@ -418,7 +520,9 @@ export default function Officers() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Fins de Mandat</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Fins de Mandat
+            </CardTitle>
             <AlertTriangle className="h-4 w-4 text-red-500" />
           </CardHeader>
           <CardContent>
@@ -447,14 +551,20 @@ export default function Officers() {
                 className="pl-8"
               />
             </div>
-            <Select value={selectedPraesidium} onValueChange={setSelectedPraesidium}>
+            <Select
+              value={selectedPraesidium}
+              onValueChange={setSelectedPraesidium}
+            >
               <SelectTrigger className="w-56">
                 <SelectValue placeholder="Tous les praesidia" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">Tous les praesidia</SelectItem>
                 {mockPraesidia.map((praesidium) => (
-                  <SelectItem key={praesidium.id_praesidium} value={praesidium.id_praesidium}>
+                  <SelectItem
+                    key={praesidium.id_praesidium}
+                    value={praesidium.id_praesidium}
+                  >
                     {praesidium.nom_praesidium}
                   </SelectItem>
                 ))}
@@ -489,33 +599,40 @@ export default function Officers() {
               </TableHeader>
               <TableBody>
                 {filteredOfficiers.map((officier) => {
-                  const mandateStatus = getMandateStatus(officier.date_fin_mandat);
+                  const mandateStatus = getMandateStatus(
+                    officier.date_fin_mandat,
+                  );
                   return (
                     <TableRow key={officier.id_officier}>
                       <TableCell className="font-medium">
-                      <div className="flex items-center gap-3">
-                        {officier.photo ? (
-                          <img
-                            src={officier.photo}
-                            alt={officier.nom_prenom}
-                            className="w-8 h-8 rounded-full object-cover border"
-                            onError={(e) => {
-                              (e.target as HTMLImageElement).style.display = 'none';
-                            }}
-                          />
-                        ) : (
-                          <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
-                            {getPosteIcon(officier.poste)}
-                          </div>
-                        )}
-                        <div>
-                          <div className="font-medium">{officier.nom_prenom}</div>
-                          {officier.photo && (
-                            <div className="text-xs text-muted-foreground">Photo disponible</div>
+                        <div className="flex items-center gap-3">
+                          {officier.photo ? (
+                            <img
+                              src={officier.photo}
+                              alt={officier.nom_prenom}
+                              className="w-8 h-8 rounded-full object-cover border"
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).style.display =
+                                  "none";
+                              }}
+                            />
+                          ) : (
+                            <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
+                              {getPosteIcon(officier.poste)}
+                            </div>
                           )}
+                          <div>
+                            <div className="font-medium">
+                              {officier.nom_prenom}
+                            </div>
+                            {officier.photo && (
+                              <div className="text-xs text-muted-foreground">
+                                Photo disponible
+                              </div>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    </TableCell>
+                      </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
                           <Shield className="h-4 w-4 text-muted-foreground" />
@@ -523,17 +640,24 @@ export default function Officers() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <Badge variant="outline">
-                          {officier.poste}
-                        </Badge>
+                        <Badge variant="outline">{officier.poste}</Badge>
                       </TableCell>
                       <TableCell>
                         <div className="text-sm">
                           <div className="flex items-center gap-1">
                             <Calendar className="h-3 w-3 text-muted-foreground" />
-                            {officier.date_debut_mandat.toLocaleDateString('fr-FR')} - {officier.date_fin_mandat.toLocaleDateString('fr-FR')}
+                            {officier.date_debut_mandat.toLocaleDateString(
+                              "fr-FR",
+                            )}{" "}
+                            -{" "}
+                            {officier.date_fin_mandat.toLocaleDateString(
+                              "fr-FR",
+                            )}
                           </div>
-                          <Badge variant={mandateStatus.color as any} className="mt-1 text-xs">
+                          <Badge
+                            variant={mandateStatus.color as any}
+                            className="mt-1 text-xs"
+                          >
                             {mandateStatus.text}
                           </Badge>
                         </div>
@@ -555,8 +679,10 @@ export default function Officers() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <Badge variant={officier.actif ? "default" : "secondary"}>
-                          {officier.actif ? 'Actif' : 'Inactif'}
+                        <Badge
+                          variant={officier.actif ? "default" : "secondary"}
+                        >
+                          {officier.actif ? "Actif" : "Inactif"}
                         </Badge>
                       </TableCell>
                       <TableCell className="text-right">

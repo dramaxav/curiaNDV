@@ -16,7 +16,7 @@ export interface Praesidium {
   nom_praesidium: string;
   date_creation: Date;
   directeur_spirituel: string;
-  type_praesidium: 'adulte' | 'junior';
+  type_praesidium: "adulte" | "junior";
   actif: boolean;
   lieu_reunion?: string;
   horaire_reunion?: string;
@@ -26,7 +26,7 @@ export interface Officier {
   id_officier: string;
   id_praesidium: string;
   nom_prenom: string;
-  poste: 'Président' | 'Vice-Président' | 'Secrétaire' | 'Trésorier';
+  poste: "Président" | "Vice-Président" | "Secrétaire" | "Trésorier";
   date_debut_mandat: Date;
   date_fin_mandat: Date;
   photo?: string;
@@ -39,7 +39,7 @@ export interface Membre {
   id_membre: string;
   id_praesidium: string;
   nom_prenom: string;
-  statut: 'actif' | 'probationnaire' | 'auxiliaire' | 'inactif';
+  statut: "actif" | "probationnaire" | "auxiliaire" | "inactif";
   date_adhesion: Date;
   date_promesse?: Date;
   telephone?: string;
@@ -54,7 +54,7 @@ export interface Presence {
   id_presence: string;
   id_membre: string;
   date_reunion: Date;
-  statut_presence: 'Présent' | 'Absent' | 'Excusé';
+  statut_presence: "Présent" | "Absent" | "Excusé";
   notes?: string;
 }
 
@@ -73,7 +73,7 @@ export interface Finance {
 export interface TransactionFinanciere {
   id_transaction: string;
   id_praesidium: string;
-  type: 'contribution' | 'depense';
+  type: "contribution" | "depense";
   montant: number;
   description: string;
   date_transaction: Date;
@@ -108,7 +108,7 @@ export interface PraesidiumFormData {
   nom_praesidium: string;
   date_creation: Date;
   directeur_spirituel: string;
-  type_praesidium: 'adulte' | 'junior';
+  type_praesidium: "adulte" | "junior";
   lieu_reunion?: string;
   horaire_reunion?: string;
 }
@@ -116,7 +116,7 @@ export interface PraesidiumFormData {
 export interface OfficierFormData {
   id_praesidium: string;
   nom_prenom: string;
-  poste: 'Président' | 'Vice-Président' | 'Secrétaire' | 'Trésorier';
+  poste: "Président" | "Vice-Président" | "Secrétaire" | "Trésorier";
   date_debut_mandat: Date;
   date_fin_mandat: Date;
   telephone?: string;
@@ -127,7 +127,7 @@ export interface OfficierFormData {
 export interface MembreFormData {
   id_praesidium: string;
   nom_prenom: string;
-  statut: 'actif' | 'probationnaire' | 'auxiliaire';
+  statut: "actif" | "probationnaire" | "auxiliaire";
   date_adhesion: Date;
   date_promesse?: Date;
   telephone?: string;
@@ -192,11 +192,17 @@ export interface Manifestation {
   heure_debut: string;
   heure_fin: string;
   lieu: string;
-  type_manifestation: 'reunion' | 'activite_spirituelle' | 'formation' | 'service_social' | 'pelerinage' | 'autre';
+  type_manifestation:
+    | "reunion"
+    | "activite_spirituelle"
+    | "formation"
+    | "service_social"
+    | "pelerinage"
+    | "autre";
   pour_tous_praesidia: boolean;
   praesidia_concernes?: string[]; // IDs des praesidia si pour_tous_praesidia = false
   organisateur_contact?: string;
-  statut: 'planifiee' | 'en_cours' | 'terminee' | 'annulee';
+  statut: "planifiee" | "en_cours" | "terminee" | "annulee";
   participants_attendus: number;
   participants_presents?: number;
   rappel_envoye?: {
@@ -209,9 +215,9 @@ export interface Manifestation {
 export interface RappelManifestation {
   id_rappel: string;
   id_manifestation: string;
-  type_rappel: 'une_semaine' | 'trois_jours';
+  type_rappel: "une_semaine" | "trois_jours";
   date_envoi: Date;
-  statut: 'programme' | 'envoye' | 'echec';
+  statut: "programme" | "envoye" | "echec";
 }
 
 // Types d'authentification et d'utilisateurs
@@ -219,8 +225,8 @@ export interface Utilisateur {
   id_utilisateur: string;
   email: string;
   nom_prenom: string;
-  type_utilisateur: 'officier_praesidium' | 'officier_conseil';
-  statut_compte: 'en_attente' | 'actif' | 'suspendu' | 'inactif';
+  type_utilisateur: "officier_praesidium" | "officier_conseil";
+  statut_compte: "en_attente" | "actif" | "suspendu" | "inactif";
   id_praesidium?: string; // Pour les officiers de praesidium
   poste?: string; // Poste de l'officier
   date_creation: Date;
@@ -233,11 +239,11 @@ export interface DemandeCompte {
   id_demande: string;
   email: string;
   nom_prenom: string;
-  type_demande: 'officier_praesidium' | 'officier_conseil';
+  type_demande: "officier_praesidium" | "officier_conseil";
   id_praesidium?: string;
   poste_souhaite: string;
   justification: string;
-  statut: 'en_attente' | 'approuvee' | 'refusee';
+  statut: "en_attente" | "approuvee" | "refusee";
   date_demande: Date;
   traite_par?: string; // ID de l'officier du conseil qui a traité
   date_traitement?: Date;
@@ -250,7 +256,7 @@ export interface ApprobationPresence {
   mois_annee: string; // Format: YYYY-MM
   soumis_par: string; // ID officier praesidium
   date_soumission: Date;
-  statut: 'en_attente' | 'approuvee' | 'refusee';
+  statut: "en_attente" | "approuvee" | "refusee";
   approuve_par?: string; // ID vice-président conseil
   date_approbation?: Date;
   commentaire?: string;
@@ -263,7 +269,7 @@ export interface ApprobationFinance {
   id_transaction: string;
   soumis_par: string; // ID officier praesidium
   date_soumission: Date;
-  statut: 'en_attente' | 'approuvee' | 'refusee';
+  statut: "en_attente" | "approuvee" | "refusee";
   approuve_par?: string; // ID trésorier conseil
   date_approbation?: Date;
   commentaire?: string;
@@ -277,7 +283,7 @@ export interface AlerteProbation {
   nom_praesidium: string;
   date_debut_probation: Date;
   duree_probation_mois: number;
-  statut: 'active' | 'traitee' | 'ignoree';
+  statut: "active" | "traitee" | "ignoree";
   date_creation: Date;
   traite_par?: string;
   date_traitement?: Date;
@@ -294,76 +300,65 @@ export interface AuthContextType {
 }
 
 export type PermissionType =
-  | 'view_all_praesidia'
-  | 'manage_praesidium'
-  | 'approve_accounts'
-  | 'approve_presences'
-  | 'approve_finances'
-  | 'view_finances'
-  | 'manage_manifestations'
-  | 'view_all_reports';
+  | "view_all_praesidia"
+  | "manage_praesidium"
+  | "approve_accounts"
+  | "approve_presences"
+  | "approve_finances"
+  | "view_finances"
+  | "manage_manifestations"
+  | "view_all_reports";
 
 // Types pour les rôles et permissions
 export interface Role {
-  type: 'officier_praesidium' | 'officier_conseil';
+  type: "officier_praesidium" | "officier_conseil";
   poste: string;
   permissions: PermissionType[];
 }
 
 export const ROLES_PERMISSIONS: Record<string, PermissionType[]> = {
   // Officiers du Conseil
-  'Président du Conseil': [
-    'view_all_praesidia',
-    'approve_accounts',
-    'approve_presences',
-    'approve_finances',
-    'view_finances',
-    'manage_manifestations',
-    'view_all_reports'
+  "Président du Conseil": [
+    "view_all_praesidia",
+    "approve_accounts",
+    "approve_presences",
+    "approve_finances",
+    "view_finances",
+    "manage_manifestations",
+    "view_all_reports",
   ],
-  'Vice-Président du Conseil': [
-    'view_all_praesidia',
-    'approve_presences',
-    'view_finances',
-    'manage_manifestations',
-    'view_all_reports'
+  "Vice-Président du Conseil": [
+    "view_all_praesidia",
+    "approve_presences",
+    "view_finances",
+    "manage_manifestations",
+    "view_all_reports",
   ],
-  'Secrétaire du Conseil': [
-    'view_all_praesidia',
-    'manage_manifestations',
-    'view_all_reports'
+  "Secrétaire du Conseil": [
+    "view_all_praesidia",
+    "manage_manifestations",
+    "view_all_reports",
   ],
-  'Trésorier du Conseil': [
-    'view_all_praesidia',
-    'approve_finances',
-    'view_finances',
-    'view_all_reports'
+  "Trésorier du Conseil": [
+    "view_all_praesidia",
+    "approve_finances",
+    "view_finances",
+    "view_all_reports",
   ],
-  'Directeur Spirituel': [
-    'view_all_praesidia',
-    'approve_accounts',
-    'view_all_reports'
+  "Directeur Spirituel": [
+    "view_all_praesidia",
+    "approve_accounts",
+    "view_all_reports",
   ],
-  'Responsable Formation': [
-    'view_all_praesidia',
-    'manage_manifestations',
-    'view_all_reports'
+  "Responsable Formation": [
+    "view_all_praesidia",
+    "manage_manifestations",
+    "view_all_reports",
   ],
 
   // Officiers de Praesidium
-  'Président': [
-    'manage_praesidium',
-    'view_finances'
-  ],
-  'Vice-Président': [
-    'manage_praesidium',
-    'view_finances'
-  ],
-  'Secrétaire': [
-    'manage_praesidium'
-  ],
-  'Trésorier': [
-    'manage_praesidium',
-    'view_finances'
-  ]
+  Président: ["manage_praesidium", "view_finances"],
+  "Vice-Président": ["manage_praesidium", "view_finances"],
+  Secrétaire: ["manage_praesidium"],
+  Trésorier: ["manage_praesidium", "view_finances"],
 };

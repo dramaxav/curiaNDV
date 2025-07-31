@@ -1,12 +1,24 @@
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
-import { Separator } from '@/components/ui/separator';
-import { 
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Separator } from "@/components/ui/separator";
+import {
   Settings as SettingsIcon,
   User,
   Shield,
@@ -15,63 +27,63 @@ import {
   Palette,
   Download,
   Upload,
-  Save
-} from 'lucide-react';
+  Save,
+} from "lucide-react";
 
 export default function Settings() {
   const [settings, setSettings] = useState({
     // Paramètres généraux
-    nom_organisation: 'Légion de Marie',
-    lieu_organisation: 'Yaoundé, Cameroun',
-    contact_principal: '+237 6 XX XX XX XX',
-    email_organisation: 'contact@legiondemarie.cm',
-    
+    nom_organisation: "Légion de Marie",
+    lieu_organisation: "Yaoundé, Cameroun",
+    contact_principal: "+237 6 XX XX XX XX",
+    email_organisation: "contact@legiondemarie.cm",
+
     // Paramètres de notification
     notifications_email: true,
     notifications_fins_mandat: true,
     notifications_contributions: false,
-    delai_alerte_mandat: '30', // jours
-    
+    delai_alerte_mandat: "30", // jours
+
     // Paramètres d'affichage
-    theme: 'system',
-    langue: 'fr',
-    format_date: 'DD/MM/YYYY',
-    
+    theme: "system",
+    langue: "fr",
+    format_date: "DD/MM/YYYY",
+
     // Paramètres financiers
-    devise: 'F CFA',
-    precision_decimale: '0',
-    
+    devise: "F CFA",
+    precision_decimale: "0",
+
     // Paramètres de sauvegarde
     sauvegarde_auto: true,
-    frequence_sauvegarde: 'quotidienne'
+    frequence_sauvegarde: "quotidienne",
   });
 
   const handleSettingChange = (key: string, value: any) => {
-    setSettings(prev => ({
+    setSettings((prev) => ({
       ...prev,
-      [key]: value
+      [key]: value,
     }));
   };
 
   const handleSave = () => {
     // Ici on sauvegarderait les paramètres
-    alert('Paramètres sauvegardés avec succès !');
+    alert("Paramètres sauvegardés avec succès !");
   };
 
   const handleExport = () => {
     // Ici on exporterait les données
-    alert('Export des données initié...');
+    alert("Export des données initié...");
   };
 
   const handleImport = () => {
     // Ici on importerait les données
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.json';
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".json";
     input.onchange = (e) => {
       const file = (e.target as HTMLInputElement).files?.[0];
       if (file) {
-        alert('Import des données initié...');
+        alert("Import des données initié...");
       }
     };
     input.click();
@@ -111,7 +123,9 @@ export default function Settings() {
                 <Input
                   id="nom_organisation"
                   value={settings.nom_organisation}
-                  onChange={(e) => handleSettingChange('nom_organisation', e.target.value)}
+                  onChange={(e) =>
+                    handleSettingChange("nom_organisation", e.target.value)
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -119,7 +133,9 @@ export default function Settings() {
                 <Input
                   id="lieu_organisation"
                   value={settings.lieu_organisation}
-                  onChange={(e) => handleSettingChange('lieu_organisation', e.target.value)}
+                  onChange={(e) =>
+                    handleSettingChange("lieu_organisation", e.target.value)
+                  }
                 />
               </div>
             </div>
@@ -129,16 +145,22 @@ export default function Settings() {
                 <Input
                   id="contact_principal"
                   value={settings.contact_principal}
-                  onChange={(e) => handleSettingChange('contact_principal', e.target.value)}
+                  onChange={(e) =>
+                    handleSettingChange("contact_principal", e.target.value)
+                  }
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email_organisation">Email de l'organisation</Label>
+                <Label htmlFor="email_organisation">
+                  Email de l'organisation
+                </Label>
                 <Input
                   id="email_organisation"
                   type="email"
                   value={settings.email_organisation}
-                  onChange={(e) => handleSettingChange('email_organisation', e.target.value)}
+                  onChange={(e) =>
+                    handleSettingChange("email_organisation", e.target.value)
+                  }
                 />
               </div>
             </div>
@@ -160,27 +182,42 @@ export default function Settings() {
             <div className="flex items-center justify-between">
               <div>
                 <Label>Notifications par email</Label>
-                <p className="text-sm text-muted-foreground">Recevoir les alertes par email</p>
+                <p className="text-sm text-muted-foreground">
+                  Recevoir les alertes par email
+                </p>
               </div>
               <Switch
                 checked={settings.notifications_email}
-                onCheckedChange={(checked) => handleSettingChange('notifications_email', checked)}
+                onCheckedChange={(checked) =>
+                  handleSettingChange("notifications_email", checked)
+                }
               />
             </div>
             <Separator />
             <div className="flex items-center justify-between">
               <div>
                 <Label>Alertes fins de mandat</Label>
-                <p className="text-sm text-muted-foreground">Notifications automatiques pour les fins de mandat</p>
+                <p className="text-sm text-muted-foreground">
+                  Notifications automatiques pour les fins de mandat
+                </p>
               </div>
               <Switch
                 checked={settings.notifications_fins_mandat}
-                onCheckedChange={(checked) => handleSettingChange('notifications_fins_mandat', checked)}
+                onCheckedChange={(checked) =>
+                  handleSettingChange("notifications_fins_mandat", checked)
+                }
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="delai_alerte_mandat">Délai d'alerte (jours avant la fin)</Label>
-              <Select value={settings.delai_alerte_mandat} onValueChange={(value) => handleSettingChange('delai_alerte_mandat', value)}>
+              <Label htmlFor="delai_alerte_mandat">
+                Délai d'alerte (jours avant la fin)
+              </Label>
+              <Select
+                value={settings.delai_alerte_mandat}
+                onValueChange={(value) =>
+                  handleSettingChange("delai_alerte_mandat", value)
+                }
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -210,7 +247,10 @@ export default function Settings() {
             <div className="grid grid-cols-3 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="theme">Thème</Label>
-                <Select value={settings.theme} onValueChange={(value) => handleSettingChange('theme', value)}>
+                <Select
+                  value={settings.theme}
+                  onValueChange={(value) => handleSettingChange("theme", value)}
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -223,7 +263,12 @@ export default function Settings() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="langue">Langue</Label>
-                <Select value={settings.langue} onValueChange={(value) => handleSettingChange('langue', value)}>
+                <Select
+                  value={settings.langue}
+                  onValueChange={(value) =>
+                    handleSettingChange("langue", value)
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -235,7 +280,12 @@ export default function Settings() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="format_date">Format de date</Label>
-                <Select value={settings.format_date} onValueChange={(value) => handleSettingChange('format_date', value)}>
+                <Select
+                  value={settings.format_date}
+                  onValueChange={(value) =>
+                    handleSettingChange("format_date", value)
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -265,7 +315,12 @@ export default function Settings() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="devise">Devise</Label>
-                <Select value={settings.devise} onValueChange={(value) => handleSettingChange('devise', value)}>
+                <Select
+                  value={settings.devise}
+                  onValueChange={(value) =>
+                    handleSettingChange("devise", value)
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -278,7 +333,12 @@ export default function Settings() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="precision_decimale">Précision décimale</Label>
-                <Select value={settings.precision_decimale} onValueChange={(value) => handleSettingChange('precision_decimale', value)}>
+                <Select
+                  value={settings.precision_decimale}
+                  onValueChange={(value) =>
+                    handleSettingChange("precision_decimale", value)
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -307,17 +367,28 @@ export default function Settings() {
             <div className="flex items-center justify-between">
               <div>
                 <Label>Sauvegarde automatique</Label>
-                <p className="text-sm text-muted-foreground">Sauvegarde automatique des données</p>
+                <p className="text-sm text-muted-foreground">
+                  Sauvegarde automatique des données
+                </p>
               </div>
               <Switch
                 checked={settings.sauvegarde_auto}
-                onCheckedChange={(checked) => handleSettingChange('sauvegarde_auto', checked)}
+                onCheckedChange={(checked) =>
+                  handleSettingChange("sauvegarde_auto", checked)
+                }
               />
             </div>
             {settings.sauvegarde_auto && (
               <div className="space-y-2">
-                <Label htmlFor="frequence_sauvegarde">Fréquence de sauvegarde</Label>
-                <Select value={settings.frequence_sauvegarde} onValueChange={(value) => handleSettingChange('frequence_sauvegarde', value)}>
+                <Label htmlFor="frequence_sauvegarde">
+                  Fréquence de sauvegarde
+                </Label>
+                <Select
+                  value={settings.frequence_sauvegarde}
+                  onValueChange={(value) =>
+                    handleSettingChange("frequence_sauvegarde", value)
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>

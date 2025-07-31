@@ -1,10 +1,16 @@
-import { ReactNode } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { ShieldX, LogIn, AlertCircle } from 'lucide-react';
-import type { PermissionType } from '@shared/types';
+import { ReactNode } from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { ShieldX, LogIn, AlertCircle } from "lucide-react";
+import type { PermissionType } from "@shared/types";
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -13,11 +19,11 @@ interface ProtectedRouteProps {
   fallback?: ReactNode;
 }
 
-export default function ProtectedRoute({ 
-  children, 
-  requiredPermission, 
+export default function ProtectedRoute({
+  children,
+  requiredPermission,
   praesidiumId,
-  fallback 
+  fallback,
 }: ProtectedRouteProps) {
   const { isAuthenticated, isLoading, hasPermission, utilisateur } = useAuth();
   const location = useLocation();
@@ -28,7 +34,9 @@ export default function ProtectedRoute({
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Vérification de l'authentification...</p>
+          <p className="text-muted-foreground">
+            Vérification de l'authentification...
+          </p>
         </div>
       </div>
     );
@@ -54,15 +62,18 @@ export default function ProtectedRoute({
             </div>
             <CardTitle className="text-destructive">Accès refusé</CardTitle>
             <CardDescription>
-              Vous n'avez pas les permissions nécessaires pour accéder à cette page
+              Vous n'avez pas les permissions nécessaires pour accéder à cette
+              page
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Alert>
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>
-                <strong>Utilisateur :</strong> {utilisateur?.nom_prenom}<br />
-                <strong>Poste :</strong> {utilisateur?.poste}<br />
+                <strong>Utilisateur :</strong> {utilisateur?.nom_prenom}
+                <br />
+                <strong>Poste :</strong> {utilisateur?.poste}
+                <br />
                 <strong>Permission requise :</strong> {requiredPermission}
                 {praesidiumId && (
                   <>
@@ -71,7 +82,8 @@ export default function ProtectedRoute({
                     {utilisateur?.id_praesidium && (
                       <>
                         <br />
-                        <strong>Votre praesidium :</strong> {utilisateur.id_praesidium}
+                        <strong>Votre praesidium :</strong>{" "}
+                        {utilisateur.id_praesidium}
                       </>
                     )}
                   </>
@@ -115,14 +127,17 @@ export function PublicOnlyRoute({ children }: PublicOnlyRouteProps) {
 
 // Hook pour créer des composants protégés facilement
 export function useProtectedComponent(
-  requiredPermission: PermissionType, 
-  praesidiumId?: string
+  requiredPermission: PermissionType,
+  praesidiumId?: string,
 ) {
   const { hasPermission } = useAuth();
-  
-  return function ProtectedComponent({ children, fallback }: { 
-    children: ReactNode; 
-    fallback?: ReactNode; 
+
+  return function ProtectedComponent({
+    children,
+    fallback,
+  }: {
+    children: ReactNode;
+    fallback?: ReactNode;
   }) {
     if (!hasPermission(requiredPermission, praesidiumId)) {
       return <>{fallback || null}</>;

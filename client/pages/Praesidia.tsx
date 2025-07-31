@@ -1,17 +1,29 @@
-import { useState, useMemo } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { 
+import { useState, useMemo } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from "@/components/ui/table";
 import {
   Dialog,
   DialogContent,
@@ -19,11 +31,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { 
-  Shield, 
-  Plus, 
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import {
+  Shield,
+  Plus,
   Search,
   Edit,
   Trash2,
@@ -31,126 +43,161 @@ import {
   Calendar,
   Users,
   Clock,
-  Church
-} from 'lucide-react';
-import type { Praesidium, PraesidiumFormData, Zone } from '@shared/types';
+  Church,
+} from "lucide-react";
+import type { Praesidium, PraesidiumFormData, Zone } from "@shared/types";
 
 // Mock data
 const mockZones: Zone[] = [
-  { id_zone: '1', nom_zone: 'Zone Centre', paroisse: 'Cathédrale Notre-Dame', directeur_spirituel: 'Père Jean Martin', contact_directeur: '+33 1 23 45 67 89', actif: true },
-  { id_zone: '2', nom_zone: 'Zone Nord', paroisse: 'Saint-Pierre de Montmartre', directeur_spirituel: 'Père Michel Dubois', contact_directeur: '+33 1 34 56 78 90', actif: true },
-  { id_zone: '3', nom_zone: 'Zone Sud', paroisse: 'Sainte-Thérèse de Lisieux', directeur_spirituel: 'Père Antoine Laurent', contact_directeur: '+33 1 45 67 89 01', actif: true }
+  {
+    id_zone: "1",
+    nom_zone: "Zone Centre",
+    paroisse: "Cathédrale Notre-Dame",
+    directeur_spirituel: "Père Jean Martin",
+    contact_directeur: "+33 1 23 45 67 89",
+    actif: true,
+  },
+  {
+    id_zone: "2",
+    nom_zone: "Zone Nord",
+    paroisse: "Saint-Pierre de Montmartre",
+    directeur_spirituel: "Père Michel Dubois",
+    contact_directeur: "+33 1 34 56 78 90",
+    actif: true,
+  },
+  {
+    id_zone: "3",
+    nom_zone: "Zone Sud",
+    paroisse: "Sainte-Thérèse de Lisieux",
+    directeur_spirituel: "Père Antoine Laurent",
+    contact_directeur: "+33 1 45 67 89 01",
+    actif: true,
+  },
 ];
 
 const mockPraesidia: Praesidium[] = [
   {
-    id_praesidium: '1',
-    id_zone: '1',
-    nom_praesidium: 'Notre-Dame du Rosaire',
-    date_creation: new Date('2020-01-15'),
-    directeur_spirituel: 'Père Jean Martin',
-    type_praesidium: 'adulte',
+    id_praesidium: "1",
+    id_zone: "1",
+    nom_praesidium: "Notre-Dame du Rosaire",
+    date_creation: new Date("2020-01-15"),
+    directeur_spirituel: "Père Jean Martin",
+    type_praesidium: "adulte",
     actif: true,
-    lieu_reunion: 'Salle paroissiale',
-    horaire_reunion: 'Mardi 19h30'
+    lieu_reunion: "Salle paroissiale",
+    horaire_reunion: "Mardi 19h30",
   },
   {
-    id_praesidium: '2',
-    id_zone: '1',
-    nom_praesidium: 'Saint-Jean-Baptiste',
-    date_creation: new Date('2019-03-20'),
-    directeur_spirituel: 'Père Jean Martin',
-    type_praesidium: 'adulte',
+    id_praesidium: "2",
+    id_zone: "1",
+    nom_praesidium: "Saint-Jean-Baptiste",
+    date_creation: new Date("2019-03-20"),
+    directeur_spirituel: "Père Jean Martin",
+    type_praesidium: "adulte",
     actif: true,
-    lieu_reunion: 'Sacristie',
-    horaire_reunion: 'Jeudi 20h00'
+    lieu_reunion: "Sacristie",
+    horaire_reunion: "Jeudi 20h00",
   },
   {
-    id_praesidium: '3',
-    id_zone: '2',
-    nom_praesidium: 'Sainte-Thérèse de Lisieux',
-    date_creation: new Date('2021-09-10'),
-    directeur_spirituel: 'Père Michel Dubois',
-    type_praesidium: 'junior',
+    id_praesidium: "3",
+    id_zone: "2",
+    nom_praesidium: "Sainte-Thérèse de Lisieux",
+    date_creation: new Date("2021-09-10"),
+    directeur_spirituel: "Père Michel Dubois",
+    type_praesidium: "junior",
     actif: true,
-    lieu_reunion: 'Salle de catéchisme',
-    horaire_reunion: 'Samedi 14h00'
+    lieu_reunion: "Salle de catéchisme",
+    horaire_reunion: "Samedi 14h00",
   },
   {
-    id_praesidium: '4',
-    id_zone: '2',
-    nom_praesidium: 'Saint-Pierre',
-    date_creation: new Date('2020-11-05'),
-    directeur_spirituel: 'Père Michel Dubois',
-    type_praesidium: 'adulte',
+    id_praesidium: "4",
+    id_zone: "2",
+    nom_praesidium: "Saint-Pierre",
+    date_creation: new Date("2020-11-05"),
+    directeur_spirituel: "Père Michel Dubois",
+    type_praesidium: "adulte",
     actif: false,
-    lieu_reunion: 'Domicile',
-    horaire_reunion: 'Flexible'
-  }
+    lieu_reunion: "Domicile",
+    horaire_reunion: "Flexible",
+  },
 ];
 
 export default function Praesidia() {
   const [praesidia, setPraesidia] = useState<Praesidium[]>(mockPraesidia);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedZone, setSelectedZone] = useState<string>('all');
-  const [selectedType, setSelectedType] = useState<string>('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedZone, setSelectedZone] = useState<string>("all");
+  const [selectedType, setSelectedType] = useState<string>("all");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [editingPraesidium, setEditingPraesidium] = useState<Praesidium | null>(null);
+  const [editingPraesidium, setEditingPraesidium] = useState<Praesidium | null>(
+    null,
+  );
   const [formData, setFormData] = useState<PraesidiumFormData>({
-    id_zone: '',
-    nom_praesidium: '',
+    id_zone: "",
+    nom_praesidium: "",
     date_creation: new Date(),
-    directeur_spirituel: '',
-    type_praesidium: 'adulte',
-    lieu_reunion: '',
-    horaire_reunion: ''
+    directeur_spirituel: "",
+    type_praesidium: "adulte",
+    lieu_reunion: "",
+    horaire_reunion: "",
   });
 
   const filteredPraesidia = useMemo(() => {
-    return praesidia.filter(praesidium => {
-      const matchesSearch = praesidium.nom_praesidium.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           praesidium.directeur_spirituel.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesZone = selectedZone === 'all' || praesidium.id_zone === selectedZone;
-      const matchesType = selectedType === 'all' || praesidium.type_praesidium === selectedType;
-      
+    return praesidia.filter((praesidium) => {
+      const matchesSearch =
+        praesidium.nom_praesidium
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()) ||
+        praesidium.directeur_spirituel
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+      const matchesZone =
+        selectedZone === "all" || praesidium.id_zone === selectedZone;
+      const matchesType =
+        selectedType === "all" || praesidium.type_praesidium === selectedType;
+
       return matchesSearch && matchesZone && matchesType;
     });
   }, [praesidia, searchTerm, selectedZone, selectedType]);
 
   const stats = {
     total: praesidia.length,
-    actifs: praesidia.filter(p => p.actif).length,
-    adulte: praesidia.filter(p => p.type_praesidium === 'adulte').length,
-    junior: praesidia.filter(p => p.type_praesidium === 'junior').length
+    actifs: praesidia.filter((p) => p.actif).length,
+    adulte: praesidia.filter((p) => p.type_praesidium === "adulte").length,
+    junior: praesidia.filter((p) => p.type_praesidium === "junior").length,
   };
 
   const getZoneName = (zoneId: string) => {
-    const zone = mockZones.find(z => z.id_zone === zoneId);
-    return zone ? zone.nom_zone : 'Zone inconnue';
+    const zone = mockZones.find((z) => z.id_zone === zoneId);
+    return zone ? zone.nom_zone : "Zone inconnue";
   };
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case 'adulte': return 'default';
-      case 'junior': return 'secondary';
-      default: return 'default';
+      case "adulte":
+        return "default";
+      case "junior":
+        return "secondary";
+      default:
+        return "default";
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (editingPraesidium) {
-      setPraesidia(praesidia.map(p => 
-        p.id_praesidium === editingPraesidium.id_praesidium 
-          ? { ...p, ...formData }
-          : p
-      ));
+      setPraesidia(
+        praesidia.map((p) =>
+          p.id_praesidium === editingPraesidium.id_praesidium
+            ? { ...p, ...formData }
+            : p,
+        ),
+      );
     } else {
       const newPraesidium: Praesidium = {
         id_praesidium: (praesidia.length + 1).toString(),
         ...formData,
-        actif: true
+        actif: true,
       };
       setPraesidia([...praesidia, newPraesidium]);
     }
@@ -160,13 +207,13 @@ export default function Praesidia() {
 
   const resetForm = () => {
     setFormData({
-      id_zone: '',
-      nom_praesidium: '',
+      id_zone: "",
+      nom_praesidium: "",
       date_creation: new Date(),
-      directeur_spirituel: '',
-      type_praesidium: 'adulte',
-      lieu_reunion: '',
-      horaire_reunion: ''
+      directeur_spirituel: "",
+      type_praesidium: "adulte",
+      lieu_reunion: "",
+      horaire_reunion: "",
     });
     setEditingPraesidium(null);
     setIsDialogOpen(false);
@@ -180,31 +227,33 @@ export default function Praesidia() {
       date_creation: praesidium.date_creation,
       directeur_spirituel: praesidium.directeur_spirituel,
       type_praesidium: praesidium.type_praesidium,
-      lieu_reunion: praesidium.lieu_reunion || '',
-      horaire_reunion: praesidium.horaire_reunion || ''
+      lieu_reunion: praesidium.lieu_reunion || "",
+      horaire_reunion: praesidium.horaire_reunion || "",
     });
     setIsDialogOpen(true);
   };
 
   const handleDelete = (praesidiumId: string) => {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce praesidium ?')) {
-      setPraesidia(praesidia.filter(p => p.id_praesidium !== praesidiumId));
+    if (confirm("Êtes-vous sûr de vouloir supprimer ce praesidium ?")) {
+      setPraesidia(praesidia.filter((p) => p.id_praesidium !== praesidiumId));
     }
   };
 
   const toggleStatus = (praesidiumId: string) => {
-    setPraesidia(praesidia.map(p =>
-      p.id_praesidium === praesidiumId
-        ? { ...p, actif: !p.actif }
-        : p
-    ));
+    setPraesidia(
+      praesidia.map((p) =>
+        p.id_praesidium === praesidiumId ? { ...p, actif: !p.actif } : p,
+      ),
+    );
   };
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Gestion des Praesidia</h1>
+          <h1 className="text-3xl font-bold tracking-tight">
+            Gestion des Praesidia
+          </h1>
           <p className="text-muted-foreground">
             Administration des praesidia et leur structure organisationnelle
           </p>
@@ -219,13 +268,14 @@ export default function Praesidia() {
           <DialogContent className="sm:max-w-[600px]">
             <DialogHeader>
               <DialogTitle>
-                {editingPraesidium ? 'Modifier le Praesidium' : 'Nouveau Praesidium'}
+                {editingPraesidium
+                  ? "Modifier le Praesidium"
+                  : "Nouveau Praesidium"}
               </DialogTitle>
               <DialogDescription>
-                {editingPraesidium 
-                  ? 'Modifiez les informations du praesidium.'
-                  : 'Ajoutez un nouveau praesidium à une zone.'
-                }
+                {editingPraesidium
+                  ? "Modifiez les informations du praesidium."
+                  : "Ajoutez un nouveau praesidium à une zone."}
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -235,27 +285,36 @@ export default function Praesidia() {
                   <Input
                     id="nom_praesidium"
                     value={formData.nom_praesidium}
-                    onChange={(e) => setFormData({...formData, nom_praesidium: e.target.value})}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        nom_praesidium: e.target.value,
+                      })
+                    }
                     placeholder="ex: Notre-Dame du Rosaire"
                     required
                   />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="zone">Zone</Label>
-                  <Select 
-                    value={formData.id_zone} 
-                    onValueChange={(value) => setFormData({...formData, id_zone: value})}
+                  <Select
+                    value={formData.id_zone}
+                    onValueChange={(value) =>
+                      setFormData({ ...formData, id_zone: value })
+                    }
                     required
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Sélectionner une zone" />
                     </SelectTrigger>
                     <SelectContent>
-                      {mockZones.filter(z => z.actif).map((zone) => (
-                        <SelectItem key={zone.id_zone} value={zone.id_zone}>
-                          {zone.nom_zone}
-                        </SelectItem>
-                      ))}
+                      {mockZones
+                        .filter((z) => z.actif)
+                        .map((zone) => (
+                          <SelectItem key={zone.id_zone} value={zone.id_zone}>
+                            {zone.nom_zone}
+                          </SelectItem>
+                        ))}
                     </SelectContent>
                   </Select>
                 </div>
@@ -264,9 +323,11 @@ export default function Praesidia() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="type_praesidium">Type</Label>
-                  <Select 
-                    value={formData.type_praesidium} 
-                    onValueChange={(value: any) => setFormData({...formData, type_praesidium: value})}
+                  <Select
+                    value={formData.type_praesidium}
+                    onValueChange={(value: any) =>
+                      setFormData({ ...formData, type_praesidium: value })
+                    }
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -282,8 +343,13 @@ export default function Praesidia() {
                   <Input
                     id="date_creation"
                     type="date"
-                    value={formData.date_creation.toISOString().split('T')[0]}
-                    onChange={(e) => setFormData({...formData, date_creation: new Date(e.target.value)})}
+                    value={formData.date_creation.toISOString().split("T")[0]}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        date_creation: new Date(e.target.value),
+                      })
+                    }
                     required
                   />
                 </div>
@@ -294,7 +360,12 @@ export default function Praesidia() {
                 <Input
                   id="directeur_spirituel"
                   value={formData.directeur_spirituel}
-                  onChange={(e) => setFormData({...formData, directeur_spirituel: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      directeur_spirituel: e.target.value,
+                    })
+                  }
                   placeholder="ex: Père Jean Martin"
                   required
                 />
@@ -306,7 +377,9 @@ export default function Praesidia() {
                   <Input
                     id="lieu_reunion"
                     value={formData.lieu_reunion}
-                    onChange={(e) => setFormData({...formData, lieu_reunion: e.target.value})}
+                    onChange={(e) =>
+                      setFormData({ ...formData, lieu_reunion: e.target.value })
+                    }
                     placeholder="ex: Salle paroissiale"
                   />
                 </div>
@@ -315,18 +388,27 @@ export default function Praesidia() {
                   <Input
                     id="horaire_reunion"
                     value={formData.horaire_reunion}
-                    onChange={(e) => setFormData({...formData, horaire_reunion: e.target.value})}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        horaire_reunion: e.target.value,
+                      })
+                    }
                     placeholder="ex: Mardi 19h30"
                   />
                 </div>
               </div>
 
               <div className="flex justify-end space-x-2 pt-4">
-                <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setIsDialogOpen(false)}
+                >
                   Annuler
                 </Button>
                 <Button type="submit">
-                  {editingPraesidium ? 'Modifier' : 'Créer'}
+                  {editingPraesidium ? "Modifier" : "Créer"}
                 </Button>
               </div>
             </form>
@@ -372,7 +454,6 @@ export default function Praesidia() {
             <div className="text-2xl font-bold">{stats.junior}</div>
           </CardContent>
         </Card>
-
       </div>
 
       {/* List */}
@@ -449,7 +530,11 @@ export default function Praesidia() {
                       </div>
                     </TableCell>
                     <TableCell>
-                      <Badge variant={getTypeColor(praesidium.type_praesidium) as any}>
+                      <Badge
+                        variant={
+                          getTypeColor(praesidium.type_praesidium) as any
+                        }
+                      >
                         {praesidium.type_praesidium}
                       </Badge>
                     </TableCell>
@@ -469,16 +554,16 @@ export default function Praesidia() {
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Calendar className="h-4 w-4 text-muted-foreground" />
-                        {praesidium.date_creation.toLocaleDateString('fr-FR')}
+                        {praesidium.date_creation.toLocaleDateString("fr-FR")}
                       </div>
                     </TableCell>
                     <TableCell>
-                      <Badge 
+                      <Badge
                         variant={praesidium.actif ? "default" : "secondary"}
                         className="cursor-pointer"
                         onClick={() => toggleStatus(praesidium.id_praesidium)}
                       >
-                        {praesidium.actif ? 'Actif' : 'Inactif'}
+                        {praesidium.actif ? "Actif" : "Inactif"}
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right">

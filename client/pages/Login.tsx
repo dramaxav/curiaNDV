@@ -1,43 +1,70 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Shield, Mail, Lock, Loader2, AlertCircle } from 'lucide-react';
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Shield, Mail, Lock, Loader2, AlertCircle } from "lucide-react";
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const { login, isLoading } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (!email || !password) {
-      setError('Veuillez remplir tous les champs');
+      setError("Veuillez remplir tous les champs");
       return;
     }
 
     try {
       await login(email, password);
-      navigate('/dashboard');
+      navigate("/dashboard");
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erreur de connexion');
+      setError(err instanceof Error ? err.message : "Erreur de connexion");
     }
   };
 
   const demoAccounts = [
-    { label: 'Président du Conseil', email: 'president@legiondemarie.org', password: 'demo123' },
-    { label: 'Vice-Président du Conseil', email: 'vicepresident@legiondemarie.org', password: 'demo123' },
-    { label: 'Trésorier du Conseil', email: 'tresorier@legiondemarie.org', password: 'demo123' },
-    { label: 'Président Praesidium', email: 'president.rosaire@legiondemarie.org', password: 'demo123' },
-    { label: 'Secrétaire Praesidium', email: 'secretaire.stjean@legiondemarie.org', password: 'demo123' }
+    {
+      label: "Président du Conseil",
+      email: "president@legiondemarie.org",
+      password: "demo123",
+    },
+    {
+      label: "Vice-Président du Conseil",
+      email: "vicepresident@legiondemarie.org",
+      password: "demo123",
+    },
+    {
+      label: "Trésorier du Conseil",
+      email: "tresorier@legiondemarie.org",
+      password: "demo123",
+    },
+    {
+      label: "Président Praesidium",
+      email: "president.rosaire@legiondemarie.org",
+      password: "demo123",
+    },
+    {
+      label: "Secrétaire Praesidium",
+      email: "secretaire.stjean@legiondemarie.org",
+      password: "demo123",
+    },
   ];
 
   const fillDemoAccount = (email: string, password: string) => {
@@ -113,14 +140,16 @@ export default function Login() {
                     Connexion...
                   </>
                 ) : (
-                  'Se connecter'
+                  "Se connecter"
                 )}
               </Button>
             </form>
           </CardContent>
           <CardFooter className="flex flex-col space-y-2">
             <div className="text-sm text-center">
-              <span className="text-muted-foreground">Pas encore de compte ? </span>
+              <span className="text-muted-foreground">
+                Pas encore de compte ?{" "}
+              </span>
               <Link to="/register" className="text-primary hover:underline">
                 Demander un accès
               </Link>
@@ -143,7 +172,9 @@ export default function Login() {
                   key={index}
                   variant="outline"
                   size="sm"
-                  onClick={() => fillDemoAccount(account.email, account.password)}
+                  onClick={() =>
+                    fillDemoAccount(account.email, account.password)
+                  }
                   className="text-xs text-left justify-start"
                 >
                   <Shield className="mr-2 h-3 w-3" />

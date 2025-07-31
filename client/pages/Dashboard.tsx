@@ -1,140 +1,182 @@
-import { Link } from 'react-router-dom';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { 
-  Users, 
-  MapPin, 
-  Shield, 
-  UserCheck, 
-  Calculator, 
+import { Link } from "react-router-dom";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import {
+  Users,
+  MapPin,
+  Shield,
+  UserCheck,
+  Calculator,
   Bell,
   TrendingUp,
   TrendingDown,
   Calendar,
   Activity,
   AlertTriangle,
-  CheckCircle
-} from 'lucide-react';
+  CheckCircle,
+} from "lucide-react";
 
 export default function Dashboard() {
   const kpis = [
     {
-      title: 'Zones Actives',
-      value: '12',
-      change: '+2',
-      changeType: 'positive',
+      title: "Zones Actives",
+      value: "12",
+      change: "+2",
+      changeType: "positive",
       icon: MapPin,
-      description: '2 nouvelles zones ce mois',
-      href: '/zones'
+      description: "2 nouvelles zones ce mois",
+      href: "/zones",
     },
     {
-      title: 'Praesidia',
-      value: '48',
-      change: '+5',
-      changeType: 'positive',
+      title: "Praesidia",
+      value: "48",
+      change: "+5",
+      changeType: "positive",
       icon: Shield,
-      description: '5 nouveaux praesidia',
-      href: '/praesidia'
+      description: "5 nouveaux praesidia",
+      href: "/praesidia",
     },
     {
-      title: 'Membres Actifs',
-      value: '324',
-      change: '+18',
-      changeType: 'positive',
+      title: "Membres Actifs",
+      value: "324",
+      change: "+18",
+      changeType: "positive",
       icon: Users,
-      description: '18 nouvelles adhésions',
-      href: '/members'
+      description: "18 nouvelles adhésions",
+      href: "/members",
     },
     {
-      title: 'Taux de Présence',
-      value: '87%',
-      change: '-3%',
-      changeType: 'negative',
+      title: "Taux de Présence",
+      value: "87%",
+      change: "-3%",
+      changeType: "negative",
       icon: Activity,
-      description: 'Moyenne mensuelle',
-      href: '/attendance'
+      description: "Moyenne mensuelle",
+      href: "/attendance",
     },
     {
-      title: 'Présences Mensuelles',
-      value: '156',
-      change: '+12',
-      changeType: 'positive',
+      title: "Présences Mensuelles",
+      value: "156",
+      change: "+12",
+      changeType: "positive",
       icon: Calendar,
-      description: 'Ce mois-ci',
-      href: '/attendance'
+      description: "Ce mois-ci",
+      href: "/attendance",
     },
     {
-      title: 'Présences Annuelles',
-      value: '1,847',
-      change: '+234',
-      changeType: 'positive',
+      title: "Présences Annuelles",
+      value: "1,847",
+      change: "+234",
+      changeType: "positive",
       icon: CheckCircle,
-      description: 'Cette année',
-      href: '/attendance'
-    }
+      description: "Cette année",
+      href: "/attendance",
+    },
   ];
 
   const alerts = [
     {
-      type: 'warning',
-      title: 'Fin de Mandat Proche',
-      message: '3 officiers terminent leur mandat ce mois',
-      time: '2 jours',
-      priority: 'high'
+      type: "warning",
+      title: "Fin de Mandat Proche",
+      message: "3 officiers terminent leur mandat ce mois",
+      time: "2 jours",
+      priority: "high",
     },
     {
-      type: 'info',
-      title: 'Réunion Programmée',
-      message: 'Conseil de Zone Centre - Vendredi 15h',
-      time: '5 jours',
-      priority: 'medium'
+      type: "info",
+      title: "Réunion Programmée",
+      message: "Conseil de Zone Centre - Vendredi 15h",
+      time: "5 jours",
+      priority: "medium",
     },
     {
-      type: 'success',
-      title: 'Contributions Reçues',
-      message: 'Toutes les contributions du mois collectées',
-      time: '1 semaine',
-      priority: 'low'
-    }
+      type: "success",
+      title: "Contributions Reçues",
+      message: "Toutes les contributions du mois collectées",
+      time: "1 semaine",
+      priority: "low",
+    },
   ];
 
   const financialSummary = [
-    { praesidium: 'Notre-Dame du Rosaire', contributions: 450000, depenses: 320000, solde: 130000 },
-    { praesidium: 'Saint-Jean-Baptiste', contributions: 380000, depenses: 250000, solde: 130000 },
-    { praesidium: 'Sainte-Thérèse', contributions: 520000, depenses: 400000, solde: 120000 },
-    { praesidium: 'Saint-Pierre', contributions: 290000, depenses: 180000, solde: 110000 }
+    {
+      praesidium: "Notre-Dame du Rosaire",
+      contributions: 450000,
+      depenses: 320000,
+      solde: 130000,
+    },
+    {
+      praesidium: "Saint-Jean-Baptiste",
+      contributions: 380000,
+      depenses: 250000,
+      solde: 130000,
+    },
+    {
+      praesidium: "Sainte-Thérèse",
+      contributions: 520000,
+      depenses: 400000,
+      solde: 120000,
+    },
+    {
+      praesidium: "Saint-Pierre",
+      contributions: 290000,
+      depenses: 180000,
+      solde: 110000,
+    },
   ];
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('fr-FR', {
-      style: 'currency',
-      currency: 'XOF',
-      minimumFractionDigits: 0
-    }).format(amount).replace('XOF', 'F CFA');
+    return new Intl.NumberFormat("fr-FR", {
+      style: "currency",
+      currency: "XOF",
+      minimumFractionDigits: 0,
+    })
+      .format(amount)
+      .replace("XOF", "F CFA");
   };
 
   const upcomingEvents = [
-    { title: 'Assemblée Générale Zone Nord', date: '2024-02-15', type: 'assembly' },
-    { title: 'Formation Nouveaux Membres', date: '2024-02-18', type: 'formation' },
-    { title: 'Retraite Spirituelle', date: '2024-02-22', type: 'spiritual' },
-    { title: 'Réunion Conseil', date: '2024-02-25', type: 'meeting' }
+    {
+      title: "Assemblée Générale Zone Nord",
+      date: "2024-02-15",
+      type: "assembly",
+    },
+    {
+      title: "Formation Nouveaux Membres",
+      date: "2024-02-18",
+      type: "formation",
+    },
+    { title: "Retraite Spirituelle", date: "2024-02-22", type: "spiritual" },
+    { title: "Réunion Conseil", date: "2024-02-25", type: "meeting" },
   ];
 
   const getAlertIcon = (type: string) => {
     switch (type) {
-      case 'warning': return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
-      case 'success': return <CheckCircle className="h-4 w-4 text-green-500" />;
-      default: return <Bell className="h-4 w-4 text-blue-500" />;
+      case "warning":
+        return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
+      case "success":
+        return <CheckCircle className="h-4 w-4 text-green-500" />;
+      default:
+        return <Bell className="h-4 w-4 text-blue-500" />;
     }
   };
 
   const getAlertColor = (priority: string) => {
     switch (priority) {
-      case 'high': return 'destructive';
-      case 'medium': return 'default';
-      default: return 'secondary';
+      case "high":
+        return "destructive";
+      case "medium":
+        return "default";
+      default:
+        return "secondary";
     }
   };
 
@@ -163,18 +205,26 @@ export default function Dashboard() {
             <Link key={kpi.title} to={kpi.href}>
               <Card className="hover:shadow-md transition-shadow cursor-pointer">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">{kpi.title}</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    {kpi.title}
+                  </CardTitle>
                   <Icon className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">{kpi.value}</div>
                   <div className="flex items-center text-xs text-muted-foreground mt-1">
-                    {kpi.changeType === 'positive' ? (
+                    {kpi.changeType === "positive" ? (
                       <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
                     ) : (
                       <TrendingDown className="h-3 w-3 mr-1 text-red-500" />
                     )}
-                    <span className={kpi.changeType === 'positive' ? 'text-green-500' : 'text-red-500'}>
+                    <span
+                      className={
+                        kpi.changeType === "positive"
+                          ? "text-green-500"
+                          : "text-red-500"
+                      }
+                    >
                       {kpi.change}
                     </span>
                     <span className="ml-1">{kpi.description}</span>
@@ -202,18 +252,31 @@ export default function Dashboard() {
             <CardContent>
               <div className="space-y-4">
                 {alerts.map((alert, index) => (
-                  <div key={index} className="flex items-start gap-3 p-3 border rounded-lg">
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 p-3 border rounded-lg"
+                  >
                     {getAlertIcon(alert.type)}
                     <div className="flex-1 space-y-1">
                       <div className="flex items-center justify-between">
                         <h4 className="text-sm font-medium">{alert.title}</h4>
-                        <Badge variant={getAlertColor(alert.priority) as any} className="text-xs">
-                          {alert.priority === 'high' ? 'Urgent' : 
-                           alert.priority === 'medium' ? 'Important' : 'Info'}
+                        <Badge
+                          variant={getAlertColor(alert.priority) as any}
+                          className="text-xs"
+                        >
+                          {alert.priority === "high"
+                            ? "Urgent"
+                            : alert.priority === "medium"
+                              ? "Important"
+                              : "Info"}
                         </Badge>
                       </div>
-                      <p className="text-sm text-muted-foreground">{alert.message}</p>
-                      <p className="text-xs text-muted-foreground">Il y a {alert.time}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {alert.message}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        Il y a {alert.time}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -237,15 +300,18 @@ export default function Dashboard() {
             <CardContent>
               <div className="space-y-3">
                 {upcomingEvents.map((event, index) => (
-                  <div key={index} className="flex items-center gap-3 p-2 hover:bg-accent rounded-lg transition-colors">
+                  <div
+                    key={index}
+                    className="flex items-center gap-3 p-2 hover:bg-accent rounded-lg transition-colors"
+                  >
                     <div className="w-2 h-2 bg-primary rounded-full"></div>
                     <div className="flex-1">
                       <p className="text-sm font-medium">{event.title}</p>
                       <p className="text-xs text-muted-foreground">
-                        {new Date(event.date).toLocaleDateString('fr-FR', {
-                          weekday: 'long',
-                          day: 'numeric',
-                          month: 'long'
+                        {new Date(event.date).toLocaleDateString("fr-FR", {
+                          weekday: "long",
+                          day: "numeric",
+                          month: "long",
                         })}
                       </p>
                     </div>
@@ -276,19 +342,25 @@ export default function Dashboard() {
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs">
                     <span className="text-muted-foreground">Contributions</span>
-                    <span className="text-green-600 font-medium">+{formatCurrency(item.contributions)}</span>
+                    <span className="text-green-600 font-medium">
+                      +{formatCurrency(item.contributions)}
+                    </span>
                   </div>
                   <div className="flex justify-between text-xs">
                     <span className="text-muted-foreground">Dépenses</span>
-                    <span className="text-red-600 font-medium">-{formatCurrency(item.depenses)}</span>
+                    <span className="text-red-600 font-medium">
+                      -{formatCurrency(item.depenses)}
+                    </span>
                   </div>
                   <div className="border-t pt-2">
                     <div className="flex justify-between text-sm">
                       <span className="font-medium">Solde</span>
-                      <span className="font-bold text-primary">{formatCurrency(item.solde)}</span>
+                      <span className="font-bold text-primary">
+                        {formatCurrency(item.solde)}
+                      </span>
                     </div>
-                    <Progress 
-                      value={(item.solde / item.contributions) * 100} 
+                    <Progress
+                      value={(item.solde / item.contributions) * 100}
                       className="h-2 mt-2"
                     />
                   </div>

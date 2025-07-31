@@ -1,11 +1,16 @@
-import { ReactNode, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { useAuth } from '@/contexts/AuthContext';
+import { ReactNode, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { useAuth } from "@/contexts/AuthContext";
 import {
   Menu,
   Home,
@@ -21,27 +26,67 @@ import {
   Archive,
   Crown,
   ChevronLeft,
-  ChevronRight
-} from 'lucide-react';
+  ChevronRight,
+} from "lucide-react";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 const navigationItems = [
-  { name: 'Accueil', href: '/', icon: Home, permission: null },
-  { name: 'Tableau de bord', href: '/dashboard', icon: Users, permission: null },
-  { name: 'Zones', href: '/zones', icon: MapPin, permission: 'view_all_praesidia' },
-  { name: 'Praesidia', href: '/praesidia', icon: Shield, permission: null },
-  { name: 'Officiers des Praesidia', href: '/officers', icon: UserCheck, permission: null },
-  { name: 'Officiers du Conseil', href: '/council-officers', icon: Crown, permission: 'view_all_praesidia' },
-  { name: 'Membres', href: '/members', icon: Users, permission: null },
-  { name: 'Présences', href: '/attendance', icon: UserCheck, permission: null },
-  { name: 'Manifestations', href: '/meetings', icon: Calendar, permission: null },
-  { name: 'Finances', href: '/finances', icon: Calculator, permission: 'view_finances' },
-  { name: 'Archives', href: '/archives', icon: Archive, permission: 'view_all_reports' },
-  { name: 'Alertes', href: '/alerts', icon: Bell, permission: null },
-  { name: 'Approbations', href: '/approvals', icon: Shield, permission: 'approve_accounts' },
+  { name: "Accueil", href: "/", icon: Home, permission: null },
+  {
+    name: "Tableau de bord",
+    href: "/dashboard",
+    icon: Users,
+    permission: null,
+  },
+  {
+    name: "Zones",
+    href: "/zones",
+    icon: MapPin,
+    permission: "view_all_praesidia",
+  },
+  { name: "Praesidia", href: "/praesidia", icon: Shield, permission: null },
+  {
+    name: "Officiers des Praesidia",
+    href: "/officers",
+    icon: UserCheck,
+    permission: null,
+  },
+  {
+    name: "Officiers du Conseil",
+    href: "/council-officers",
+    icon: Crown,
+    permission: "view_all_praesidia",
+  },
+  { name: "Membres", href: "/members", icon: Users, permission: null },
+  { name: "Présences", href: "/attendance", icon: UserCheck, permission: null },
+  {
+    name: "Manifestations",
+    href: "/meetings",
+    icon: Calendar,
+    permission: null,
+  },
+  {
+    name: "Finances",
+    href: "/finances",
+    icon: Calculator,
+    permission: "view_finances",
+  },
+  {
+    name: "Archives",
+    href: "/archives",
+    icon: Archive,
+    permission: "view_all_reports",
+  },
+  { name: "Alertes", href: "/alerts", icon: Bell, permission: null },
+  {
+    name: "Approbations",
+    href: "/approvals",
+    icon: Shield,
+    permission: "approve_accounts",
+  },
 ];
 
 export default function Layout({ children }: LayoutProps) {
@@ -53,15 +98,19 @@ export default function Layout({ children }: LayoutProps) {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   const getInitials = (name: string) => {
-    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase();
   };
 
   const getVisibleNavigationItems = () => {
-    return navigationItems.filter(item => {
+    return navigationItems.filter((item) => {
       if (!item.permission) return true;
       return hasPermission(item.permission);
     });
@@ -91,7 +140,7 @@ export default function Layout({ children }: LayoutProps) {
               isActive
                 ? "bg-primary text-primary-foreground"
                 : "text-muted-foreground hover:text-foreground hover:bg-accent",
-              isCollapsed && "justify-center px-2"
+              isCollapsed && "justify-center px-2",
             )}
           >
             <Icon className="h-5 w-5 flex-shrink-0" />
@@ -103,9 +152,7 @@ export default function Layout({ children }: LayoutProps) {
           return (
             <TooltipProvider key={item.name}>
               <Tooltip>
-                <TooltipTrigger asChild>
-                  {linkContent}
-                </TooltipTrigger>
+                <TooltipTrigger asChild>{linkContent}</TooltipTrigger>
                 <TooltipContent side="right" className="ml-2">
                   {item.name}
                 </TooltipContent>
@@ -130,18 +177,25 @@ export default function Layout({ children }: LayoutProps) {
       )}
 
       {/* Sidebar collapsible */}
-      <div className={cn(
-        "fixed inset-y-0 left-0 z-50 flex flex-col bg-card border-r transition-all duration-300",
-        // Desktop
-        "hidden md:flex",
-        isCollapsed ? "w-16" : "w-64",
-        // Mobile
-        "md:translate-x-0",
-        isMobileMenuOpen ? "flex w-64 translate-x-0" : "-translate-x-full"
-      )}>
+      <div
+        className={cn(
+          "fixed inset-y-0 left-0 z-50 flex flex-col bg-card border-r transition-all duration-300",
+          // Desktop
+          "hidden md:flex",
+          isCollapsed ? "w-16" : "w-64",
+          // Mobile
+          "md:translate-x-0",
+          isMobileMenuOpen ? "flex w-64 translate-x-0" : "-translate-x-full",
+        )}
+      >
         {/* Header avec bouton collapse */}
         <div className="flex items-center justify-between p-4 border-b">
-          <div className={cn("flex items-center gap-2", isCollapsed && "justify-center")}>
+          <div
+            className={cn(
+              "flex items-center gap-2",
+              isCollapsed && "justify-center",
+            )}
+          >
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <Shield className="h-5 w-5 text-primary-foreground" />
             </div>
@@ -172,21 +226,29 @@ export default function Layout({ children }: LayoutProps) {
         {/* User section en bas */}
         <div className="border-t p-3 space-y-3">
           {/* User Info */}
-          <div className={cn(
-            "flex items-center gap-3",
-            isCollapsed && "justify-center"
-          )}>
+          <div
+            className={cn(
+              "flex items-center gap-3",
+              isCollapsed && "justify-center",
+            )}
+          >
             <Avatar className="h-10 w-10">
               <AvatarFallback>
-                {utilisateur ? getInitials(utilisateur.nom_prenom) : 'U'}
+                {utilisateur ? getInitials(utilisateur.nom_prenom) : "U"}
               </AvatarFallback>
             </Avatar>
             {!isCollapsed && (
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-medium truncate">{utilisateur?.nom_prenom}</div>
-                <div className="text-xs text-muted-foreground truncate">{utilisateur?.poste}</div>
-                {utilisateur?.type_utilisateur === 'officier_conseil' && (
-                  <Badge variant="secondary" className="text-xs mt-1">Conseil</Badge>
+                <div className="text-sm font-medium truncate">
+                  {utilisateur?.nom_prenom}
+                </div>
+                <div className="text-xs text-muted-foreground truncate">
+                  {utilisateur?.poste}
+                </div>
+                {utilisateur?.type_utilisateur === "officier_conseil" && (
+                  <Badge variant="secondary" className="text-xs mt-1">
+                    Conseil
+                  </Badge>
                 )}
               </div>
             )}
@@ -199,34 +261,44 @@ export default function Layout({ children }: LayoutProps) {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon" className="w-full" asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="w-full"
+                        asChild
+                      >
                         <Link to="/settings">
                           <Settings className="h-4 w-4" />
                         </Link>
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent side="right">
-                      Paramètres
-                    </TooltipContent>
+                    <TooltipContent side="right">Paramètres</TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
 
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon" className="w-full" onClick={handleLogout}>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="w-full"
+                        onClick={handleLogout}
+                      >
                         <LogOut className="h-4 w-4" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent side="right">
-                      Déconnexion
-                    </TooltipContent>
+                    <TooltipContent side="right">Déconnexion</TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
               </>
             ) : (
               <>
-                <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground" asChild>
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start gap-3 text-muted-foreground"
+                  asChild
+                >
                   <Link to="/settings">
                     <Settings className="h-4 w-4" />
                     Paramètres
@@ -247,15 +319,22 @@ export default function Layout({ children }: LayoutProps) {
       </div>
 
       {/* Main content area */}
-      <div className={cn(
-        "flex-1 flex flex-col transition-all duration-300 ml-0",
-        // Desktop margins based on sidebar state
-        isCollapsed ? "md:ml-16" : "md:ml-64"
-      )}>
+      <div
+        className={cn(
+          "flex-1 flex flex-col transition-all duration-300 ml-0",
+          // Desktop margins based on sidebar state
+          isCollapsed ? "md:ml-16" : "md:ml-64",
+        )}
+      >
         <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="flex h-14 items-center justify-between px-4">
             {/* Mobile menu button */}
-            <Button variant="ghost" size="icon" className="md:hidden" onClick={toggleMobileMenu}>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={toggleMobileMenu}
+            >
               <Menu className="h-5 w-5" />
             </Button>
 
@@ -271,9 +350,7 @@ export default function Layout({ children }: LayoutProps) {
 
         {/* Main content */}
         <main className="flex-1 overflow-y-auto">
-          <div className="container py-6 px-4">
-            {children}
-          </div>
+          <div className="container py-6 px-4">{children}</div>
         </main>
       </div>
     </div>
