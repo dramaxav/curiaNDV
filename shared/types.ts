@@ -121,6 +121,7 @@ export interface OfficierFormData {
   date_fin_mandat: Date;
   telephone?: string;
   email?: string;
+  photo?: string;
 }
 
 export interface MembreFormData {
