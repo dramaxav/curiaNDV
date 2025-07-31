@@ -285,6 +285,38 @@ export default function Alerts() {
         ? { ...alerte, statut: newStatus }
         : alerte
     ));
+
+    // Si c'est une alerte de probation, mettre à jour aussi la liste des alertes de probation
+    if (alerteId.startsWith('prob_')) {
+      setAlertesProbation(prev => prev.map(alert =>
+        alert.id_alerte === alerteId
+          ? { ...alert, statut: newStatus as any, traite_par: utilisateur?.id_utilisateur, date_traitement: new Date() }
+          : alert
+      ));
+    }
+  };
+
+  const handleProbationAlert = (alerteId: string, action: 'promesse' | 'formation' | 'ignore') => {
+    const alerteProbation = alertesProbation.find(a => a.id_alerte === alerteId);
+    if (!alerteProbation) return;
+
+    let message = '';
+    switch (action) {
+      case 'promesse':
+        message = `Cérémonie de promesse programmée pour ${alerteProbation.nom_membre}`;
+        break;
+      case 'formation':
+        message = `Formation complémentaire organisée pour ${alerteProbation.nom_membre}`;
+        break;
+      case 'ignore':
+        message = `Alerte mise en attente pour ${alerteProbation.nom_membre}`;
+        break;
+    }
+
+    // Marquer l'alerte comme traitée
+    handleStatusChange(alerteId, action === 'ignore' ? 'ignoree' : 'resolue');
+
+    console.log(`Action: ${action} - ${message}`);
   };
 
   const getTimeAgo = (date: Date) => {
