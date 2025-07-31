@@ -31,188 +31,188 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AuthProvider>
-          <Routes>
-            {/* Routes publiques */}
-            <Route
-              path="/login"
-              element={
-                <PublicOnlyRoute>
-                  <Login />
-                </PublicOnlyRoute>
-              }
-            />
-            <Route
-              path="/register"
-              element={
-                <PublicOnlyRoute>
-                  <Register />
-                </PublicOnlyRoute>
-              }
-            />
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AuthProvider>
+            <Routes>
+              {/* Routes publiques */}
+              <Route
+                path="/login"
+                element={
+                  <PublicOnlyRoute>
+                    <Login />
+                  </PublicOnlyRoute>
+                }
+              />
+              <Route
+                path="/register"
+                element={
+                  <PublicOnlyRoute>
+                    <Register />
+                  </PublicOnlyRoute>
+                }
+              />
 
-            {/* Routes protégées */}
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <Layout>
-                    <Index />
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Layout>
-                    <Dashboard />
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/zones"
-              element={
-                <ProtectedRoute requiredPermission="view_all_praesidia">
-                  <Layout>
-                    <Zones />
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/praesidia"
-              element={
-                <ProtectedRoute>
-                  <Layout>
-                    <Praesidia />
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/officers"
-              element={
-                <ProtectedRoute>
-                  <Layout>
-                    <Officers />
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/members"
-              element={
-                <ProtectedRoute>
-                  <Layout>
-                    <Members />
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/attendance"
-              element={
-                <ProtectedRoute>
-                  <Layout>
-                    <Attendance />
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/finances"
-              element={
-                <ProtectedRoute requiredPermission="view_finances">
-                  <Layout>
-                    <Finances />
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/alerts"
-              element={
-                <ProtectedRoute>
-                  <Layout>
-                    <Alerts />
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/meetings"
-              element={
-                <ProtectedRoute>
-                  <Layout>
-                    <Manifestations />
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/council-officers"
-              element={
-                <ProtectedRoute requiredPermission="view_all_praesidia">
-                  <Layout>
-                    <CouncilOfficers />
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/archives"
-              element={
-                <ProtectedRoute requiredPermission="view_all_reports">
-                  <Layout>
-                    <Archives />
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/approvals"
-              element={
-                <ProtectedRoute requiredPermission="approve_accounts">
-                  <Layout>
-                    <Approvals />
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/settings"
-              element={
-                <ProtectedRoute>
-                  <Layout>
-                    <Settings />
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route
-              path="*"
-              element={
-                <ProtectedRoute>
-                  <Layout>
-                    <NotFound />
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </AuthProvider>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+              {/* Routes protégées */}
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Index />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Dashboard />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/zones"
+                element={
+                  <ProtectedRoute requiredPermission="view_all_praesidia">
+                    <Layout>
+                      <Zones />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/praesidia"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Praesidia />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/officers"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Officers />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/members"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Members />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/attendance"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Attendance />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/finances"
+                element={
+                  <ProtectedRoute requiredPermission="view_finances">
+                    <Layout>
+                      <Finances />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/alerts"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Alerts />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/meetings"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Manifestations />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/council-officers"
+                element={
+                  <ProtectedRoute requiredPermission="view_all_praesidia">
+                    <Layout>
+                      <CouncilOfficers />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/archives"
+                element={
+                  <ProtectedRoute requiredPermission="view_all_reports">
+                    <Layout>
+                      <Archives />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/approvals"
+                element={
+                  <ProtectedRoute requiredPermission="approve_accounts">
+                    <Layout>
+                      <Approvals />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Settings />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route
+                path="*"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <NotFound />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </AuthProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
   );
 }
 

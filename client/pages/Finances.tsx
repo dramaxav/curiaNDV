@@ -110,7 +110,9 @@ export default function Finances() {
   const [activeTab, setActiveTab] = useState("praesidia");
   const [finances] = useState<Finance[]>(mockFinances);
   const [selectedPeriode, setSelectedPeriode] = useState("2024-01");
-  const [selectedTypeRapport, setSelectedTypeRapport] = useState<"mensuel" | "annuel">("mensuel");
+  const [selectedTypeRapport, setSelectedTypeRapport] = useState<
+    "mensuel" | "annuel"
+  >("mensuel");
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("fr-FR", {
@@ -145,7 +147,10 @@ export default function Finances() {
     };
   }, [finances]);
 
-  const generateRapportConseil = (periode: string, type: "mensuel" | "annuel"): RapportConseil => {
+  const generateRapportConseil = (
+    periode: string,
+    type: "mensuel" | "annuel",
+  ): RapportConseil => {
     // Simulation du solde initial basé sur la période précédente
     const getSoldeInitial = (periode: string) => {
       // En pratique, ceci viendrait de la base de données
@@ -153,7 +158,7 @@ export default function Finances() {
         "2024-01": 1200000,
         "2024-02": 1375000,
         "2024-03": 1550000,
-        "2024": 1200000
+        "2024": 1200000,
       };
       return periodesPrecedentes[periode] || 1000000;
     };
@@ -178,20 +183,20 @@ export default function Finances() {
           nom_praesidium: "Notre-Dame du Rosaire",
           montant: 350000,
           statut: "paye",
-          date_paiement: new Date("2024-01-15")
+          date_paiement: new Date("2024-01-15"),
         },
         {
           id_praesidium: "2",
           nom_praesidium: "Saint-Jean-Baptiste",
           montant: 250000,
           statut: "paye",
-          date_paiement: new Date("2024-01-20")
+          date_paiement: new Date("2024-01-20"),
         },
         {
           id_praesidium: "3",
           nom_praesidium: "Sainte-Thérèse",
           montant: 150000,
-          statut: "en_retard"
+          statut: "en_retard",
         },
       ],
       depenses_principales: [
@@ -199,35 +204,37 @@ export default function Finances() {
           categorie: "Missions et évangélisation",
           montant: 120000,
           description: "Financement des missions territoriales",
-          date_depense: new Date("2024-01-10")
+          date_depense: new Date("2024-01-10"),
         },
         {
           categorie: "Formation spirituelle",
           montant: 35000,
           description: "Séminaires et matériel de formation",
-          date_depense: new Date("2024-01-15")
+          date_depense: new Date("2024-01-15"),
         },
         {
           categorie: "Frais administratifs",
           montant: 30000,
           description: "Communication, papeterie, transport",
-          date_depense: new Date("2024-01-25")
+          date_depense: new Date("2024-01-25"),
         },
       ],
       analyse_comparative: {
         periode_precedente: type === "mensuel" ? "2023-12" : "2023",
         evolution_contributions: +12.5, // +12.5%
         evolution_depenses: -5.2, // -5.2%
-        evolution_solde: +8.3 // +8.3%
+        evolution_solde: +8.3, // +8.3%
       },
       observations: `Rapport ${type} pour la période ${periode}. Excellente performance financière avec une augmentation significative des contributions. Les dépenses sont bien maîtrisées. ${
-        type === "mensuel" ? "Le praesidium Sainte-Thérèse nécessite un suivi pour régulariser sa contribution." : "Bilan annuel très positif pour l'ensemble des activités."
+        type === "mensuel"
+          ? "Le praesidium Sainte-Thérèse nécessite un suivi pour régulariser sa contribution."
+          : "Bilan annuel très positif pour l'ensemble des activités."
       }`,
       cree_par: utilisateur?.id_utilisateur || "1",
       date_creation: new Date(),
       approuve_par: undefined,
       date_approbation: undefined,
-      statut: "brouillon"
+      statut: "brouillon",
     };
   };
 
@@ -253,13 +260,13 @@ export default function Finances() {
         { value: "2024-02", label: "Février 2024" },
         { value: "2024-03", label: "Mars 2024" },
         { value: "2023-12", label: "Décembre 2023" },
-        { value: "2023-11", label: "Novembre 2023" }
+        { value: "2023-11", label: "Novembre 2023" },
       ];
     } else {
       return [
         { value: "2024", label: "Année 2024" },
         { value: "2023", label: "Année 2023" },
-        { value: "2022", label: "Année 2022" }
+        { value: "2022", label: "Année 2022" },
       ];
     }
   };
@@ -425,16 +432,21 @@ export default function Finances() {
               <CardContent>
                 <div className="flex items-center gap-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Type de rapport</label>
-                    <Select value={selectedTypeRapport} onValueChange={(value: "mensuel" | "annuel") => {
-                      setSelectedTypeRapport(value);
-                      // Réinitialiser la période selon le type
-                      if (value === "mensuel") {
-                        setSelectedPeriode("2024-01");
-                      } else {
-                        setSelectedPeriode("2024");
-                      }
-                    }}>
+                    <label className="text-sm font-medium">
+                      Type de rapport
+                    </label>
+                    <Select
+                      value={selectedTypeRapport}
+                      onValueChange={(value: "mensuel" | "annuel") => {
+                        setSelectedTypeRapport(value);
+                        // Réinitialiser la période selon le type
+                        if (value === "mensuel") {
+                          setSelectedPeriode("2024-01");
+                        } else {
+                          setSelectedPeriode("2024");
+                        }
+                      }}
+                    >
                       <SelectTrigger className="w-32">
                         <SelectValue />
                       </SelectTrigger>
@@ -447,7 +459,10 @@ export default function Finances() {
 
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Période</label>
-                    <Select value={selectedPeriode} onValueChange={setSelectedPeriode}>
+                    <Select
+                      value={selectedPeriode}
+                      onValueChange={setSelectedPeriode}
+                    >
                       <SelectTrigger className="w-40">
                         <SelectValue />
                       </SelectTrigger>
@@ -475,10 +490,13 @@ export default function Finances() {
                   <div>
                     <CardTitle className="flex items-center gap-2">
                       <Crown className="h-5 w-5 text-primary" />
-                      Rapport Financier {rapportConseil.type_rapport.charAt(0).toUpperCase() + rapportConseil.type_rapport.slice(1)}
+                      Rapport Financier{" "}
+                      {rapportConseil.type_rapport.charAt(0).toUpperCase() +
+                        rapportConseil.type_rapport.slice(1)}
                     </CardTitle>
                     <CardDescription>
-                      Période: {rapportConseil.periode} • Statut: {rapportConseil.statut}
+                      Période: {rapportConseil.periode} • Statut:{" "}
+                      {rapportConseil.statut}
                     </CardDescription>
                   </div>
                   <div className="flex items-center gap-2">
@@ -498,11 +516,12 @@ export default function Finances() {
                         Brouillon
                       </Badge>
                     )}
-                    {canApproveFinances && rapportConseil.statut !== "approuve" && (
-                      <Button size="sm" onClick={handleApprouverRapport}>
-                        Approuver
-                      </Button>
-                    )}
+                    {canApproveFinances &&
+                      rapportConseil.statut !== "approuve" && (
+                        <Button size="sm" onClick={handleApprouverRapport}>
+                          Approuver
+                        </Button>
+                      )}
                   </div>
                 </div>
               </CardHeader>
@@ -539,7 +558,12 @@ export default function Finances() {
                     <div className="flex items-center mt-1">
                       <TrendingUp className="h-3 w-3 text-green-500 mr-1" />
                       <span className="text-xs text-green-600">
-                        +{rapportConseil.analyse_comparative.evolution_contributions}%
+                        +
+                        {
+                          rapportConseil.analyse_comparative
+                            .evolution_contributions
+                        }
+                        %
                       </span>
                     </div>
                   )}
@@ -596,18 +620,26 @@ export default function Finances() {
                 <CardHeader>
                   <CardTitle>Analyse Comparative</CardTitle>
                   <CardDescription>
-                    Évolution par rapport à la période précédente ({rapportConseil.analyse_comparative.periode_precedente})
+                    Évolution par rapport à la période précédente (
+                    {rapportConseil.analyse_comparative.periode_precedente})
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="grid gap-4 md:grid-cols-3">
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium">Contributions</span>
+                        <span className="text-sm font-medium">
+                          Contributions
+                        </span>
                         <div className="flex items-center gap-1">
                           <TrendingUp className="h-4 w-4 text-green-500" />
                           <span className="text-green-600 font-medium">
-                            +{rapportConseil.analyse_comparative.evolution_contributions}%
+                            +
+                            {
+                              rapportConseil.analyse_comparative
+                                .evolution_contributions
+                            }
+                            %
                           </span>
                         </div>
                       </div>
@@ -618,7 +650,11 @@ export default function Finances() {
                         <div className="flex items-center gap-1">
                           <TrendingDown className="h-4 w-4 text-green-500" />
                           <span className="text-green-600 font-medium">
-                            {rapportConseil.analyse_comparative.evolution_depenses}%
+                            {
+                              rapportConseil.analyse_comparative
+                                .evolution_depenses
+                            }
+                            %
                           </span>
                         </div>
                       </div>
@@ -629,7 +665,9 @@ export default function Finances() {
                         <div className="flex items-center gap-1">
                           <TrendingUp className="h-4 w-4 text-green-500" />
                           <span className="text-green-600 font-medium">
-                            +{rapportConseil.analyse_comparative.evolution_solde}%
+                            +
+                            {rapportConseil.analyse_comparative.evolution_solde}
+                            %
                           </span>
                         </div>
                       </div>
@@ -669,9 +707,10 @@ export default function Finances() {
                           </TableCell>
                           <TableCell className="text-muted-foreground">
                             {contrib.date_paiement
-                              ? contrib.date_paiement.toLocaleDateString("fr-FR")
-                              : "-"
-                            }
+                              ? contrib.date_paiement.toLocaleDateString(
+                                  "fr-FR",
+                                )
+                              : "-"}
                           </TableCell>
                           <TableCell>
                             <Badge

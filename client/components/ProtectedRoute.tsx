@@ -34,7 +34,8 @@ export default function ProtectedRoute({
     return <Navigate to="/login" replace />;
   }
 
-  const { isAuthenticated, isLoading, hasPermission, utilisateur } = authContext;
+  const { isAuthenticated, isLoading, hasPermission, utilisateur } =
+    authContext;
   const location = useLocation();
 
   // Affichage pendant le chargement
@@ -154,7 +155,12 @@ export function useProtectedComponent(
     authContext = useAuth();
   } catch (error) {
     // Si le contexte n'est pas disponible, retourner un composant qui ne rend rien
-    return function ProtectedComponent({ fallback }: { children: ReactNode; fallback?: ReactNode }) {
+    return function ProtectedComponent({
+      fallback,
+    }: {
+      children: ReactNode;
+      fallback?: ReactNode;
+    }) {
       return <>{fallback || null}</>;
     };
   }
