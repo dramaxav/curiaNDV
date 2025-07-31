@@ -14,7 +14,9 @@ import {
   Bell,
   Settings,
   LogOut,
-  Calendar
+  Calendar,
+  Archive,
+  Crown
 } from 'lucide-react';
 
 interface LayoutProps {
@@ -26,11 +28,13 @@ const navigationItems = [
   { name: 'Tableau de bord', href: '/dashboard', icon: Users },
   { name: 'Zones', href: '/zones', icon: MapPin },
   { name: 'Praesidia', href: '/praesidia', icon: Shield },
-  { name: 'Officiers', href: '/officers', icon: UserCheck },
+  { name: 'Officiers des Praesidia', href: '/officers', icon: UserCheck },
+  { name: 'Officiers du Conseil', href: '/council-officers', icon: Crown },
   { name: 'Membres', href: '/members', icon: Users },
   { name: 'Présences', href: '/attendance', icon: UserCheck },
   { name: 'Réunions', href: '/meetings', icon: Calendar },
   { name: 'Finances', href: '/finances', icon: Calculator },
+  { name: 'Archives', href: '/archives', icon: Archive },
   { name: 'Alertes', href: '/alerts', icon: Bell },
 ];
 
