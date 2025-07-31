@@ -411,34 +411,97 @@ export default function Finances() {
         {/* Onglet Rapport du Conseil */}
         {canViewAllReports && (
           <TabsContent value="rapport-conseil" className="space-y-6">
-            {/* Header du rapport */}
+            {/* Contrôles de génération de rapport */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Crown className="h-5 w-5 text-primary" />
+                  Générateur de Rapports Financiers
+                </CardTitle>
+                <CardDescription>
+                  Sélectionnez la période et le type de rapport à générer
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center gap-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Type de rapport</label>
+                    <Select value={selectedTypeRapport} onValueChange={(value: "mensuel" | "annuel") => {
+                      setSelectedTypeRapport(value);
+                      // Réinitialiser la période selon le type
+                      if (value === "mensuel") {
+                        setSelectedPeriode("2024-01");
+                      } else {
+                        setSelectedPeriode("2024");
+                      }
+                    }}>
+                      <SelectTrigger className="w-32">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="mensuel">Mensuel</SelectItem>
+                        <SelectItem value="annuel">Annuel</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Période</label>
+                    <Select value={selectedPeriode} onValueChange={setSelectedPeriode}>
+                      <SelectTrigger className="w-40">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {getPeriodesDisponibles().map((periode) => (
+                          <SelectItem key={periode.value} value={periode.value}>
+                            {periode.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <Button onClick={handleGenererRapport} className="mt-8">
+                    Générer le Rapport
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Header du rapport généré */}
             <Card>
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
                     <CardTitle className="flex items-center gap-2">
                       <Crown className="h-5 w-5 text-primary" />
-                      Rapport Financier du Conseil
+                      Rapport Financier {rapportConseil.type_rapport.charAt(0).toUpperCase() + rapportConseil.type_rapport.slice(1)}
                     </CardTitle>
                     <CardDescription>
-                      Période: {rapportConseil.periode} • Type:{" "}
-                      {rapportConseil.type_rapport}
+                      Période: {rapportConseil.periode} • Statut: {rapportConseil.statut}
                     </CardDescription>
                   </div>
                   <div className="flex items-center gap-2">
-                    {rapportConseil.approuve_par ? (
+                    {rapportConseil.statut === "approuve" ? (
                       <Badge variant="default" className="gap-1">
                         <CheckCircle className="h-3 w-3" />
                         Approuvé
                       </Badge>
-                    ) : (
+                    ) : rapportConseil.statut === "soumis" ? (
                       <Badge variant="secondary" className="gap-1">
                         <Calendar className="h-3 w-3" />
-                        En attente
+                        En attente d'approbation
+                      </Badge>
+                    ) : (
+                      <Badge variant="outline" className="gap-1">
+                        <Calendar className="h-3 w-3" />
+                        Brouillon
                       </Badge>
                     )}
-                    {canApproveFinances && !rapportConseil.approuve_par && (
-                      <Button size="sm">Approuver</Button>
+                    {canApproveFinances && rapportConseil.statut !== "approuve" && (
+                      <Button size="sm" onClick={handleApprouverRapport}>
+                        Approuver
+                      </Button>
                     )}
                   </div>
                 </div>
