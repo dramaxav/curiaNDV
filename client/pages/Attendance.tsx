@@ -509,14 +509,14 @@ export default function Attendance() {
   };
 
   const initializeBulkPresences = (praesidiumId: string) => {
-    const membres = mockMembres.filter(
-      (m) => m.id_praesidium === praesidiumId && m.actif,
+    const officiers = mockOfficiers.filter(
+      (o) => o.id_praesidium === praesidiumId && o.actif,
     );
     setBulkFormData({
       ...bulkFormData,
       id_praesidium: praesidiumId,
-      presences: membres.map((membre) => ({
-        id_membre: membre.id_membre,
+      presences: officiers.map((officier) => ({
+        id_officier: officier.id_officier,
         statut: "Présent" as const,
         notes: "",
       })),
@@ -524,14 +524,14 @@ export default function Attendance() {
   };
 
   const updateBulkPresence = (
-    membreId: string,
+    officierId: string,
     field: "statut" | "notes",
     value: string,
   ) => {
     setBulkFormData({
       ...bulkFormData,
       presences: bulkFormData.presences.map((p) =>
-        p.id_membre === membreId ? { ...p, [field]: value } : p,
+        p.id_officier === officierId ? { ...p, [field]: value } : p,
       ),
     });
   };
