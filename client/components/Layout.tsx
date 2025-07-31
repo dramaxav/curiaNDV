@@ -1,8 +1,11 @@
 import { ReactNode, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { useAuth } from '@/contexts/AuthContext';
 import {
   Menu,
   Home,
@@ -24,27 +27,46 @@ interface LayoutProps {
 }
 
 const navigationItems = [
-  { name: 'Accueil', href: '/', icon: Home },
-  { name: 'Tableau de bord', href: '/dashboard', icon: Users },
-  { name: 'Zones', href: '/zones', icon: MapPin },
-  { name: 'Praesidia', href: '/praesidia', icon: Shield },
-  { name: 'Officiers des Praesidia', href: '/officers', icon: UserCheck },
-  { name: 'Officiers du Conseil', href: '/council-officers', icon: Crown },
-  { name: 'Membres', href: '/members', icon: Users },
-  { name: 'Présences', href: '/attendance', icon: UserCheck },
-  { name: 'Manifestations', href: '/meetings', icon: Calendar },
-  { name: 'Finances', href: '/finances', icon: Calculator },
-  { name: 'Archives', href: '/archives', icon: Archive },
-  { name: 'Alertes', href: '/alerts', icon: Bell },
+  { name: 'Accueil', href: '/', icon: Home, permission: null },
+  { name: 'Tableau de bord', href: '/dashboard', icon: Users, permission: null },
+  { name: 'Zones', href: '/zones', icon: MapPin, permission: 'view_all_praesidia' },
+  { name: 'Praesidia', href: '/praesidia', icon: Shield, permission: null },
+  { name: 'Officiers des Praesidia', href: '/officers', icon: UserCheck, permission: null },
+  { name: 'Officiers du Conseil', href: '/council-officers', icon: Crown, permission: 'view_all_praesidia' },
+  { name: 'Membres', href: '/members', icon: Users, permission: null },
+  { name: 'Présences', href: '/attendance', icon: UserCheck, permission: null },
+  { name: 'Manifestations', href: '/meetings', icon: Calendar, permission: null },
+  { name: 'Finances', href: '/finances', icon: Calculator, permission: 'view_finances' },
+  { name: 'Archives', href: '/archives', icon: Archive, permission: 'view_all_reports' },
+  { name: 'Alertes', href: '/alerts', icon: Bell, permission: null },
+  { name: 'Approbations', href: '/approvals', icon: Shield, permission: 'approve_accounts' },
 ];
 
 export default function Layout({ children }: LayoutProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { utilisateur, logout, hasPermission } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+  const getInitials = (name: string) => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  };
+
+  const getVisibleNavigationItems = () => {
+    return navigationItems.filter(item => {
+      if (!item.permission) return true;
+      return hasPermission(item.permission);
+    });
+  };
 
   const NavItems = ({ mobile = false }) => (
     <nav className={cn("space-y-2", mobile && "pt-4")}>
-      {navigationItems.map((item) => {
+      {getVisibleNavigationItems().map((item) => {
         const Icon = item.icon;
         const isActive = location.pathname === item.href;
         
