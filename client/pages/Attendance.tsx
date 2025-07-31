@@ -40,7 +40,7 @@ import {
   TrendingUp,
   TrendingDown
 } from 'lucide-react';
-import type { Presence, Membre, Praesidium } from '@shared/types';
+import type { Presence, Membre, Praesidium, Officier } from '@shared/types';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
@@ -50,6 +50,14 @@ const mockPraesidia: Praesidium[] = [
   { id_praesidium: '1', id_zone: '1', nom_praesidium: 'Notre-Dame du Rosaire', date_creation: new Date(), directeur_spirituel: 'Père Jean', type_praesidium: 'adulte', actif: true },
   { id_praesidium: '2', id_zone: '1', nom_praesidium: 'Saint-Jean-Baptiste', date_creation: new Date(), directeur_spirituel: 'Père Jean', type_praesidium: 'adulte', actif: true },
   { id_praesidium: '3', id_zone: '2', nom_praesidium: 'Sainte-Thérèse', date_creation: new Date(), directeur_spirituel: 'Père Michel', type_praesidium: 'junior', actif: true }
+];
+
+const mockOfficiers: Officier[] = [
+  { id_officier: '1', id_praesidium: '1', nom_prenom: 'Marie Dubois', poste: 'Président', date_debut_mandat: new Date(), date_fin_mandat: new Date(), actif: true },
+  { id_officier: '2', id_praesidium: '1', nom_prenom: 'Jean Martin', poste: 'Secrétaire', date_debut_mandat: new Date(), date_fin_mandat: new Date(), actif: true },
+  { id_officier: '3', id_praesidium: '2', nom_prenom: 'Sophie Laurent', poste: 'Président', date_debut_mandat: new Date(), date_fin_mandat: new Date(), actif: true },
+  // Praesidium 3 n'a que le président, les autres postes sont vacants
+  { id_officier: '4', id_praesidium: '3', nom_prenom: 'Pierre Moreau', poste: 'Président', date_debut_mandat: new Date(), date_fin_mandat: new Date(), actif: true }
 ];
 
 const mockMembres: Membre[] = [
@@ -99,6 +107,8 @@ export default function Attendance() {
   const [presences, setPresences] = useState<Presence[]>(mockPresences);
   const [selectedPraesidium, setSelectedPraesidium] = useState<string>('all');
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [selectedMonthForStats, setSelectedMonthForStats] = useState<string>(new Date().toISOString().slice(0, 7));
+  const [selectedYearForStats, setSelectedYearForStats] = useState<string>(new Date().getFullYear().toString());
   const [selectedMember, setSelectedMember] = useState<string>('all');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isBulkDialogOpen, setIsBulkDialogOpen] = useState(false);
@@ -139,18 +149,64 @@ export default function Attendance() {
     const excuses = presences.filter(p => p.statut_presence === 'Excusé').length;
     const tauxPresence = totalPresences > 0 ? (presents / totalPresences) * 100 : 0;
 
-    // Statistiques mensuelles
+    // Statistiques pour le mois sélectionné
+    const [selectedYear, selectedMonth] = selectedMonthForStats.split('-');
     const presencesMensuel = presences.filter(p => {
       const date = new Date(p.date_reunion);
-      return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+      return date.getMonth() === (parseInt(selectedMonth) - 1) && date.getFullYear() === parseInt(selectedYear);
     });
+
+    // Calculer les praesidia représentés (qui ont au moins une présence)
+    const praesidiaRepresentes = new Set();
+    presencesMensuel.forEach(p => {
+      const membre = mockMembres.find(m => m.id_membre === p.id_membre);
+      if (membre) {
+        praesidiaRepresentes.add(membre.id_praesidium);
+      }
+    });
+
+    // Calculer les présents par type de praesidium
+    const presentsAdultes = presencesMensuel.filter(p => {
+      const membre = mockMembres.find(m => m.id_membre === p.id_membre);
+      if (!membre) return false;
+      const praesidium = mockPraesidia.find(pr => pr.id_praesidium === membre.id_praesidium);
+      return praesidium?.type_praesidium === 'adulte' && p.statut_presence === 'Présent';
+    }).length;
+
+    const presentsJuniors = presencesMensuel.filter(p => {
+      const membre = mockMembres.find(m => m.id_membre === p.id_membre);
+      if (!membre) return false;
+      const praesidium = mockPraesidia.find(pr => pr.id_praesidium === membre.id_praesidium);
+      return praesidium?.type_praesidium === 'junior' && p.statut_presence === 'Présent';
+    }).length;
+
+    const absentsTotal = presencesMensuel.filter(p => p.statut_presence === 'Absent').length;
+
+    // Calculer les postes vacants
+    const postesRequis = ['Président', 'Vice-Président', 'Secrétaire', 'Trésorier'];
+    let postesVacants = 0;
+    mockPraesidia.forEach(praesidium => {
+      if (praesidium.actif) {
+        postesRequis.forEach(poste => {
+          const officierExiste = mockOfficiers.some(o =>
+            o.id_praesidium === praesidium.id_praesidium &&
+            o.poste === poste &&
+            o.actif
+          );
+          if (!officierExiste) {
+            postesVacants++;
+          }
+        });
+      }
+    });
+
     const presentsMensuel = presencesMensuel.filter(p => p.statut_presence === 'Présent').length;
     const tauxMensuel = presencesMensuel.length > 0 ? (presentsMensuel / presencesMensuel.length) * 100 : 0;
 
     // Statistiques annuelles
     const presencesAnnuel = presences.filter(p => {
       const date = new Date(p.date_reunion);
-      return date.getFullYear() === currentYear;
+      return date.getFullYear() === parseInt(selectedYearForStats);
     });
     const presentsAnnuel = presencesAnnuel.filter(p => p.statut_presence === 'Présent').length;
     const tauxAnnuel = presencesAnnuel.length > 0 ? (presentsAnnuel / presencesAnnuel.length) * 100 : 0;
@@ -166,9 +222,14 @@ export default function Attendance() {
       tauxMensuel,
       presencesAnnuel: presencesAnnuel.length,
       presentsAnnuel,
-      tauxAnnuel
+      tauxAnnuel,
+      praesidiaRepresentes: praesidiaRepresentes.size,
+      presentsAdultes,
+      presentsJuniors,
+      absentsTotal,
+      postesVacants
     };
-  }, [presences]);
+  }, [presences, selectedMonthForStats, selectedYearForStats]);
 
   const getMemberName = (membreId: string) => {
     const membre = mockMembres.find(m => m.id_membre === membreId);
@@ -563,64 +624,121 @@ export default function Attendance() {
         </Card>
       </div>
 
-      {/* Statistics Mensuelle et Annuelle */}
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Calendar className="h-5 w-5 text-blue-500" />
-              Statistiques Mensuelles
-            </CardTitle>
-            <CardDescription>
-              Présences pour le mois en cours
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-3 gap-4">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">{stats.presencesMensuel}</div>
-                <p className="text-sm text-muted-foreground">Réunions</p>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-green-600">{stats.presentsMensuel}</div>
-                <p className="text-sm text-muted-foreground">Présents</p>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-purple-600">{stats.tauxMensuel.toFixed(1)}%</div>
-                <p className="text-sm text-muted-foreground">Taux</p>
-              </div>
+      {/* Statistiques Avancées avec Sélecteurs */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Calendar className="h-5 w-5 text-blue-500" />
+            Statistiques Détaillées par Période
+          </CardTitle>
+          <CardDescription>
+            Choisissez le mois et l'année pour des statistiques détaillées
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* Sélecteurs de période */}
+          <div className="flex gap-4 items-center">
+            <div className="space-y-2">
+              <Label htmlFor="mois-stats">Mois pour les statistiques</Label>
+              <Input
+                id="mois-stats"
+                type="month"
+                value={selectedMonthForStats}
+                onChange={(e) => setSelectedMonthForStats(e.target.value)}
+                className="w-48"
+              />
             </div>
-          </CardContent>
-        </Card>
+            <div className="space-y-2">
+              <Label htmlFor="annee-stats">Année pour les statistiques</Label>
+              <Select value={selectedYearForStats} onValueChange={setSelectedYearForStats}>
+                <SelectTrigger className="w-32">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="2024">2024</SelectItem>
+                  <SelectItem value="2023">2023</SelectItem>
+                  <SelectItem value="2022">2022</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <CheckCircle className="h-5 w-5 text-green-500" />
-              Statistiques Annuelles
-            </CardTitle>
-            <CardDescription>
-              Présences pour l'année en cours
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+          {/* Statistiques mensuelles détaillées */}
+          <div className="grid gap-4 md:grid-cols-5">
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium">Praesidia Représentés</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-blue-600">{stats.praesidiaRepresentes}</div>
+                <p className="text-xs text-muted-foreground">sur {mockPraesidia.filter(p => p.actif).length} actifs</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium">Membres Adultes Présents</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-green-600">{stats.presentsAdultes}</div>
+                <p className="text-xs text-muted-foreground">praesidia adultes</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium">Membres Juniors Présents</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-orange-600">{stats.presentsJuniors}</div>
+                <p className="text-xs text-muted-foreground">praesidia juniors</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium">Total Absents</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-red-600">{stats.absentsTotal}</div>
+                <p className="text-xs text-muted-foreground">tous praesidia</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium">Postes Vacants</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-purple-600">{stats.postesVacants}</div>
+                <p className="text-xs text-muted-foreground">postes non pourvus</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Statistiques annuelles */}
+          <div className="border-t pt-4">
+            <h4 className="font-semibold mb-3 flex items-center gap-2">
+              <CheckCircle className="h-4 w-4 text-green-500" />
+              Résumé Annuel {selectedYearForStats}
+            </h4>
             <div className="grid grid-cols-3 gap-4">
-              <div className="text-center">
+              <div className="text-center p-3 bg-muted/30 rounded-lg">
                 <div className="text-2xl font-bold text-blue-600">{stats.presencesAnnuel}</div>
-                <p className="text-sm text-muted-foreground">Réunions</p>
+                <p className="text-sm text-muted-foreground">Réunions totales</p>
               </div>
-              <div className="text-center">
+              <div className="text-center p-3 bg-muted/30 rounded-lg">
                 <div className="text-2xl font-bold text-green-600">{stats.presentsAnnuel}</div>
-                <p className="text-sm text-muted-foreground">Présents</p>
+                <p className="text-sm text-muted-foreground">Présents totaux</p>
               </div>
-              <div className="text-center">
+              <div className="text-center p-3 bg-muted/30 rounded-lg">
                 <div className="text-2xl font-bold text-purple-600">{stats.tauxAnnuel.toFixed(1)}%</div>
-                <p className="text-sm text-muted-foreground">Taux</p>
+                <p className="text-sm text-muted-foreground">Taux annuel</p>
               </div>
             </div>
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Filters and List */}
       <Card>
