@@ -530,23 +530,56 @@ export default function Alerts() {
                     </div>
                     {alerte.statut === 'active' && (
                       <div className="flex gap-1">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => handleStatusChange(alerte.id_alerte, 'resolue')}
-                          className="text-xs"
-                        >
-                          <CheckCircle className="h-3 w-3 mr-1" />
-                          Résoudre
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => handleStatusChange(alerte.id_alerte, 'ignoree')}
-                          className="text-xs"
-                        >
-                          Ignorer
-                        </Button>
+                        {alerte.type === 'probation_prolongee' ? (
+                          <>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleProbationAlert(alerte.id_alerte, 'promesse')}
+                              className="text-xs text-green-600 hover:text-green-700"
+                            >
+                              <Heart className="h-3 w-3 mr-1" />
+                              Promesse
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleProbationAlert(alerte.id_alerte, 'formation')}
+                              className="text-xs text-blue-600 hover:text-blue-700"
+                            >
+                              <FileText className="h-3 w-3 mr-1" />
+                              Formation
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => handleProbationAlert(alerte.id_alerte, 'ignore')}
+                              className="text-xs"
+                            >
+                              Reporter
+                            </Button>
+                          </>
+                        ) : (
+                          <>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleStatusChange(alerte.id_alerte, 'resolue')}
+                              className="text-xs"
+                            >
+                              <CheckCircle className="h-3 w-3 mr-1" />
+                              Résoudre
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => handleStatusChange(alerte.id_alerte, 'ignoree')}
+                              className="text-xs"
+                            >
+                              Ignorer
+                            </Button>
+                          </>
+                        )}
                       </div>
                     )}
                     {alerte.statut !== 'active' && (
