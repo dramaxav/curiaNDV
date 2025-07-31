@@ -107,7 +107,7 @@ export interface PraesidiumFormData {
   nom_praesidium: string;
   date_creation: Date;
   directeur_spirituel: string;
-  type_praesidium: 'senior' | 'junior' | 'auxiliaire';
+  type_praesidium: 'adulte' | 'junior';
   lieu_reunion?: string;
   horaire_reunion?: string;
 }
