@@ -513,52 +513,131 @@ export default function Finances() {
               <Card>
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm font-medium">
-                    Total Contributions
+                    Solde Initial
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-blue-600">
+                    {formatCurrency(rapportConseil.solde_initial)}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Début de période
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-medium">
+                    Contributions Reçues
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-green-600">
                     {formatCurrency(rapportConseil.total_contributions)}
                   </div>
+                  {rapportConseil.analyse_comparative && (
+                    <div className="flex items-center mt-1">
+                      <TrendingUp className="h-3 w-3 text-green-500 mr-1" />
+                      <span className="text-xs text-green-600">
+                        +{rapportConseil.analyse_comparative.evolution_contributions}%
+                      </span>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm font-medium">
-                    Total Dépenses
+                    Dépenses du Conseil
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-red-600">
                     {formatCurrency(rapportConseil.total_depenses)}
                   </div>
+                  {rapportConseil.analyse_comparative && (
+                    <div className="flex items-center mt-1">
+                      <TrendingDown className="h-3 w-3 text-green-500 mr-1" />
+                      <span className="text-xs text-green-600">
+                        {rapportConseil.analyse_comparative.evolution_depenses}%
+                      </span>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm font-medium">
-                    Solde Global
+                    Solde Final
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-blue-600">
-                    {formatCurrency(rapportConseil.solde_global)}
+                  <div className="text-2xl font-bold text-primary">
+                    {formatCurrency(rapportConseil.solde_final)}
                   </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium">
-                    Praesidia Actifs
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">
-                    {rapportConseil.nombre_praesidia_actifs}
-                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Fin de période
+                  </p>
+                  {rapportConseil.analyse_comparative && (
+                    <div className="flex items-center mt-1">
+                      <TrendingUp className="h-3 w-3 text-green-500 mr-1" />
+                      <span className="text-xs text-green-600">
+                        +{rapportConseil.analyse_comparative.evolution_solde}%
+                      </span>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </div>
+
+            {/* Analyse comparative */}
+            {rapportConseil.analyse_comparative && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Analyse Comparative</CardTitle>
+                  <CardDescription>
+                    Évolution par rapport à la période précédente ({rapportConseil.analyse_comparative.periode_precedente})
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid gap-4 md:grid-cols-3">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium">Contributions</span>
+                        <div className="flex items-center gap-1">
+                          <TrendingUp className="h-4 w-4 text-green-500" />
+                          <span className="text-green-600 font-medium">
+                            +{rapportConseil.analyse_comparative.evolution_contributions}%
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium">Dépenses</span>
+                        <div className="flex items-center gap-1">
+                          <TrendingDown className="h-4 w-4 text-green-500" />
+                          <span className="text-green-600 font-medium">
+                            {rapportConseil.analyse_comparative.evolution_depenses}%
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium">Solde Final</span>
+                        <div className="flex items-center gap-1">
+                          <TrendingUp className="h-4 w-4 text-green-500" />
+                          <span className="text-green-600 font-medium">
+                            +{rapportConseil.analyse_comparative.evolution_solde}%
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Contributions par praesidium */}
             <Card>
