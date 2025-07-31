@@ -305,7 +305,7 @@ export default function Alerts() {
 
     setAlertesProbation(nouvellesAlertesProbation);
 
-    // Ajouter les alertes de probation aux alertes générales
+    // Ajouter les alertes de probation aux alertes g��nérales
     const alertesProbationConverties: Alerte[] = nouvellesAlertesProbation.map(
       (alert) => ({
         id_alerte: alert.id_alerte,
@@ -393,6 +393,18 @@ export default function Alerts() {
         return <Heart className="h-4 w-4 text-purple-500" />;
       case "probation_prolongee":
         return <UserX className="h-4 w-4 text-red-600" />;
+      case "anniversaire_naissance":
+        return <Heart className="h-4 w-4 text-pink-500" />;
+      case "anniversaire_bapteme":
+        return <Heart className="h-4 w-4 text-blue-400" />;
+      case "anniversaire_confirmation":
+        return <Heart className="h-4 w-4 text-green-400" />;
+      case "anniversaire_creation_praesidium":
+        return <Shield className="h-4 w-4 text-gold-500" />;
+      case "anniversaire_creation_conseil":
+        return <Crown className="h-4 w-4 text-gold-600" />;
+      case "non_contribution_mensuelle":
+        return <AlertTriangle className="h-4 w-4 text-red-600" />;
       default:
         return <Bell className="h-4 w-4 text-gray-500" />;
     }
