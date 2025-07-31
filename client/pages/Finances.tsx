@@ -87,7 +87,7 @@ const mockTransactions: TransactionFinanciere[] = [
     id_transaction: '1',
     id_praesidium: '1',
     type: 'contribution',
-    montant: 50,
+    montant: 50000,
     description: 'Collecte mensuelle - Marie Dubois',
     date_transaction: new Date('2024-01-15'),
     categorie: 'Cotisation'
@@ -96,7 +96,7 @@ const mockTransactions: TransactionFinanciere[] = [
     id_transaction: '2',
     id_praesidium: '1',
     type: 'depense',
-    montant: 25,
+    montant: 25000,
     description: 'Achat de chapelets',
     date_transaction: new Date('2024-01-20'),
     categorie: 'Matériel religieux'
@@ -105,7 +105,7 @@ const mockTransactions: TransactionFinanciere[] = [
     id_transaction: '3',
     id_praesidium: '2',
     type: 'contribution',
-    montant: 75,
+    montant: 75000,
     description: 'Don pour les missions',
     date_transaction: new Date('2024-01-10'),
     categorie: 'Don mission'
