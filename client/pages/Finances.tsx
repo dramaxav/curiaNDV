@@ -374,10 +374,7 @@ export default function Finances() {
             <Building className="h-4 w-4" />
             Vue d'ensemble
           </TabsTrigger>
-          <TabsTrigger
-            value="contributions"
-            className="flex items-center gap-2"
-          >
+          <TabsTrigger value="contributions" className="flex items-center gap-2">
             <TrendingUp className="h-4 w-4" />
             Contributions
           </TabsTrigger>
@@ -400,50 +397,50 @@ export default function Finances() {
         <TabsContent value="praesidia" className="space-y-6">
           {/* Statistics des praesidia */}
           <div className="grid gap-4 md:grid-cols-4">
-            <Card>
+            <Card className="card-colorful hover-colorful border-success/30 bg-gradient-to-br from-green-50 to-emerald-50">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
+                <CardTitle className="text-sm font-medium text-success">
                   Contributions
                 </CardTitle>
-                <TrendingUp className="h-4 w-4 text-green-500" />
+                <TrendingUp className="h-4 w-4 text-success" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-bold text-success">
                   {formatCurrency(stats.totalContributions)}
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="card-colorful hover-colorful border-destructive/30 bg-gradient-to-br from-red-50 to-pink-50">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Dépenses</CardTitle>
-                <TrendingDown className="h-4 w-4 text-red-500" />
+                <CardTitle className="text-sm font-medium text-destructive">Dépenses</CardTitle>
+                <TrendingDown className="h-4 w-4 text-destructive" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-bold text-destructive">
                   {formatCurrency(stats.totalDepenses)}
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="card-colorful hover-colorful border-legion-blue/30 bg-gradient-to-br from-blue-50 to-indigo-50">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
+                <CardTitle className="text-sm font-medium text-legion-blue">
                   Solde Total
                 </CardTitle>
-                <Euro className="h-4 w-4 text-blue-500" />
+                <Euro className="h-4 w-4 text-legion-blue" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-bold text-legion-blue">
                   {formatCurrency(stats.totalSolde)}
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="card-colorful hover-colorful border-legion-gold/30 bg-gradient-to-br from-yellow-50 to-amber-50">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Bénéfice</CardTitle>
-                <PieChart className="h-4 w-4 text-purple-500" />
+                <CardTitle className="text-sm font-medium text-legion-gold">Bénéfice</CardTitle>
+                <PieChart className="h-4 w-4 text-legion-gold" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-bold text-legion-gold">
                   {formatCurrency(stats.benefice)}
                 </div>
               </CardContent>
@@ -589,10 +586,7 @@ export default function Finances() {
                       rows={2}
                     />
                   </div>
-                  <Button
-                    onClick={handleAjouterContribution}
-                    className="w-full"
-                  >
+                  <Button onClick={handleAjouterContribution} className="w-full">
                     <TrendingUp className="mr-2 h-4 w-4" />
                     Enregistrer la Contribution
                   </Button>
@@ -630,13 +624,9 @@ export default function Finances() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="dons">Dons</SelectItem>
-                          <SelectItem value="collectes">
-                            Collectes spéciales
-                          </SelectItem>
+                          <SelectItem value="collectes">Collectes spéciales</SelectItem>
                           <SelectItem value="ventes">Ventes</SelectItem>
-                          <SelectItem value="subventions">
-                            Subventions
-                          </SelectItem>
+                          <SelectItem value="subventions">Subventions</SelectItem>
                           <SelectItem value="autres">Autres</SelectItem>
                         </SelectContent>
                       </Select>
@@ -733,22 +723,12 @@ export default function Finances() {
                         <SelectValue placeholder="Type de dépense" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="missions">
-                          Missions et évangélisation
-                        </SelectItem>
-                        <SelectItem value="formation">
-                          Formation spirituelle
-                        </SelectItem>
-                        <SelectItem value="administratif">
-                          Frais administratifs
-                        </SelectItem>
-                        <SelectItem value="materiel">
-                          Matériel liturgique
-                        </SelectItem>
+                        <SelectItem value="missions">Missions et évangélisation</SelectItem>
+                        <SelectItem value="formation">Formation spirituelle</SelectItem>
+                        <SelectItem value="administratif">Frais administratifs</SelectItem>
+                        <SelectItem value="materiel">Matériel liturgique</SelectItem>
                         <SelectItem value="transport">Transport</SelectItem>
-                        <SelectItem value="communication">
-                          Communication
-                        </SelectItem>
+                        <SelectItem value="communication">Communication</SelectItem>
                         <SelectItem value="autres">Autres</SelectItem>
                       </SelectContent>
                     </Select>
