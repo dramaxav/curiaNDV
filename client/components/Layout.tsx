@@ -75,6 +75,12 @@ const navigationItems = [
     permission: "view_finances",
   },
   {
+    name: "Finance Praesidium",
+    href: "/praesidium-finance",
+    icon: Calculator,
+    permission: "manage_praesidium",
+  },
+  {
     name: "Archives",
     href: "/archives",
     icon: Archive,
