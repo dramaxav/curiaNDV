@@ -300,7 +300,7 @@ export default function Attendance() {
 
     // Statistiques pour le mois sélectionné
     const [selectedYear, selectedMonth] = selectedMonthForStats.split("-");
-    const presencesMensuel = presences.filter((p) => {
+    const presencesMensuel = presencesFiltered.filter((p) => {
       const date = new Date(p.date_reunion);
       return (
         date.getMonth() === parseInt(selectedMonth) - 1 &&
