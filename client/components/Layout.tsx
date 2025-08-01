@@ -303,42 +303,7 @@ export default function Layout({ children }: LayoutProps) {
         </main>
       </div>
 
-      {/* Actions utilisateur flottantes en bas à droite */}
-      <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
-        <div className="bg-background/95 backdrop-blur-sm border rounded-lg shadow-lg p-3">
-          <div className="flex items-center gap-3 mb-3">
-            <Avatar className="h-10 w-10">
-              <AvatarFallback>
-                {utilisateur ? getInitials(utilisateur.nom_prenom) : "U"}
-              </AvatarFallback>
-            </Avatar>
-            <div className="min-w-0 flex-1">
-              <div className="text-sm font-medium truncate">
-                {utilisateur?.nom_prenom}
-              </div>
-              <div className="text-xs text-muted-foreground">
-                {utilisateur?.poste}
-                {utilisateur?.type_utilisateur === "officier_conseil" && (
-                  <Badge variant="secondary" className="text-xs ml-2">
-                    Conseil
-                  </Badge>
-                )}
-              </div>
-            </div>
-          </div>
 
-          <div className="flex gap-2">
-            <Button variant="ghost" size="sm" asChild>
-              <Link to="/settings">
-                <Settings className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button variant="ghost" size="sm" onClick={handleLogout}>
-              <LogOut className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
