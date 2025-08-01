@@ -378,7 +378,14 @@ export default function Officers() {
                     </SelectTrigger>
                     <SelectContent>
                       {mockPraesidia
-                        .filter((p) => p.actif)
+                        .filter((p) => {
+                          if (!p.actif) return false;
+                          // Si c'est un officier de praesidium, ne montrer que son praesidium
+                          if (isPraesidiumOfficer) {
+                            return p.id_praesidium === utilisateur?.id_praesidium;
+                          }
+                          return true;
+                        })
                         .map((praesidium) => (
                           <SelectItem
                             key={praesidium.id_praesidium}
