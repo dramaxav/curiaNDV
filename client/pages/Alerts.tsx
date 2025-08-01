@@ -817,7 +817,7 @@ export default function Alerts() {
                             : "Active"}
                       </span>
                     </div>
-                    {alerte.statut === "active" && (
+                    {alerte.statut === "active" && isCouncilOfficer && (
                       <div className="flex gap-1">
                         {alerte.type === "probation_prolongee" ? (
                           <>
@@ -885,6 +885,11 @@ export default function Alerts() {
                             </Button>
                           </>
                         )}
+                      </div>
+                    )}
+                    {alerte.statut === "active" && !isCouncilOfficer && (
+                      <div className="text-xs text-muted-foreground">
+                        Mode lecture seulement
                       </div>
                     )}
                     {alerte.statut !== "active" && (
