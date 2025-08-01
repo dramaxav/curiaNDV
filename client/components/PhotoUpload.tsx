@@ -66,11 +66,17 @@ export default function PhotoUpload({
     setUploading(true);
 
     try {
-      // Créer une URL locale pour prévisualisation
+      // Créer une URL locale pour prévisualisation et conserver le chemin local
       const reader = new FileReader();
       reader.onload = (e) => {
         const result = e.target?.result as string;
-        onPhotoChange(result);
+        // Stocker à la fois l'image base64 et le chemin local
+        const photoData = {
+          base64: result,
+          localPath: file.name,
+          fullPath: file.webkitRelativePath || file.name
+        };
+        onPhotoChange(JSON.stringify(photoData));
         setUploading(false);
       };
       reader.readAsDataURL(file);
