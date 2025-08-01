@@ -415,7 +415,7 @@ export default function Attendance() {
       absentsTotal,
       postesVacants,
     };
-  }, [presences, selectedMonthForStats, selectedYearForStats]);
+  }, [presences, selectedMonthForStats, selectedYearForStats, isPraesidiumOfficer, utilisateur]);
 
   const getOfficierName = (officierId: string) => {
     const officier = mockOfficiers.find((o) => o.id_officier === officierId);
