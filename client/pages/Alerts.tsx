@@ -892,7 +892,7 @@ export default function Alerts() {
                         Mode lecture seulement
                       </div>
                     )}
-                    {alerte.statut !== "active" && (
+                    {alerte.statut !== "active" && isCouncilOfficer && (
                       <Button
                         size="sm"
                         variant="ghost"
