@@ -32,7 +32,7 @@ import {
   UserX,
   FileText,
 } from "lucide-react";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth, useIsCouncilOfficer } from "@/contexts/AuthContext";
 import type { AlerteProbation, Membre, Praesidium } from "@shared/types";
 
 interface Alerte {
