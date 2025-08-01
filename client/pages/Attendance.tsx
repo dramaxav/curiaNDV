@@ -212,6 +212,8 @@ const mockPresences: Presence[] = [
 ];
 
 export default function Attendance() {
+  const { utilisateur } = useAuth();
+  const isPraesidiumOfficer = useIsPraesidiumOfficer();
   const [presences, setPresences] = useState<Presence[]>(mockPresences);
   const [selectedPraesidium, setSelectedPraesidium] = useState<string>("all");
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
