@@ -56,10 +56,20 @@ export default function ForgotPassword() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
     setIsLoading(true);
 
-    // Simulation d'envoi d'email - toujours réussit
+    // Validation des champs
+    if (!formData.email || !formData.poste || !formData.praesidium) {
+      setError("Veuillez remplir tous les champs");
+      setIsLoading(false);
+      return;
+    }
+
+    // Simulation de vérification dans la base de données
     setTimeout(() => {
+      // Ici on vérifierait si les informations correspondent
+      // Pour la démo, on accepte toujours
       setIsLoading(false);
       setIsSuccess(true);
     }, 2000);
