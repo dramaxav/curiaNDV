@@ -202,6 +202,9 @@ export default function PhotoUpload({
           accept="image/*"
           onChange={handleFileSelect}
           className="hidden"
+          webkitdirectory=""
+          directory=""
+          multiple={false}
         />
       </div>
 
