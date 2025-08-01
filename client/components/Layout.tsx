@@ -85,7 +85,7 @@ const navigationItems = [
     name: "Approbations",
     href: "/approvals",
     icon: Shield,
-    permission: "approve_accounts",
+    permission: "approve_accounts,approve_finances",
   },
   {
     name: "Gestion Comptes",
