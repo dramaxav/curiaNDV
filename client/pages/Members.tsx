@@ -160,6 +160,11 @@ export default function Members() {
 
   const filteredMembres = useMemo(() => {
     return membres.filter((membre) => {
+      // Si c'est un officier de praesidium, ne montrer que les membres de son praesidium
+      if (isPraesidiumOfficer && utilisateur?.id_praesidium !== membre.id_praesidium) {
+        return false;
+      }
+
       const matchesSearch =
         membre.nom_prenom.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (membre.email &&
@@ -172,7 +177,7 @@ export default function Members() {
 
       return matchesSearch && matchesPraesidium && matchesStatut;
     });
-  }, [membres, searchTerm, selectedPraesidium, selectedStatut]);
+  }, [membres, searchTerm, selectedPraesidium, selectedStatut, isPraesidiumOfficer, utilisateur]);
 
   const stats = {
     total: membres.length,
