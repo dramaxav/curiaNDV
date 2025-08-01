@@ -142,9 +142,14 @@ export default function Members() {
   const isPraesidiumOfficer = useIsPraesidiumOfficer();
   const [membres, setMembres] = useState<Membre[]>(mockMembres);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedPraesidium, setSelectedPraesidium] = useState<string>(
-    isPraesidiumOfficer && utilisateur?.id_praesidium ? utilisateur.id_praesidium : "all"
-  );
+  const [selectedPraesidium, setSelectedPraesidium] = useState<string>("all");
+
+  // Initialiser automatiquement le praesidium pour les officiers de praesidium
+  useEffect(() => {
+    if (isPraesidiumOfficer && utilisateur?.id_praesidium) {
+      setSelectedPraesidium(utilisateur.id_praesidium);
+    }
+  }, [isPraesidiumOfficer, utilisateur?.id_praesidium]);
   const [selectedStatut, setSelectedStatut] = useState<string>("all");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingMembre, setEditingMembre] = useState<Membre | null>(null);
