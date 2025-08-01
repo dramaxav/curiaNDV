@@ -505,12 +505,12 @@ export default function Officers() {
       </div>
 
       {/* Alertes de fin de mandat */}
-      {mandatesExpiringSoon.length > 0 && (
+      {stats.fin_mandat_proche > 0 && (
         <Alert>
           <AlertTriangle className="h-4 w-4" />
           <AlertDescription>
-            <strong>Attention:</strong> {mandatesExpiringSoon.length} mandat(s)
-            expire(nt) bientôt. Planifiez les renouvellements nécessaires.
+            <strong>Attention:</strong> {stats.fin_mandat_proche} mandat(s)
+            expire(nt) bientôt{isPraesidiumOfficer ? " dans votre praesidium" : ""}. Planifiez les renouvellements nécessaires.
           </AlertDescription>
         </Alert>
       )}
