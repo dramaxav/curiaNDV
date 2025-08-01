@@ -128,12 +128,35 @@ export default function PhotoUpload({
           className={`${sizeClasses[size]} ${currentPhotoUrl ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''}`}
           onClick={() => {
             if (currentPhotoUrl) {
-              alert(`Chemin de la photo:\n${currentPhotoUrl}`);
+              try {
+                // Essayer de parser les données JSON de la photo
+                const photoData = JSON.parse(currentPhotoUrl);
+                if (photoData.localPath) {
+                  alert(`Chemin local de la photo:\n${photoData.fullPath || photoData.localPath}`);
+                } else {
+                  alert(`Chemin de la photo:\n${currentPhotoUrl}`);
+                }
+              } catch {
+                // Si ce n'est pas du JSON, c'est probablement une URL directe
+                alert(`Chemin de la photo:\n${currentPhotoUrl}`);
+              }
             }
           }}
         >
           {currentPhotoUrl ? (
-            <AvatarImage src={currentPhotoUrl} alt="Photo officier" />
+            <AvatarImage
+              src={
+                (() => {
+                  try {
+                    const photoData = JSON.parse(currentPhotoUrl);
+                    return photoData.base64 || currentPhotoUrl;
+                  } catch {
+                    return currentPhotoUrl;
+                  }
+                })()
+              }
+              alt="Photo officier"
+            />
           ) : (
             <AvatarFallback>
               <Camera className="h-6 w-6 text-muted-foreground" />
