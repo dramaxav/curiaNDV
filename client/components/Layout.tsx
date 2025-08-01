@@ -87,6 +87,12 @@ const navigationItems = [
     icon: Shield,
     permission: "approve_accounts",
   },
+  {
+    name: "Gestion Comptes",
+    href: "/account-management",
+    icon: Settings,
+    permission: "approve_accounts",
+  },
 ];
 
 export default function Layout({ children }: LayoutProps) {
