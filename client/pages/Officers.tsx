@@ -288,7 +288,7 @@ export default function Officers() {
 
   const resetForm = () => {
     setFormData({
-      id_praesidium: "",
+      id_praesidium: isPraesidiumOfficer ? utilisateur?.id_praesidium || "" : "",
       nom_prenom: "",
       poste: "Président",
       date_debut_mandat: new Date(),
