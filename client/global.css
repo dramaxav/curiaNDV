@@ -116,3 +116,77 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  /* Classes de couleur personnalisées pour la Légion de Marie */
+  .text-legion-blue {
+    color: hsl(var(--legion-blue));
+  }
+
+  .text-legion-gold {
+    color: hsl(var(--legion-gold));
+  }
+
+  .bg-legion-blue {
+    background-color: hsl(var(--legion-blue));
+  }
+
+  .bg-legion-gold {
+    background-color: hsl(var(--legion-gold));
+  }
+
+  .border-legion-blue {
+    border-color: hsl(var(--legion-blue));
+  }
+
+  .border-legion-gold {
+    border-color: hsl(var(--legion-gold));
+  }
+
+  /* Gradients colorés */
+  .bg-gradient-legion {
+    background: linear-gradient(135deg, hsl(var(--legion-blue)), hsl(var(--legion-gold)));
+  }
+
+  .bg-gradient-success {
+    background: linear-gradient(135deg, hsl(var(--success)), hsl(var(--info)));
+  }
+
+  .bg-gradient-warning {
+    background: linear-gradient(135deg, hsl(var(--warning)), hsl(var(--destructive)));
+  }
+
+  /* Couleurs de statut */
+  .text-success {
+    color: hsl(var(--success));
+  }
+
+  .text-warning {
+    color: hsl(var(--warning));
+  }
+
+  .text-info {
+    color: hsl(var(--info));
+  }
+
+  .bg-success {
+    background-color: hsl(var(--success));
+  }
+
+  .bg-warning {
+    background-color: hsl(var(--warning));
+  }
+
+  .bg-info {
+    background-color: hsl(var(--info));
+  }
+
+  /* Animations et effets colorés */
+  .hover-colorful {
+    @apply transition-all duration-300 hover:scale-105 hover:shadow-lg;
+  }
+
+  .card-colorful {
+    @apply bg-gradient-to-br from-background to-muted border-2 hover:border-primary/50 transition-all duration-300;
+  }
+}
