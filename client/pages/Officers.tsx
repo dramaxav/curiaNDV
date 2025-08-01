@@ -51,6 +51,7 @@ import {
   Users,
 } from "lucide-react";
 import type { Officier, OfficierFormData, Praesidium } from "@shared/types";
+import { useAuth, useIsPraesidiumOfficer } from "@/contexts/AuthContext";
 
 // Mock data
 const mockPraesidia: Praesidium[] = [
