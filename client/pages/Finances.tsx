@@ -901,14 +901,14 @@ export default function Finances() {
 
             {/* Résumé financier global */}
             <div className="grid gap-4 md:grid-cols-4">
-              <Card>
+              <Card className="card-colorful hover-colorful border-info/30 bg-gradient-to-br from-cyan-50 to-blue-50">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium">
+                  <CardTitle className="text-sm font-medium text-info">
                     Solde Initial
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-blue-600">
+                  <div className="text-2xl font-bold text-info">
                     {formatCurrency(rapportConseil.solde_initial)}
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
@@ -916,20 +916,20 @@ export default function Finances() {
                   </p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="card-colorful hover-colorful border-success/30 bg-gradient-to-br from-green-50 to-emerald-50">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium">
+                  <CardTitle className="text-sm font-medium text-success">
                     Contributions Reçues
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-green-600">
+                  <div className="text-2xl font-bold text-success">
                     {formatCurrency(rapportConseil.total_contributions)}
                   </div>
                   {rapportConseil.analyse_comparative && (
                     <div className="flex items-center mt-1">
-                      <TrendingUp className="h-3 w-3 text-green-500 mr-1" />
-                      <span className="text-xs text-green-600">
+                      <TrendingUp className="h-3 w-3 text-success mr-1" />
+                      <span className="text-xs text-success">
                         +
                         {
                           rapportConseil.analyse_comparative
@@ -941,34 +941,34 @@ export default function Finances() {
                   )}
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="card-colorful hover-colorful border-warning/30 bg-gradient-to-br from-orange-50 to-red-50">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium">
+                  <CardTitle className="text-sm font-medium text-warning">
                     Dépenses du Conseil
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-red-600">
+                  <div className="text-2xl font-bold text-warning">
                     {formatCurrency(rapportConseil.total_depenses)}
                   </div>
                   {rapportConseil.analyse_comparative && (
                     <div className="flex items-center mt-1">
-                      <TrendingDown className="h-3 w-3 text-green-500 mr-1" />
-                      <span className="text-xs text-green-600">
+                      <TrendingDown className="h-3 w-3 text-success mr-1" />
+                      <span className="text-xs text-success">
                         {rapportConseil.analyse_comparative.evolution_depenses}%
                       </span>
                     </div>
                   )}
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="card-colorful hover-colorful border-legion-gold/30 bg-gradient-to-br from-yellow-50 to-amber-50">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium">
+                  <CardTitle className="text-sm font-medium text-legion-gold">
                     Solde Final
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-primary">
+                  <div className="text-2xl font-bold text-legion-gold">
                     {formatCurrency(rapportConseil.solde_final)}
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
@@ -976,8 +976,8 @@ export default function Finances() {
                   </p>
                   {rapportConseil.analyse_comparative && (
                     <div className="flex items-center mt-1">
-                      <TrendingUp className="h-3 w-3 text-green-500 mr-1" />
-                      <span className="text-xs text-green-600">
+                      <TrendingUp className="h-3 w-3 text-success mr-1" />
+                      <span className="text-xs text-success">
                         +{rapportConseil.analyse_comparative.evolution_solde}%
                       </span>
                     </div>
