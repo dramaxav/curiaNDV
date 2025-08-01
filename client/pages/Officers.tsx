@@ -153,6 +153,11 @@ export default function Officers() {
 
   const filteredOfficiers = useMemo(() => {
     return officiers.filter((officier) => {
+      // Si c'est un officier de praesidium, ne montrer que les officiers de son praesidium
+      if (isPraesidiumOfficer && utilisateur?.id_praesidium !== officier.id_praesidium) {
+        return false;
+      }
+
       const matchesSearch = officier.nom_prenom
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
@@ -164,7 +169,7 @@ export default function Officers() {
 
       return matchesSearch && matchesPraesidium && matchesPoste;
     });
-  }, [officiers, searchTerm, selectedPraesidium, selectedPoste]);
+  }, [officiers, searchTerm, selectedPraesidium, selectedPoste, isPraesidiumOfficer, utilisateur]);
 
   // Calculer les alertes de fin de mandat
   const mandatesExpiringSoon = useMemo(() => {
