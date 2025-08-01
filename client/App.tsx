@@ -207,6 +207,16 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/account-management"
+                element={
+                  <ProtectedRoute requiredPermission="approve_accounts">
+                    <Layout>
+                      <AccountManagement />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route
                 path="*"
