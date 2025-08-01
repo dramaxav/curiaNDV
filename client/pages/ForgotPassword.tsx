@@ -12,12 +12,47 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Shield, Mail, Loader2, CheckCircle } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Shield, Mail, Loader2, CheckCircle, User, Building } from "lucide-react";
+import type { Praesidium } from "@shared/types";
+
+// Mock data pour les praesidia
+const mockPraesidia: Praesidium[] = [
+  {
+    id_praesidium: "1",
+    id_zone: "1",
+    nom_praesidium: "Notre-Dame du Rosaire",
+    date_creation: new Date(),
+    directeur_spirituel: "Père Jean",
+    type_praesidium: "adulte",
+    actif: true,
+  },
+  {
+    id_praesidium: "2",
+    id_zone: "1",
+    nom_praesidium: "Saint-Jean-Baptiste",
+    date_creation: new Date(),
+    directeur_spirituel: "Père Jean",
+    type_praesidium: "adulte",
+    actif: true,
+  },
+];
 
 export default function ForgotPassword() {
-  const [email, setEmail] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    poste: "",
+    praesidium: "",
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
