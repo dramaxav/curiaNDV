@@ -274,6 +274,7 @@ const mockAlertesBase: Alerte[] = [
 
 export default function Alerts() {
   const { utilisateur, hasPermission } = useAuth();
+  const isCouncilOfficer = useIsCouncilOfficer();
   const [alertes, setAlertes] = useState<Alerte[]>(mockAlertesBase);
   const [alertesProbation, setAlertesProbation] = useState<AlerteProbation[]>(
     [],
