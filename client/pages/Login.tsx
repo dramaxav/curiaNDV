@@ -147,6 +147,11 @@ export default function Login() {
           </CardContent>
           <CardFooter className="flex flex-col space-y-2">
             <div className="text-sm text-center">
+              <Link to="/forgot-password" className="text-primary hover:underline text-sm">
+                Mot de passe oublié ?
+              </Link>
+            </div>
+            <div className="text-sm text-center">
               <span className="text-muted-foreground">
                 Pas encore de compte ?{" "}
               </span>
