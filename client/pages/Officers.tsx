@@ -372,6 +372,7 @@ export default function Officers() {
                       setFormData({ ...formData, id_praesidium: value })
                     }
                     required
+                    disabled={isPraesidiumOfficer}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Sélectionner un praesidium" />
