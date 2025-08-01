@@ -672,9 +672,30 @@ export default function Members() {
                       <div className="flex items-center gap-3">
                         {membre.photo ? (
                           <img
-                            src={membre.photo}
+                            src={
+                              (() => {
+                                try {
+                                  const photoData = JSON.parse(membre.photo);
+                                  return photoData.base64 || membre.photo;
+                                } catch {
+                                  return membre.photo;
+                                }
+                              })()
+                            }
                             alt={membre.nom_prenom}
-                            className="w-8 h-8 rounded-full object-cover border"
+                            className="w-8 h-8 rounded-full object-cover border cursor-pointer hover:opacity-80 transition-opacity"
+                            onClick={() => {
+                              try {
+                                const photoData = JSON.parse(membre.photo);
+                                if (photoData.localPath) {
+                                  alert(`Chemin local de la photo:\n${photoData.fullPath || photoData.localPath}`);
+                                } else {
+                                  alert(`Chemin de la photo:\n${membre.photo}`);
+                                }
+                              } catch {
+                                alert(`Chemin de la photo:\n${membre.photo}`);
+                              }
+                            }}
                             onError={(e) => {
                               (e.target as HTMLImageElement).style.display =
                                 "none";
