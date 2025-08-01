@@ -57,6 +57,14 @@ function App() {
                   </PublicOnlyRoute>
                 }
               />
+              <Route
+                path="/forgot-password"
+                element={
+                  <PublicOnlyRoute>
+                    <ForgotPassword />
+                  </PublicOnlyRoute>
+                }
+              />
 
               {/* Routes protégées */}
               <Route
