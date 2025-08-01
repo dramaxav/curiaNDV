@@ -1093,15 +1093,23 @@ export default function Attendance() {
                 <SelectValue placeholder="Tous les praesidia" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Tous les praesidia</SelectItem>
-                {mockPraesidia.map((praesidium) => (
-                  <SelectItem
-                    key={praesidium.id_praesidium}
-                    value={praesidium.id_praesidium}
-                  >
-                    {praesidium.nom_praesidium}
-                  </SelectItem>
-                ))}
+                {!isPraesidiumOfficer && <SelectItem value="all">Tous les praesidia</SelectItem>}
+                {mockPraesidia
+                  .filter((p) => {
+                    // Si c'est un officier de praesidium, ne montrer que son praesidium
+                    if (isPraesidiumOfficer) {
+                      return p.id_praesidium === utilisateur?.id_praesidium;
+                    }
+                    return true;
+                  })
+                  .map((praesidium) => (
+                    <SelectItem
+                      key={praesidium.id_praesidium}
+                      value={praesidium.id_praesidium}
+                    >
+                      {praesidium.nom_praesidium}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
             <Select
