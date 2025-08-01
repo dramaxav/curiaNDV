@@ -192,6 +192,18 @@ export default function PhotoUpload({
               <div className="text-xs text-muted-foreground">
                 JPEG, PNG, WebP - Max 5MB
               </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="mt-2"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  fileInputRef.current?.click();
+                }}
+              >
+                Parcourir disque local
+              </Button>
             </div>
           </CardContent>
         </Card>
