@@ -274,14 +274,25 @@ export default function Attendance() {
     const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
 
-    const totalPresences = presences.length;
-    const presents = presences.filter(
+    // Filtrer les présences selon les restrictions de praesidium
+    const presencesFiltered = presences.filter((presence) => {
+      if (isPraesidiumOfficer) {
+        const officier = mockOfficiers.find(
+          (o) => o.id_officier === presence.id_officier,
+        );
+        return officier?.id_praesidium === utilisateur?.id_praesidium;
+      }
+      return true;
+    });
+
+    const totalPresences = presencesFiltered.length;
+    const presents = presencesFiltered.filter(
       (p) => p.statut_presence === "Présent",
     ).length;
-    const absents = presences.filter(
+    const absents = presencesFiltered.filter(
       (p) => p.statut_presence === "Absent",
     ).length;
-    const excuses = presences.filter(
+    const excuses = presencesFiltered.filter(
       (p) => p.statut_presence === "Excusé",
     ).length;
     const tauxPresence =
