@@ -88,18 +88,19 @@ export default function ForgotPassword() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Vérifiez vos emails</CardTitle>
+              <CardTitle>Demande envoyée</CardTitle>
               <CardDescription>
-                Un lien de réinitialisation a été envoyé à{" "}
-                <span className="font-medium">{email}</span>
+                Votre demande de réinitialisation a été soumise pour{" "}
+                <span className="font-medium">{formData.email}</span>
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Alert>
                 <CheckCircle className="h-4 w-4" />
                 <AlertDescription>
-                  Suivez les instructions dans l'email pour créer un nouveau mot
-                  de passe. Le lien expire dans 24 heures.
+                  Votre demande de réinitialisation de mot de passe est en attente de validation
+                  par le Vice-Président ou le Président du conseil. Vous recevrez un email
+                  avec les instructions une fois la demande approuvée.
                 </AlertDescription>
               </Alert>
             </CardContent>
