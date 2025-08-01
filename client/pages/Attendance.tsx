@@ -60,6 +60,7 @@ import type { Presence, Membre, Praesidium, Officier } from "@shared/types";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
+import { useAuth, useIsPraesidiumOfficer } from "@/contexts/AuthContext";
 
 // Mock data
 const mockPraesidia: Praesidium[] = [
