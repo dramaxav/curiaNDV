@@ -118,7 +118,14 @@ export default function PhotoUpload({
     <div className={`space-y-3 ${className}`}>
       <div className="flex items-center gap-4">
         {/* Avatar avec photo actuelle */}
-        <Avatar className={sizeClasses[size]}>
+        <Avatar
+          className={`${sizeClasses[size]} ${currentPhotoUrl ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''}`}
+          onClick={() => {
+            if (currentPhotoUrl) {
+              alert(`Chemin de la photo:\n${currentPhotoUrl}`);
+            }
+          }}
+        >
           {currentPhotoUrl ? (
             <AvatarImage src={currentPhotoUrl} alt="Photo officier" />
           ) : (
