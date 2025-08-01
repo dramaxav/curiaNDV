@@ -178,10 +178,15 @@ export default function Officers() {
     twoMonthsFromNow.setMonth(now.getMonth() + 2);
 
     return officiers.filter((officier) => {
+      // Si c'est un officier de praesidium, ne considérer que les officiers de son praesidium
+      if (isPraesidiumOfficer && utilisateur?.id_praesidium !== officier.id_praesidium) {
+        return false;
+      }
+
       const finMandat = new Date(officier.date_fin_mandat);
       return officier.actif && finMandat <= twoMonthsFromNow && finMandat > now;
     });
-  }, [officiers]);
+  }, [officiers, isPraesidiumOfficer, utilisateur]);
 
   const stats = useMemo(() => {
     // Filtrer les officiers selon les restrictions de praesidium
