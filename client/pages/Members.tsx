@@ -50,6 +50,7 @@ import {
   UserMinus,
 } from "lucide-react";
 import type { Membre, MembreFormData, Praesidium } from "@shared/types";
+import { useAuth, useIsPraesidiumOfficer } from "@/contexts/AuthContext";
 
 // Mock data
 const mockPraesidia: Praesidium[] = [
