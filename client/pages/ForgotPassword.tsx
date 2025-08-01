@@ -154,22 +154,82 @@ export default function ForgotPassword() {
                     id="email"
                     type="email"
                     placeholder="votre.email@exemple.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
                     className="pl-10"
                     required
                   />
                 </div>
               </div>
 
-              <Button type="submit" className="w-full" disabled={isLoading || !email}>
+              <div className="space-y-2">
+                <Label htmlFor="poste">Poste</Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Select
+                    value={formData.poste}
+                    onValueChange={(value) => setFormData({...formData, poste: value})}
+                    required
+                  >
+                    <SelectTrigger className="pl-10">
+                      <SelectValue placeholder="Sélectionner votre poste" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Président du Conseil">Président du Conseil</SelectItem>
+                      <SelectItem value="Vice-Président du Conseil">Vice-Président du Conseil</SelectItem>
+                      <SelectItem value="Secrétaire du Conseil">Secrétaire du Conseil</SelectItem>
+                      <SelectItem value="Trésorier du Conseil">Trésorier du Conseil</SelectItem>
+                      <SelectItem value="Président">Président de Praesidium</SelectItem>
+                      <SelectItem value="Vice-Président">Vice-Président de Praesidium</SelectItem>
+                      <SelectItem value="Secrétaire">Secrétaire de Praesidium</SelectItem>
+                      <SelectItem value="Trésorier">Trésorier de Praesidium</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="praesidium">Praesidium</Label>
+                <div className="relative">
+                  <Building className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Select
+                    value={formData.praesidium}
+                    onValueChange={(value) => setFormData({...formData, praesidium: value})}
+                    required
+                  >
+                    <SelectTrigger className="pl-10">
+                      <SelectValue placeholder="Sélectionner votre praesidium" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="conseil">Conseil (pour les officiers du conseil)</SelectItem>
+                      {mockPraesidia.map((praesidium) => (
+                        <SelectItem key={praesidium.id_praesidium} value={praesidium.id_praesidium}>
+                          {praesidium.nom_praesidium}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {error && (
+                <Alert variant="destructive">
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+              )}
+
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={isLoading || !formData.email || !formData.poste || !formData.praesidium}
+              >
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Envoi en cours...
+                    Vérification en cours...
                   </>
                 ) : (
-                  "Envoyer le lien de réinitialisation"
+                  "Soumettre la demande de réinitialisation"
                 )}
               </Button>
             </form>
