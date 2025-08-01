@@ -183,13 +183,30 @@ export default function Officers() {
     });
   }, [officiers]);
 
-  const stats = {
-    total: officiers.length,
-    actifs: officiers.filter((o) => o.actif).length,
-    presidents: officiers.filter((o) => o.poste === "Président" && o.actif)
-      .length,
-    fin_mandat_proche: mandatesExpiringSoon.length,
-  };
+  const stats = useMemo(() => {
+    // Filtrer les officiers selon les restrictions de praesidium
+    const officiersFiltered = officiers.filter((officier) => {
+      if (isPraesidiumOfficer) {
+        return officier.id_praesidium === utilisateur?.id_praesidium;
+      }
+      return true;
+    });
+
+    const mandatesExpiringSoonFiltered = mandatesExpiringSoon.filter((officier) => {
+      if (isPraesidiumOfficer) {
+        return officier.id_praesidium === utilisateur?.id_praesidium;
+      }
+      return true;
+    });
+
+    return {
+      total: officiersFiltered.length,
+      actifs: officiersFiltered.filter((o) => o.actif).length,
+      presidents: officiersFiltered.filter((o) => o.poste === "Président" && o.actif)
+        .length,
+      fin_mandat_proche: mandatesExpiringSoonFiltered.length,
+    };
+  }, [officiers, mandatesExpiringSoon, isPraesidiumOfficer, utilisateur]);
 
   const getPraesidiumName = (praesidiumId: string) => {
     const praesidium = mockPraesidia.find(
