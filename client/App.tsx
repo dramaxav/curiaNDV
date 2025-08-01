@@ -149,6 +149,16 @@ function App() {
                 }
               />
               <Route
+                path="/praesidium-finance"
+                element={
+                  <ProtectedRoute requiredPermission="manage_praesidium">
+                    <Layout>
+                      <PraesidiumFinance />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
                 path="/alerts"
                 element={
                   <ProtectedRoute>
