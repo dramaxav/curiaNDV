@@ -203,3 +203,22 @@ export function useIsPraesidiumOfficer() {
   const { utilisateur } = useAuth();
   return utilisateur?.type_utilisateur === "officier_praesidium";
 }
+
+// Hook pour vérifier l'accès à un praesidium spécifique
+export function useCanAccessPraesidium(praesidiumId?: string) {
+  const { utilisateur } = useAuth();
+
+  if (!utilisateur || !praesidiumId) return false;
+
+  // Les officiers du conseil peuvent accéder à tous les praesidia
+  if (utilisateur.type_utilisateur === "officier_conseil") {
+    return true;
+  }
+
+  // Les officiers de praesidium peuvent uniquement accéder à leur praesidium
+  if (utilisateur.type_utilisateur === "officier_praesidium") {
+    return utilisateur.id_praesidium === praesidiumId;
+  }
+
+  return false;
+}
