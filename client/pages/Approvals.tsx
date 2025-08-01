@@ -307,7 +307,7 @@ export default function Approvals() {
               <Shield className="h-8 w-8 text-destructive" />
             </div>
             <CardTitle className="text-destructive">
-              Accès non autorisé
+              Acc��s non autorisé
             </CardTitle>
             <CardDescription>
               Vous n'avez pas les permissions nécessaires pour accéder aux
@@ -604,6 +604,35 @@ export default function Approvals() {
                           <TableCell className="text-right">
                             {approbation.statut === "en_attente" && (
                               <div className="flex items-center justify-end gap-2">
+                                <Dialog>
+                                  <DialogTrigger asChild>
+                                    <Button variant="outline" size="sm">
+                                      <FileText className="h-4 w-4 mr-1" />
+                                      Voir
+                                    </Button>
+                                  </DialogTrigger>
+                                  <DialogContent>
+                                    <DialogHeader>
+                                      <DialogTitle>
+                                        Détails des Présences
+                                      </DialogTitle>
+                                      <DialogDescription>
+                                        {getPraesidiumName(approbation.id_praesidium)} - {approbation.mois_annee}
+                                      </DialogDescription>
+                                    </DialogHeader>
+                                    <div className="space-y-4">
+                                      <div>
+                                        <Label>Présences soumises</Label>
+                                        <p className="text-sm text-muted-foreground mt-1">
+                                          {approbation.presences_ids.length} présences enregistrées
+                                        </p>
+                                        <p className="text-sm text-muted-foreground">
+                                          Soumis par: {approbation.soumis_par}
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </DialogContent>
+                                </Dialog>
                                 <Button
                                   variant="outline"
                                   size="sm"
