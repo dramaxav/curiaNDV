@@ -617,15 +617,20 @@ export default function Members() {
                 <SelectValue placeholder="Tous les praesidia" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Tous les praesidia</SelectItem>
-                {mockPraesidia.map((praesidium) => (
-                  <SelectItem
-                    key={praesidium.id_praesidium}
-                    value={praesidium.id_praesidium}
-                  >
-                    {praesidium.nom_praesidium}
-                  </SelectItem>
-                ))}
+                {!isPraesidiumOfficer && <SelectItem value="all">Tous les praesidia</SelectItem>}
+                {mockPraesidia
+                  .filter((praesidium) =>
+                    !isPraesidiumOfficer ||
+                    praesidium.id_praesidium === utilisateur?.id_praesidium
+                  )
+                  .map((praesidium) => (
+                    <SelectItem
+                      key={praesidium.id_praesidium}
+                      value={praesidium.id_praesidium}
+                    >
+                      {praesidium.nom_praesidium}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
             <Select value={selectedStatut} onValueChange={setSelectedStatut}>
