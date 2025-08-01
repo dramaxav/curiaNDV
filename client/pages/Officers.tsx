@@ -132,6 +132,8 @@ const mockOfficiers: Officier[] = [
 ];
 
 export default function Officers() {
+  const { utilisateur } = useAuth();
+  const isPraesidiumOfficer = useIsPraesidiumOfficer();
   const [officiers, setOfficiers] = useState<Officier[]>(mockOfficiers);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedPraesidium, setSelectedPraesidium] = useState<string>("all");
