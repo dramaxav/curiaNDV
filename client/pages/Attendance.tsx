@@ -385,7 +385,7 @@ export default function Attendance() {
         : 0;
 
     // Statistiques annuelles
-    const presencesAnnuel = presences.filter((p) => {
+    const presencesAnnuel = presencesFiltered.filter((p) => {
       const date = new Date(p.date_reunion);
       return date.getFullYear() === parseInt(selectedYearForStats);
     });
