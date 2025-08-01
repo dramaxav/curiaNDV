@@ -17,6 +17,7 @@ import Officers from "./pages/Officers";
 import Members from "./pages/Members";
 import Attendance from "./pages/Attendance";
 import Finances from "./pages/Finances";
+import PraesidiumFinance from "./pages/PraesidiumFinance";
 import Alerts from "./pages/Alerts";
 import Manifestations from "./pages/Manifestations";
 import Settings from "./pages/Settings";
