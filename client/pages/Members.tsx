@@ -138,6 +138,8 @@ const mockMembres: Membre[] = [
 ];
 
 export default function Members() {
+  const { utilisateur } = useAuth();
+  const isPraesidiumOfficer = useIsPraesidiumOfficer();
   const [membres, setMembres] = useState<Membre[]>(mockMembres);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedPraesidium, setSelectedPraesidium] = useState<string>("all");
