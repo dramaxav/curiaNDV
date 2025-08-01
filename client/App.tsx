@@ -25,6 +25,8 @@ import Archives from "./pages/Archives";
 import Approvals from "./pages/Approvals";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
+import AccountManagement from "./pages/AccountManagement";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
