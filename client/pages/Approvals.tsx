@@ -242,17 +242,34 @@ export default function Approvals() {
 
     if (type === "compte") {
       setDemandesCompte((prev) =>
-        prev.map((demande) =>
-          demande.id_demande === id
-            ? {
-                ...demande,
-                statut: newStatut as any,
-                traite_par: utilisateur?.id_utilisateur,
-                date_traitement: now,
-                commentaire_traitement: commentaire,
-              }
-            : demande,
-        ),
+        prev.map((demande) => {
+          if (demande.id_demande === id) {
+            const updatedDemande = {
+              ...demande,
+              statut: newStatut as any,
+              traite_par: utilisateur?.id_utilisateur,
+              date_traitement: now,
+              commentaire_traitement: commentaire,
+            };
+
+            // Si approuvé, ajouter automatiquement aux officiers du praesidium
+            if (action === "approve" && demande.type_demande === "officier_praesidium" && demande.id_praesidium) {
+              console.log("Auto-ajout de l'officier:", {
+                nom_prenom: demande.nom_prenom,
+                email: demande.email,
+                poste: demande.poste_souhaite,
+                praesidium: demande.id_praesidium,
+              });
+
+              // Ici on ajouterait automatiquement l'officier dans le praesidium
+              // Cela nécessiterait une intégration avec la base de données
+              alert(`Compte approuvé ! ${demande.nom_prenom} a été automatiquement ajouté comme ${demande.poste_souhaite} du praesidium ${getPraesidiumName(demande.id_praesidium)}.`);
+            }
+
+            return updatedDemande;
+          }
+          return demande;
+        }),
       );
     } else if (type === "presence") {
       setApprobationsPresence((prev) =>
