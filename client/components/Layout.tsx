@@ -344,12 +344,47 @@ export default function Layout({ children }: LayoutProps) {
               <Menu className="h-5 w-5" />
             </Button>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
+              {/* Notifications */}
               <Button variant="ghost" size="icon" asChild>
                 <Link to="/alerts">
                   <Bell className="h-4 w-4" />
                 </Link>
               </Button>
+
+              {/* User section */}
+              <div className="flex items-center gap-3">
+                <Avatar className="h-8 w-8">
+                  <AvatarFallback>
+                    {utilisateur ? getInitials(utilisateur.nom_prenom) : "U"}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="hidden sm:block">
+                  <div className="text-sm font-medium">
+                    {utilisateur?.nom_prenom}
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    {utilisateur?.poste}
+                    {utilisateur?.type_utilisateur === "officier_conseil" && (
+                      <Badge variant="secondary" className="text-xs ml-2">
+                        Conseil
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+
+                {/* Settings */}
+                <Button variant="ghost" size="icon" asChild>
+                  <Link to="/settings">
+                    <Settings className="h-4 w-4" />
+                  </Link>
+                </Button>
+
+                {/* Logout */}
+                <Button variant="ghost" size="icon" onClick={handleLogout}>
+                  <LogOut className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </div>
         </header>
