@@ -118,7 +118,14 @@ export default function Layout({ children }: LayoutProps) {
   const getVisibleNavigationItems = () => {
     return navigationItems.filter((item) => {
       if (!item.permission) return true;
-      return hasPermission(item.permission);
+
+      // Si plusieurs permissions séparées par des virgules, vérifier si l'utilisateur en a au moins une
+      if (item.permission.includes(',')) {
+        const permissions = item.permission.split(',').map(p => p.trim());
+        return permissions.some(permission => hasPermission(permission as any));
+      }
+
+      return hasPermission(item.permission as any);
     });
   };
 
