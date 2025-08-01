@@ -1122,7 +1122,14 @@ export default function Attendance() {
               <SelectContent>
                 <SelectItem value="all">Tous les officiers</SelectItem>
                 {mockOfficiers
-                  .filter((o) => o.actif)
+                  .filter((o) => {
+                    if (!o.actif) return false;
+                    // Si c'est un officier de praesidium, ne montrer que les officiers de son praesidium
+                    if (isPraesidiumOfficer) {
+                      return o.id_praesidium === utilisateur?.id_praesidium;
+                    }
+                    return true;
+                  })
                   .map((officier) => (
                     <SelectItem
                       key={officier.id_officier}
