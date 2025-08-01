@@ -644,9 +644,30 @@ export default function Officers() {
                         <div className="flex items-center gap-3">
                           {officier.photo ? (
                             <img
-                              src={officier.photo}
+                              src={
+                                (() => {
+                                  try {
+                                    const photoData = JSON.parse(officier.photo);
+                                    return photoData.base64 || officier.photo;
+                                  } catch {
+                                    return officier.photo;
+                                  }
+                                })()
+                              }
                               alt={officier.nom_prenom}
-                              className="w-8 h-8 rounded-full object-cover border"
+                              className="w-8 h-8 rounded-full object-cover border cursor-pointer hover:opacity-80 transition-opacity"
+                              onClick={() => {
+                                try {
+                                  const photoData = JSON.parse(officier.photo);
+                                  if (photoData.localPath) {
+                                    alert(`Chemin local de la photo:\n${photoData.fullPath || photoData.localPath}`);
+                                  } else {
+                                    alert(`Chemin de la photo:\n${officier.photo}`);
+                                  }
+                                } catch {
+                                  alert(`Chemin de la photo:\n${officier.photo}`);
+                                }
+                              }}
                               onError={(e) => {
                                 (e.target as HTMLImageElement).style.display =
                                   "none";
