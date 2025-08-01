@@ -411,6 +411,7 @@ export const ROLES_PERMISSIONS: Record<string, PermissionType[]> = {
   ],
   "Vice-Président du Conseil": [
     "view_all_praesidia",
+    "approve_accounts",
     "approve_presences",
     "view_finances",
     "manage_manifestations",
