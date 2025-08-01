@@ -250,6 +250,12 @@ export default function Attendance() {
       const officier = mockOfficiers.find(
         (o) => o.id_officier === presence.id_officier,
       );
+
+      // Si c'est un officier de praesidium, ne montrer que les présences de son praesidium
+      if (isPraesidiumOfficer && utilisateur?.id_praesidium !== officier?.id_praesidium) {
+        return false;
+      }
+
       const matchesPraesidium =
         selectedPraesidium === "all" ||
         officier?.id_praesidium === selectedPraesidium;
@@ -261,7 +267,7 @@ export default function Attendance() {
 
       return matchesPraesidium && matchesOfficier && matchesDate;
     });
-  }, [presences, selectedPraesidium, selectedOfficier, selectedDate]);
+  }, [presences, selectedPraesidium, selectedOfficier, selectedDate, isPraesidiumOfficier, utilisateur]);
 
   const stats = useMemo(() => {
     const now = new Date();
