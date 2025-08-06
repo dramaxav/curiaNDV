@@ -267,7 +267,7 @@ export default function Attendance() {
 
       return matchesPraesidium && matchesOfficier && matchesDate;
     });
-  }, [presences, selectedPraesidium, selectedOfficier, selectedDate, isPraesidiumOfficier, utilisateur]);
+  }, [presences, selectedPraesidium, selectedOfficier, selectedDate, isPraesidiumOfficer, utilisateur]);
 
   const stats = useMemo(() => {
     const now = new Date();
