@@ -49,6 +49,7 @@ import {
   Users,
   Award,
   Calculator,
+  Download,
 } from "lucide-react";
 
 interface OfficierConseil {
@@ -292,6 +293,65 @@ export default function CouncilOfficers() {
         officiers.filter((o) => o.id_officier_conseil !== officierId),
       );
     }
+  };
+
+  const exportCSV = () => {
+    const headers = [
+      "Officier",
+      "Poste",
+      "Début de mandat",
+      "Fin de mandat",
+      "Zone de supervision",
+      "Téléphone",
+      "Email",
+      "Statut",
+      "Photo",
+    ];
+
+    const escapeCSV = (value: string) => {
+      const v = value ?? "";
+      if (/[",\n]/.test(v)) {
+        return '"' + v.replace(/"/g, '""') + '"';
+      }
+      return v;
+    };
+
+    const rows = filteredOfficiers.map((o) => {
+      const photoLabel = (() => {
+        if (!o.photo) return "";
+        try {
+          const d = JSON.parse(o.photo);
+          return d.fullPath || d.localPath || "oui";
+        } catch {
+          return o.photo ? "oui" : "";
+        }
+      })();
+      return [
+        o.nom_prenom,
+        o.poste,
+        o.date_debut_mandat.toISOString().split("T")[0],
+        o.date_fin_mandat.toISOString().split("T")[0],
+        o.zone_supervision || "",
+        o.telephone || "",
+        o.email || "",
+        o.actif ? "Actif" : "Inactif",
+        photoLabel,
+      ];
+    });
+
+    const csv = [headers, ...rows]
+      .map((r) => r.map((c) => escapeCSV(String(c))).join(","))
+      .join("\n");
+
+    const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "officiers_conseil.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -585,6 +645,10 @@ export default function CouncilOfficers() {
                 </SelectItem>
               </SelectContent>
             </Select>
+            <Button variant="outline" onClick={exportCSV}>
+              <Download className="mr-2 h-4 w-4" />
+              Exporter CSV
+            </Button>
           </div>
 
           <div className="rounded-md border">
