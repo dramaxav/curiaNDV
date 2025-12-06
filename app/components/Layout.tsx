@@ -1,16 +1,19 @@
+"use client";
+
 import { ReactNode, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
+import { cn } from "@/app/lib/utils";
+import { Button } from "@/app/components/ui/button";
+import { Avatar, AvatarFallback } from "@/app/components/ui/avatar";
+import { Badge } from "@/app/components/ui/badge";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { useAuth } from "@/contexts/AuthContext";
+} from "@/app/components/ui/tooltip";
+import { useAuth } from "@/app/providers";
 import {
   Menu,
   Home,
@@ -104,13 +107,13 @@ const navigationItems = [
 export default function Layout({ children }: LayoutProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
   const { utilisateur, logout, hasPermission } = useAuth();
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    router.push("/login");
   };
 
   const getInitials = (name: string) => {
@@ -125,7 +128,6 @@ export default function Layout({ children }: LayoutProps) {
     return navigationItems.filter((item) => {
       if (!item.permission) return true;
 
-      // Si plusieurs permissions séparées par des virgules, vérifier si l'utilisateur en a au moins une
       if (item.permission.includes(',')) {
         const permissions = item.permission.split(',').map(p => p.trim());
         return permissions.some(permission => hasPermission(permission as any));
@@ -147,12 +149,12 @@ export default function Layout({ children }: LayoutProps) {
     <nav className="space-y-1">
       {getVisibleNavigationItems().map((item) => {
         const Icon = item.icon;
-        const isActive = location.pathname === item.href;
+        const isActive = pathname === item.href;
 
         const linkContent = (
           <Link
             key={item.name}
-            to={item.href}
+            href={item.href}
             onClick={() => setIsMobileMenuOpen(false)}
             className={cn(
               "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200",
@@ -199,15 +201,13 @@ export default function Layout({ children }: LayoutProps) {
       <div
         className={cn(
           "fixed inset-y-0 left-0 z-50 flex flex-col bg-card border-r transition-all duration-300",
-          // Desktop
           "hidden md:flex",
           isCollapsed ? "w-16" : "w-64",
-          // Mobile
           "md:translate-x-0",
           isMobileMenuOpen ? "flex w-64 translate-x-0" : "-translate-x-full",
         )}
       >
-        {/* Header avec bouton collapse */}
+        {/* Header with collapse button */}
         <div className="flex items-center justify-between p-4 border-b">
           <div
             className={cn(
@@ -241,15 +241,12 @@ export default function Layout({ children }: LayoutProps) {
         <div className="flex-1 p-3 overflow-y-auto">
           <NavItems />
         </div>
-
-
       </div>
 
       {/* Main content area */}
       <div
         className={cn(
           "flex-1 flex flex-col transition-all duration-300 ml-0",
-          // Desktop margins based on sidebar state
           isCollapsed ? "md:ml-16" : "md:ml-64",
         )}
       >
@@ -265,13 +262,13 @@ export default function Layout({ children }: LayoutProps) {
               <Menu className="h-5 w-5" />
             </Button>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 ml-auto">
               {/* Notifications */}
-              <Button variant="ghost" size="icon" asChild>
-                <Link to="/alerts">
+              <Link href="/alerts">
+                <Button variant="ghost" size="icon">
                   <Bell className="h-4 w-4" />
-                </Link>
-              </Button>
+                </Button>
+              </Link>
 
               {/* User section */}
               <div className="flex items-center gap-3">
@@ -295,11 +292,11 @@ export default function Layout({ children }: LayoutProps) {
                 </div>
 
                 {/* Settings */}
-                <Button variant="ghost" size="icon" asChild>
-                  <Link to="/settings">
+                <Link href="/settings">
+                  <Button variant="ghost" size="icon">
                     <Settings className="h-4 w-4" />
-                  </Link>
-                </Button>
+                  </Button>
+                </Link>
 
                 {/* Logout */}
                 <Button variant="ghost" size="icon" onClick={handleLogout}>
@@ -315,8 +312,6 @@ export default function Layout({ children }: LayoutProps) {
           <div className="container py-6 px-4">{children}</div>
         </main>
       </div>
-
-
     </div>
   );
 }
