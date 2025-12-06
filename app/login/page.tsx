@@ -55,64 +55,62 @@ export default function LoginPage() {
       password: "demo123",
     },
     {
-      label: "Officier de Praesidium",
+      label: "Trésorier du Conseil",
+      email: "tresorier@legiondemarie.org",
+      password: "demo123",
+    },
+    {
+      label: "Président Praesidium",
       email: "president.rosaire@legiondemarie.org",
+      password: "demo123",
+    },
+    {
+      label: "Secrétaire Praesidium",
+      email: "secretaire.stjean@legiondemarie.org",
       password: "demo123",
     },
   ];
 
-  const handleDemoLogin = async (demoEmail: string) => {
-    setError("");
-    try {
-      await login(demoEmail, "demo123");
-      router.push("/");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Erreur de connexion");
-    }
+  const fillDemoAccount = (demoEmail: string, demoPassword: string) => {
+    setEmail(demoEmail);
+    setPassword(demoPassword);
   };
 
   return (
     <PublicOnlyRoute>
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-        <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <div className="flex items-center justify-center mb-4">
-              <Shield className="w-12 h-12 text-blue-600" />
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+        <div className="w-full max-w-md space-y-6">
+          {/* Header */}
+          <div className="text-center">
+            <div className="mx-auto w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4">
+              <Shield className="h-8 w-8 text-primary-foreground" />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900">Légion de Marie</h1>
-            <p className="text-gray-600 mt-2">
-              Plateforme de gestion organisationnelle
-            </p>
+            <h1 className="text-2xl font-bold text-gray-900">Légion de Marie</h1>
+            <p className="text-gray-600 mt-2">Connexion au système de gestion</p>
           </div>
 
-          <Card className="shadow-lg">
+          {/* Login Form */}
+          <Card>
             <CardHeader>
               <CardTitle>Connexion</CardTitle>
               <CardDescription>
-                Entrez vos identifiants pour accéder à la plateforme
+                Connectez-vous avec vos identifiants d'officier
               </CardDescription>
             </CardHeader>
-
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
-                {error && (
-                  <Alert variant="destructive">
-                    <AlertCircle className="h-4 w-4" />
-                    <AlertDescription>{error}</AlertDescription>
-                  </Alert>
-                )}
-
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="email"
                       type="email"
-                      placeholder="exemple@legiondemarie.org"
+                      placeholder="votre.email@exemple.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="pl-10"
+                      required
                     />
                   </div>
                 </div>
@@ -120,7 +118,7 @@ export default function LoginPage() {
                 <div className="space-y-2">
                   <Label htmlFor="password">Mot de passe</Label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="password"
                       type="password"
@@ -128,61 +126,78 @@ export default function LoginPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       className="pl-10"
+                      required
                     />
                   </div>
                 </div>
 
-                <Button
-                  type="submit"
-                  className="w-full"
-                  disabled={isLoading}
-                >
+                {error && (
+                  <Alert variant="destructive">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>{error}</AlertDescription>
+                  </Alert>
+                )}
+
+                <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Connexion en cours...
+                      Connexion...
                     </>
                   ) : (
                     "Se connecter"
                   )}
                 </Button>
               </form>
-
-              <div className="mt-6 pt-6 border-t">
-                <p className="text-sm font-semibold text-gray-700 mb-3">
-                  Comptes de démonstration:
-                </p>
-                <div className="space-y-2">
-                  {demoAccounts.map((account) => (
-                    <button
-                      key={account.email}
-                      onClick={() => handleDemoLogin(account.email)}
-                      className="w-full text-left text-sm p-3 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-900 transition"
-                    >
-                      <span className="font-medium">{account.label}</span>
-                      <br />
-                      <span className="text-xs text-blue-700">{account.email}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
             </CardContent>
-
             <CardFooter className="flex flex-col space-y-2">
-              <Link href="/forgot-password">
-                <Button variant="ghost" className="w-full">
-                  Mot de passe oublié?
-                </Button>
-              </Link>
+              <div className="text-sm text-center">
+                <Link
+                  href="/forgot-password"
+                  className="text-primary hover:underline text-sm"
+                >
+                  Mot de passe oublié ?
+                </Link>
+              </div>
+              <div className="text-sm text-center">
+                <span className="text-muted-foreground">
+                  Pas encore de compte ?{" "}
+                </span>
+                <Link
+                  href="/register"
+                  className="text-primary hover:underline"
+                >
+                  Demander un accès
+                </Link>
+              </div>
             </CardFooter>
           </Card>
 
-          <p className="text-center text-sm text-gray-600 mt-6">
-            Pas encore inscrit?{" "}
-            <Link href="/register" className="text-blue-600 hover:underline">
-              Créer un compte
-            </Link>
-          </p>
+          {/* Demo Accounts */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-sm">Comptes de démonstration</CardTitle>
+              <CardDescription className="text-xs">
+                Cliquez pour remplir automatiquement les champs
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-2">
+                {demoAccounts.map((account, index) => (
+                  <Button
+                    key={index}
+                    variant="outline"
+                    size="sm"
+                    onClick={() => fillDemoAccount(account.email, account.password)}
+                    className="text-xs text-left justify-start"
+                  >
+                    <Shield className="mr-2 h-3 w-3" />
+                    {account.label}
+                  </Button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </PublicOnlyRoute>
