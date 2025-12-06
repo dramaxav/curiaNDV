@@ -17,8 +17,9 @@
     "noEmit": true,
     "incremental": true,
     "paths": {
-      "@/*": ["./app/*"],
-      "@components/*": ["./components/*"],
+      "@/*": ["./*"],
+      "@app/*": ["./app/*"],
+      "@components/*": ["./app/components/*"],
       "@shared/*": ["./shared/*"]
     }
   },
