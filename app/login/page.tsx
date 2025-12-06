@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/app/providers";
-import { PublicOnlyRoute } from "@/app/protected-route";
+import { useAuth } from "@app/providers";
+import { PublicOnlyRoute } from "@app/protected-route";
 import {
   Card,
   CardContent,
@@ -11,13 +11,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/app/components/ui/card";
-import { Button } from "@/app/components/ui/button";
-import { Input } from "@/app/components/ui/input";
-import { Label } from "@/app/components/ui/label";
-import { Alert, AlertDescription } from "@/app/components/ui/alert";
+} from "@components/ui/card";
+import { Button } from "@components/ui/button";
+import { Input } from "@components/ui/input";
+import { Label } from "@components/ui/label";
+import { Alert, AlertDescription } from "@components/ui/alert";
 import { Shield, Mail, Lock, Loader2, AlertCircle } from "lucide-react";
 import Link from "next/link";
+import { Shield, Mail, Lock, Loader2, AlertCircle } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
