@@ -123,9 +123,9 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-lg text-primary-foreground/90 max-w-2xl">
-                Gérez efficacement les informations administratives, spirituelles et
-                financières du Conseil de la Légion de Marie en respectant la
-                structure hiérarchique établie.
+                Gérez efficacement les informations administratives,
+                spirituelles et financières du Conseil de la Légion de Marie en
+                respectant la structure hiérarchique établie.
               </p>
               <div className="flex items-center gap-4 mt-6">
                 <Button variant="secondary" asChild>
@@ -219,7 +219,9 @@ export default function Home() {
                   <Activity className="h-5 w-5 text-blue-500" />
                   Activité Récente
                 </CardTitle>
-                <CardDescription>Dernières actions dans le système</CardDescription>
+                <CardDescription>
+                  Dernières actions dans le système
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -279,8 +281,8 @@ export default function Home() {
                     Praesidia
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    Suivi complet des praesidia, leurs types, dates de création et
-                    structure organisationnelle.
+                    Suivi complet des praesidia, leurs types, dates de création
+                    et structure organisationnelle.
                   </p>
                 </div>
                 <div className="space-y-2">
@@ -289,8 +291,8 @@ export default function Home() {
                     Gestion des Officiers
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    Suivi des mandats, postes et responsabilités des officiers avec
-                    alertes automatiques.
+                    Suivi des mandats, postes et responsabilités des officiers
+                    avec alertes automatiques.
                   </p>
                 </div>
                 <div className="space-y-2">
@@ -309,8 +311,8 @@ export default function Home() {
                     Suivi des Présences
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    Enregistrement des présences aux réunions avec statuts détaillés
-                    (présent, absent, excusé).
+                    Enregistrement des présences aux réunions avec statuts
+                    détaillés (présent, absent, excusé).
                   </p>
                 </div>
                 <div className="space-y-2">

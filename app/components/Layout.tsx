@@ -128,9 +128,11 @@ export default function Layout({ children }: LayoutProps) {
     return navigationItems.filter((item) => {
       if (!item.permission) return true;
 
-      if (item.permission.includes(',')) {
-        const permissions = item.permission.split(',').map(p => p.trim());
-        return permissions.some(permission => hasPermission(permission as any));
+      if (item.permission.includes(",")) {
+        const permissions = item.permission.split(",").map((p) => p.trim());
+        return permissions.some((permission) =>
+          hasPermission(permission as any),
+        );
       }
 
       return hasPermission(item.permission as any);

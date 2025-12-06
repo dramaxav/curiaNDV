@@ -2,7 +2,12 @@
 
 import { ProtectedRoute } from "@app/protected-route";
 import Layout from "@components/Layout";
-import { Card, CardHeader, CardTitle, CardDescription } from "@components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@components/ui/card";
 
 export default function AlertsPage() {
   return (

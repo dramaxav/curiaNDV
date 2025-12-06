@@ -7,11 +7,13 @@ This project has been migrated from Vite + Express + React Router to **Next.js 1
 ## Prerequisites
 
 ### System Requirements
+
 - **Node.js**: 18.17 or higher
 - **npm** or **yarn** or **pnpm** (package managers)
 - **Disk Space**: ~500MB for installation and build
 
 ### Supported Servers
+
 - **Windows**: Node.js with any HTTP server (IIS with iisnode, or standalone Node.js server)
 - **Linux/Mac**: Node.js with any HTTP server
 - **Docker**: Container-based deployment
@@ -26,11 +28,13 @@ npm install
 ```
 
 Or with yarn:
+
 ```bash
 yarn install
 ```
 
 Or with pnpm:
+
 ```bash
 pnpm install
 ```
@@ -38,11 +42,13 @@ pnpm install
 ### 2. Environment Configuration
 
 Copy the example environment file:
+
 ```bash
 cp .env.example .env.local
 ```
 
 Update `.env.local` with your configuration if needed:
+
 ```env
 PORT=3000
 NODE_ENV=development
@@ -60,6 +66,7 @@ npm run dev
 This will start the development server at `http://localhost:3000`
 
 ### Features in Development
+
 - Hot module reloading
 - TypeScript checking
 - Built-in API routes at `/api/*`
@@ -74,6 +81,7 @@ npm run build
 ```
 
 This creates:
+
 - `.next/` directory: Optimized production code
 - Output directory: Ready for deployment
 
@@ -90,16 +98,20 @@ The application will start on the port specified in `.env.local` (default: 3000)
 ### Option 1: Local Windows Server (Recommended for WAMP-like setup)
 
 #### Prerequisites
+
 - Node.js installed
 - Port access (typically 3000, 3001, or 8080)
 
 #### Steps
+
 1. Build the project:
+
    ```bash
    npm run build
    ```
 
 2. Start the server:
+
    ```bash
    npm start
    ```
@@ -116,6 +128,7 @@ The application will start on the port specified in `.env.local` (default: 3000)
      ```
 
 #### Firewall Configuration
+
 - Allow Node.js through Windows Firewall
 - Or configure port forwarding on your router
 
@@ -171,6 +184,7 @@ WantedBy=multi-user.target
 ```
 
 Then enable and start:
+
 ```bash
 sudo systemctl enable legion-de-marie
 sudo systemctl start legion-de-marie
@@ -215,6 +229,7 @@ server {
 ### Apache (Windows/Linux)
 
 Enable modules:
+
 ```bash
 a2enmod proxy
 a2enmod proxy_http
@@ -222,10 +237,11 @@ a2enmod rewrite
 ```
 
 Configure VirtualHost:
+
 ```apache
 <VirtualHost *:80>
     ServerName your-domain.com
-    
+
     ProxyPreserveHost On
     ProxyPass / http://localhost:3000/
     ProxyPassReverse / http://localhost:3000/
@@ -235,12 +251,14 @@ Configure VirtualHost:
 ## Database & External Services
 
 The application includes:
+
 - **Authentication**: Mock authentication (localStorage-based for demo)
 - **API Routes**: Located in `app/api/` directory
 
 ### Connecting Real Services
 
 For production:
+
 1. [Connect to Supabase](https://www.builder.io/c/docs) for database and auth
 2. [Connect to Neon](https://www.builder.io/c/docs) for PostgreSQL
 3. Implement API routes in `app/api/` for database operations
@@ -248,13 +266,17 @@ For production:
 ## Performance Optimization
 
 ### Caching Headers
+
 Next.js automatically handles static asset caching with proper headers.
 
 ### Database Connection Pooling
+
 For production databases, configure connection pooling in your API routes.
 
 ### Monitoring
+
 Monitor server resources:
+
 ```bash
 # With PM2
 pm2 monit
@@ -267,6 +289,7 @@ pm2 logs
 ## Troubleshooting
 
 ### Port Already in Use
+
 ```bash
 # Windows: Find process using port 3000
 netstat -ano | findstr :3000
@@ -278,6 +301,7 @@ kill -9 <PID>
 ```
 
 ### Build Failures
+
 ```bash
 # Clean install
 rm -rf .next node_modules
@@ -286,7 +310,9 @@ npm run build
 ```
 
 ### Memory Issues
+
 Increase Node.js memory:
+
 ```bash
 NODE_OPTIONS=--max-old-space-size=4096 npm start
 ```
@@ -316,16 +342,19 @@ Then update Nginx config with SSL certificates.
 ## Monitoring & Logging
 
 ### Application Logs
+
 ```bash
 pm2 logs legion-de-marie
 ```
 
 ### System Logs (Linux)
+
 ```bash
 journalctl -u legion-de-marie -f
 ```
 
 ### New Relic / Datadog Integration
+
 Refer to respective documentation for monitoring integration.
 
 ## Rollback Procedure
@@ -352,11 +381,13 @@ Refer to respective documentation for monitoring integration.
 ## Maintenance
 
 ### Regular Tasks
+
 - Weekly: Check error logs
 - Monthly: Update dependencies (`npm update`)
 - Quarterly: Full security audit (`npm audit`)
 
 ### Backup Strategy
+
 - Daily: Database backups
 - Weekly: Full application backups
 - Monthly: Offsite storage
@@ -364,6 +395,7 @@ Refer to respective documentation for monitoring integration.
 ## Contact & Support
 
 For issues or questions about deployment:
+
 1. Check the troubleshooting section above
 2. Review server logs
 3. Consult Next.js documentation

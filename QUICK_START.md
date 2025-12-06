@@ -7,6 +7,7 @@ Your project has been successfully migrated from **Vite + React Router + Express
 ## 📋 Changes Summary
 
 ### Framework Upgrade
+
 - ✅ **Vite → Next.js 14** (faster builds, better optimizations)
 - ✅ **Express Server → Next.js API Routes** (simpler deployment)
 - ✅ **React Router → Next.js App Router** (file-based routing)
@@ -39,20 +40,24 @@ code/
 ## 🚀 Getting Started
 
 ### 1. Install Dependencies
+
 ```bash
 cd code
 npm install
 ```
 
 ### 2. Run Development Server
+
 ```bash
 npm run dev
 ```
+
 - Open http://localhost:3000
 - Hot reload enabled
 - TypeScript checking enabled
 
 ### 3. Build for Production
+
 ```bash
 npm run build
 npm start
@@ -61,24 +66,28 @@ npm start
 ## 🔐 Authentication
 
 ### Test Credentials
+
 All demo accounts use password: `demo123`
 
-| Role | Email |
-|------|-------|
-| President (Council) | president@legiondemarie.org |
-| Vice-President (Council) | vicepresident@legiondemarie.org |
-| Treasurer (Council) | tresorier@legiondemarie.org |
-| President (Praesidium) | president.rosaire@legiondemarie.org |
-| Secretary (Praesidium) | secretaire.stjean@legiondemarie.org |
+| Role                     | Email                               |
+| ------------------------ | ----------------------------------- |
+| President (Council)      | president@legiondemarie.org         |
+| Vice-President (Council) | vicepresident@legiondemarie.org     |
+| Treasurer (Council)      | tresorier@legiondemarie.org         |
+| President (Praesidium)   | president.rosaire@legiondemarie.org |
+| Secretary (Praesidium)   | secretaire.stjean@legiondemarie.org |
 
 ### How Authentication Works
+
 - Uses **mock authentication** with localStorage (demo)
 - Context API manages auth state (`app/providers.tsx`)
 - Protected routes require login (`app/protected-route.tsx`)
 - Demo uses React Router pattern compatible with Next.js
 
 ### For Production
+
 Replace mock auth with:
+
 - [Connect to Supabase](https://www.builder.io/c/docs) for real auth
 - Or implement your own auth provider
 
@@ -99,6 +108,7 @@ app/api/demo/route.ts           → /api/demo
 ```
 
 ### Adding a New Page
+
 ```bash
 # Create folder
 mkdir app/my-feature
@@ -140,21 +150,22 @@ npm run format.fix       # Format code with Prettier
 
 ## 📦 Tech Stack
 
-| Purpose | Technology |
-|---------|-----------|
-| Framework | Next.js 14 |
-| UI Library | React 18 |
-| Styling | Tailwind CSS |
-| UI Components | Radix UI / shadcn/ui |
-| Icons | Lucide React |
-| Forms | React Hook Form |
-| State Management | Context API |
-| Data Fetching | React Query (setup ready) |
-| Charts | Recharts |
+| Purpose          | Technology                |
+| ---------------- | ------------------------- |
+| Framework        | Next.js 14                |
+| UI Library       | React 18                  |
+| Styling          | Tailwind CSS              |
+| UI Components    | Radix UI / shadcn/ui      |
+| Icons            | Lucide React              |
+| Forms            | React Hook Form           |
+| State Management | Context API               |
+| Data Fetching    | React Query (setup ready) |
+| Charts           | Recharts                  |
 
 ## 🚢 Deployment Options
 
 ### Option 1: Local Windows Server (WAMP Alternative)
+
 ```bash
 # Build
 npm run build
@@ -165,15 +176,18 @@ pm2 start "npm start" --name "legion-de-marie"
 pm2 startup
 pm2 save
 ```
+
 → Visit `http://localhost:3000` or your server IP:3000
 
 ### Option 2: Docker
+
 ```bash
 docker build -t legion-de-marie .
 docker run -p 3000:3000 legion-de-marie
 ```
 
 ### Option 3: Linux Systemd Service
+
 Create `/etc/systemd/system/legion-de-marie.service` and use systemctl to manage
 
 For detailed deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md)
@@ -181,11 +195,13 @@ For detailed deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md)
 ## 🔧 Environment Variables
 
 Copy `.env.example` to `.env.local`:
+
 ```bash
 cp .env.example .env.local
 ```
 
 Edit as needed:
+
 ```env
 PORT=3000
 NODE_ENV=development
@@ -195,6 +211,7 @@ PING_MESSAGE=pong
 ## 🐛 Troubleshooting
 
 ### Port Already in Use
+
 ```bash
 # Windows
 netstat -ano | findstr :3000
@@ -206,6 +223,7 @@ kill -9 <PID>
 ```
 
 ### Build Fails
+
 ```bash
 rm -rf .next node_modules
 npm install
@@ -213,7 +231,9 @@ npm run build
 ```
 
 ### Module Not Found Errors
+
 Check path aliases in `tsconfig.json`:
+
 ```json
 "paths": {
   "@/*": ["./*"],
@@ -244,22 +264,26 @@ Check path aliases in `tsconfig.json`:
 ## 🎓 Notes for Developers
 
 ### File Structure
+
 - Client components use `"use client"` directive
 - API routes use server-side code
 - Components in `app/components/` are typically client-side
 - Use absolute imports with `@` aliases for clean code
 
 ### Styling
+
 - Tailwind CSS for all styling
 - CSS modules not needed (Tailwind covers everything)
 - Components already have full Tailwind setup
 
 ### State Management
+
 - Context API for authentication
 - localStorage for session persistence
 - Ready to add Redux/Zustand if needed
 
 ### TypeScript
+
 - Full TypeScript support
 - Shared types in `shared/types.ts`
 - Type checking during build

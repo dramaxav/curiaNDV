@@ -2,10 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  
+
   // Public routes that don't require authentication
   const publicRoutes = ["/login", "/register", "/forgot-password"];
-  const isPublicRoute = publicRoutes.some((route) => pathname.startsWith(route));
+  const isPublicRoute = publicRoutes.some((route) =>
+    pathname.startsWith(route),
+  );
 
   // Get user from cookies/session (simplified - in production use proper session management)
   const user = request.cookies.get("user");

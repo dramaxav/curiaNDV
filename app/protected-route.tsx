@@ -40,7 +40,8 @@ export function ProtectedRoute({
         <div className="text-center">
           <h1 className="text-2xl font-bold text-red-600">Accès Refusé</h1>
           <p className="text-gray-600 mt-2">
-            Vous n'avez pas les permissions nécessaires pour accéder à cette page.
+            Vous n'avez pas les permissions nécessaires pour accéder à cette
+            page.
           </p>
         </div>
       </div>

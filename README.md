@@ -15,6 +15,7 @@ A comprehensive web application for managing the Legion of Mary (Légion de Mari
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js 18.17+
 - npm, yarn, or pnpm
 
@@ -64,6 +65,7 @@ shared/                   # Shared types
 The application includes mock authentication with demo accounts:
 
 ### Demo Accounts
+
 - **Président du Conseil**: president@legiondemarie.org
 - **Vice-Président du Conseil**: vicepresident@legiondemarie.org
 - **Trésorier du Conseil**: tresorier@legiondemarie.org
@@ -84,6 +86,7 @@ All demo accounts use password: `demo123`
 ## 🎨 UI Components
 
 Built with Radix UI and Tailwind CSS:
+
 - Buttons, Cards, Dialogs
 - Forms and Input validation
 - Tables and Data display
@@ -123,18 +126,20 @@ Currently configured for French (FR). UI strings and error messages are in Frenc
 ### Adding API Routes
 
 Create files in `app/api/`:
+
 ```typescript
 // app/api/example/route.ts
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
 export async function GET() {
-  return NextResponse.json({ message: 'Hello' });
+  return NextResponse.json({ message: "Hello" });
 }
 ```
 
 ## 🐛 Troubleshooting
 
 ### Build Issues
+
 ```bash
 rm -rf .next node_modules
 npm install
@@ -142,6 +147,7 @@ npm run build
 ```
 
 ### Port Already in Use
+
 ```bash
 # Windows
 netstat -ano | findstr :3000

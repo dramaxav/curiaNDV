@@ -1,7 +1,17 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import type { AuthContextType, Utilisateur, PermissionType } from "@shared/types";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import type {
+  AuthContextType,
+  Utilisateur,
+  PermissionType,
+} from "@shared/types";
 import { ROLES_PERMISSIONS } from "@shared/types";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -104,7 +114,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
       }
 
       if (user.statut_compte !== "actif") {
-        throw new Error("Votre compte n'est pas encore activé ou a été suspendu");
+        throw new Error(
+          "Votre compte n'est pas encore activé ou a été suspendu",
+        );
       }
 
       // Update last login
@@ -124,7 +136,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     localStorage.removeItem("legiondemarie_user");
   };
 
-  const hasPermission = (permission: PermissionType, praesidiumId?: string): boolean => {
+  const hasPermission = (
+    permission: PermissionType,
+    praesidiumId?: string,
+  ): boolean => {
     if (!utilisateur) return false;
 
     // Get permissions based on role
@@ -135,7 +150,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     // If it's a praesidium officer and a praesidiumId is specified,
     // check that it's their praesidium
-    if (utilisateur.type_utilisateur === "officier_praesidium" && praesidiumId) {
+    if (
+      utilisateur.type_utilisateur === "officier_praesidium" &&
+      praesidiumId
+    ) {
       return utilisateur.id_praesidium === praesidiumId;
     }
 
@@ -151,7 +169,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     hasPermission,
   };
 
-  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+  );
 }
 
 export function useAuth() {
@@ -163,7 +183,10 @@ export function useAuth() {
 }
 
 // Hook to check permissions
-export function usePermission(permission: PermissionType, praesidiumId?: string) {
+export function usePermission(
+  permission: PermissionType,
+  praesidiumId?: string,
+) {
   const { hasPermission } = useAuth();
   return hasPermission(permission, praesidiumId);
 }

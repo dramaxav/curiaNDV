@@ -85,8 +85,12 @@ export default function LoginPage() {
             <div className="mx-auto w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4">
               <Shield className="h-8 w-8 text-primary-foreground" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">Légion de Marie</h1>
-            <p className="text-gray-600 mt-2">Connexion au système de gestion</p>
+            <h1 className="text-2xl font-bold text-gray-900">
+              Légion de Marie
+            </h1>
+            <p className="text-gray-600 mt-2">
+              Connexion au système de gestion
+            </p>
           </div>
 
           {/* Login Form */}
@@ -163,10 +167,7 @@ export default function LoginPage() {
                 <span className="text-muted-foreground">
                   Pas encore de compte ?{" "}
                 </span>
-                <Link
-                  href="/register"
-                  className="text-primary hover:underline"
-                >
+                <Link href="/register" className="text-primary hover:underline">
                   Demander un accès
                 </Link>
               </div>
@@ -176,7 +177,9 @@ export default function LoginPage() {
           {/* Demo Accounts */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-sm">Comptes de démonstration</CardTitle>
+              <CardTitle className="text-sm">
+                Comptes de démonstration
+              </CardTitle>
               <CardDescription className="text-xs">
                 Cliquez pour remplir automatiquement les champs
               </CardDescription>
@@ -188,7 +191,9 @@ export default function LoginPage() {
                     key={index}
                     variant="outline"
                     size="sm"
-                    onClick={() => fillDemoAccount(account.email, account.password)}
+                    onClick={() =>
+                      fillDemoAccount(account.email, account.password)
+                    }
                     className="text-xs text-left justify-start"
                   >
                     <Shield className="mr-2 h-3 w-3" />

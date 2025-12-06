@@ -1,7 +1,12 @@
 "use client";
 
 import { PublicOnlyRoute } from "@app/protected-route";
-import { Card, CardHeader, CardTitle, CardDescription } from "@components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@components/ui/card";
 
 export default function RegisterPage() {
   return (
