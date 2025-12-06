@@ -1,8 +1,8 @@
 "use client";
 
-import { ProtectedRoute } from "@/app/protected-route";
-import Layout from "@/app/components/Layout";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/app/components/ui/card";
+import { ProtectedRoute } from "@app/protected-route";
+import Layout from "@components/Layout";
+import { Card, CardHeader, CardTitle, CardDescription } from "@components/ui/card";
 
 export default function MeetingsPage() {
   return (

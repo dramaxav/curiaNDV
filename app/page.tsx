@@ -1,17 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { ProtectedRoute } from "@/app/protected-route";
-import Layout from "@/app/components/Layout";
-import { Button } from "@/app/components/ui/button";
+import { ProtectedRoute } from "@app/protected-route";
+import Layout from "@components/Layout";
+import { Button } from "@components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/app/components/ui/card";
-import { Badge } from "@/app/components/ui/badge";
+} from "@components/ui/card";
+import { Badge } from "@components/ui/badge";
 import {
   Shield,
   MapPin,
