@@ -3,17 +3,17 @@
 import { ReactNode, useState } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { cn } from "@/app/lib/utils";
-import { Button } from "@/app/components/ui/button";
-import { Avatar, AvatarFallback } from "@/app/components/ui/avatar";
-import { Badge } from "@/app/components/ui/badge";
+import { cn } from "@app/lib/utils";
+import { Button } from "@components/ui/button";
+import { Avatar, AvatarFallback } from "@components/ui/avatar";
+import { Badge } from "@components/ui/badge";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/app/components/ui/tooltip";
-import { useAuth } from "@/app/providers";
+} from "@components/ui/tooltip";
+import { useAuth } from "@app/providers";
 import {
   Menu,
   Home,
