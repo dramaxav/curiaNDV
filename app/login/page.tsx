@@ -18,7 +18,6 @@ import { Label } from "@components/ui/label";
 import { Alert, AlertDescription } from "@components/ui/alert";
 import { Shield, Mail, Lock, Loader2, AlertCircle } from "lucide-react";
 import Link from "next/link";
-import { Shield, Mail, Lock, Loader2, AlertCircle } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
