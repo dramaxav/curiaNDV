@@ -3,16 +3,18 @@
 ## ✅ Complété (Prêt à utiliser)
 
 ### Pages Complètes avec CRUD complet
+
 Les pages suivantes sont **entièrement implémentées** avec créer/lire/modifier/supprimer, synchronisation temps réel et formulaires :
 
 1. ✅ **Zones** (`/zones`) - Gestion géographique
-2. ✅ **Praesidia** (`/praesidia`) - Groupes locaux  
+2. ✅ **Praesidia** (`/praesidia`) - Groupes locaux
 3. ✅ **Membres** (`/members`) - Registre des adhésions
 4. ✅ **Officiers** (`/officers`) - Gestion des postes
 5. ✅ **Finances** (`/finances`) - Suivi financier
 6. ✅ **Présences** (`/attendance`) - Suivi des réunions
 
 ### Infrastructure
+
 - ✅ Configuration Supabase (client + types)
 - ✅ Hooks React personnalisés (`useZones`, `usePraesidia`, `useMembers`)
 - ✅ Schéma SQL Supabase complet
@@ -23,6 +25,7 @@ Les pages suivantes sont **entièrement implémentées** avec créer/lire/modifi
 ## 🚧 Partiellement Implémenté
 
 ### Pages à Compléter (Structure basique present)
+
 Les pages suivantes ont une structure de base et attendent un formulaire CRUD complet :
 
 - ⏳ **Finance Praesidium** (`/praesidium-finance`) - Finances filtrées par praesidium
@@ -36,6 +39,7 @@ Les pages suivantes ont une structure de base et attendent un formulaire CRUD co
 - ⏳ **Tableau de Bord** (`/dashboard`) - Statistiques
 
 ### Pages Spéciales
+
 - ⏳ **Page de Connexion** - Utilise toujours auth mock, Supabase Auth optionnel
 - ⏳ **Page 404** - Basique mais fonctionnelle
 - ⏳ **Enregistrement** - À implémenter
@@ -43,6 +47,7 @@ Les pages suivantes ont une structure de base et attendent un formulaire CRUD co
 ## 📋 Prochaines Étapes
 
 ### Étape 1 : Configuration Supabase (IMMÉDIAT)
+
 1. Créez un compte sur [supabase.com](https://supabase.com)
 2. Créez un nouveau projet
 3. Exécutez le schéma SQL depuis `supabase/migrations/001_create_tables.sql`
@@ -109,6 +114,7 @@ Les subscriptions écoutent les changements dans Supabase et mettent à jour l'i
 ## 🎨 Formulaires & UI
 
 Tous les formulaires utilisent :
+
 - ✅ React Hook Form (validation)
 - ✅ Shadcn/ui Components (UI)
 - ✅ Tailwind CSS (styling)

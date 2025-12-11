@@ -70,7 +70,7 @@ export default function ZonesPage() {
       setEditingId(null);
     } catch (error) {
       toast.error(
-        error instanceof Error ? error.message : "Erreur lors de l'opération"
+        error instanceof Error ? error.message : "Erreur lors de l'opération",
       );
     } finally {
       setIsSubmitting(false);
@@ -95,7 +95,9 @@ export default function ZonesPage() {
         toast.success("Zone supprimée avec succès");
       } catch (error) {
         toast.error(
-          error instanceof Error ? error.message : "Erreur lors de la suppression"
+          error instanceof Error
+            ? error.message
+            : "Erreur lors de la suppression",
         );
       }
     }
@@ -342,7 +344,9 @@ export default function ZonesPage() {
                           Date de création
                         </p>
                         <p className="text-sm">
-                          {new Date(zone.date_creation).toLocaleDateString("fr-FR")}
+                          {new Date(zone.date_creation).toLocaleDateString(
+                            "fr-FR",
+                          )}
                         </p>
                       </div>
                       <div>

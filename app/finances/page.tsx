@@ -4,11 +4,30 @@ import { useState } from "react";
 import { ProtectedRoute } from "@app/protected-route";
 import Layout from "@components/Layout";
 import { Button } from "@components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@components/ui/card";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@components/ui/dialog";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@components/ui/dialog";
 import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@components/ui/select";
 import { usePraesidia } from "@app/lib/hooks";
 import { supabase } from "@app/lib/supabase";
 import { Trash2, Edit, Plus, Loader, TrendingUp } from "lucide-react";
@@ -34,9 +53,13 @@ export default function FinancesPage() {
     fetchFinances();
     const subscription = supabase
       .channel("finances")
-      .on("postgres_changes", { event: "*", schema: "public", table: "finances" }, () => {
-        fetchFinances();
-      })
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "finances" },
+        () => {
+          fetchFinances();
+        },
+      )
       .subscribe();
 
     return () => {
@@ -47,7 +70,10 @@ export default function FinancesPage() {
   async function fetchFinances() {
     try {
       setLoading(true);
-      const { data, error } = await supabase.from("finances").select("*").order("mois", { ascending: false });
+      const { data, error } = await supabase
+        .from("finances")
+        .select("*")
+        .order("mois", { ascending: false });
       if (error) throw error;
       setFinances(data || []);
     } catch (err) {
@@ -149,7 +175,9 @@ export default function FinancesPage() {
           <div className="flex justify-between items-start">
             <div>
               <h1 className="text-3xl font-bold">Gestion Financière</h1>
-              <p className="text-gray-600 mt-2">Suivi des contributions et dépenses</p>
+              <p className="text-gray-600 mt-2">
+                Suivi des contributions et dépenses
+              </p>
             </div>
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
               <DialogTrigger asChild>
@@ -165,7 +193,12 @@ export default function FinancesPage() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <Label htmlFor="praesidium_id">Praesidium</Label>
-                    <Select value={formData.praesidium_id} onValueChange={(value) => setFormData({ ...formData, praesidium_id: value })}>
+                    <Select
+                      value={formData.praesidium_id}
+                      onValueChange={(value) =>
+                        setFormData({ ...formData, praesidium_id: value })
+                      }
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Sélectionnez" />
                       </SelectTrigger>
@@ -184,7 +217,9 @@ export default function FinancesPage() {
                       id="mois"
                       type="month"
                       value={formData.mois}
-                      onChange={(e) => setFormData({ ...formData, mois: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, mois: e.target.value })
+                      }
                       required
                     />
                   </div>
@@ -195,7 +230,12 @@ export default function FinancesPage() {
                       type="number"
                       step="0.01"
                       value={formData.solde_initial}
-                      onChange={(e) => setFormData({ ...formData, solde_initial: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          solde_initial: e.target.value,
+                        })
+                      }
                     />
                   </div>
                   <div>
@@ -205,7 +245,12 @@ export default function FinancesPage() {
                       type="number"
                       step="0.01"
                       value={formData.contributions}
-                      onChange={(e) => setFormData({ ...formData, contributions: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          contributions: e.target.value,
+                        })
+                      }
                     />
                   </div>
                   <div>
@@ -215,7 +260,9 @@ export default function FinancesPage() {
                       type="number"
                       step="0.01"
                       value={formData.depenses}
-                      onChange={(e) => setFormData({ ...formData, depenses: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, depenses: e.target.value })
+                      }
                     />
                   </div>
                   <Button type="submit" disabled={isSubmitting}>
@@ -240,7 +287,12 @@ export default function FinancesPage() {
                     type="number"
                     step="0.01"
                     value={formData.solde_initial}
-                    onChange={(e) => setFormData({ ...formData, solde_initial: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        solde_initial: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div>
@@ -250,7 +302,12 @@ export default function FinancesPage() {
                     type="number"
                     step="0.01"
                     value={formData.contributions}
-                    onChange={(e) => setFormData({ ...formData, contributions: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        contributions: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div>
@@ -260,7 +317,9 @@ export default function FinancesPage() {
                     type="number"
                     step="0.01"
                     value={formData.depenses}
-                    onChange={(e) => setFormData({ ...formData, depenses: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, depenses: e.target.value })
+                    }
                   />
                 </div>
                 <Button type="submit" disabled={isSubmitting}>
@@ -282,7 +341,9 @@ export default function FinancesPage() {
           ) : finances.length === 0 ? (
             <Card>
               <CardContent className="pt-6">
-                <p className="text-center text-muted-foreground py-8">Aucune entrée.</p>
+                <p className="text-center text-muted-foreground py-8">
+                  Aucune entrée.
+                </p>
               </CardContent>
             </Card>
           ) : (
@@ -292,16 +353,30 @@ export default function FinancesPage() {
                   <CardHeader>
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
-                        <CardTitle className="text-lg">{finance.mois}</CardTitle>
+                        <CardTitle className="text-lg">
+                          {finance.mois}
+                        </CardTitle>
                         <CardDescription>
-                          {praesidia.find((p) => p.id === finance.praesidium_id)?.nom_praesidium}
+                          {
+                            praesidia.find(
+                              (p) => p.id === finance.praesidium_id,
+                            )?.nom_praesidium
+                          }
                         </CardDescription>
                       </div>
                       <div className="flex gap-2">
-                        <Button variant="outline" size="sm" onClick={() => handleEdit(finance)}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleEdit(finance)}
+                        >
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button variant="destructive" size="sm" onClick={() => handleDelete(finance.id)}>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => handleDelete(finance.id)}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -311,19 +386,27 @@ export default function FinancesPage() {
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       <div>
                         <p className="text-muted-foreground">Initial</p>
-                        <p className="font-medium">{finance.solde_initial.toFixed(2)}€</p>
+                        <p className="font-medium">
+                          {finance.solde_initial.toFixed(2)}€
+                        </p>
                       </div>
                       <div>
                         <p className="text-muted-foreground">Contributions</p>
-                        <p className="font-medium text-green-600">+{finance.contributions.toFixed(2)}€</p>
+                        <p className="font-medium text-green-600">
+                          +{finance.contributions.toFixed(2)}€
+                        </p>
                       </div>
                       <div>
                         <p className="text-muted-foreground">Dépenses</p>
-                        <p className="font-medium text-red-600">-{finance.depenses.toFixed(2)}€</p>
+                        <p className="font-medium text-red-600">
+                          -{finance.depenses.toFixed(2)}€
+                        </p>
                       </div>
                       <div>
                         <p className="text-muted-foreground">Solde Final</p>
-                        <p className="font-medium text-lg">{finance.solde_final.toFixed(2)}€</p>
+                        <p className="font-medium text-lg">
+                          {finance.solde_final.toFixed(2)}€
+                        </p>
                       </div>
                     </div>
                   </CardContent>

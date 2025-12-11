@@ -22,7 +22,7 @@ export function useMembers(praesidiumId?: string) {
         },
         () => {
           fetchMembers();
-        }
+        },
       )
       .subscribe();
 
@@ -53,7 +53,9 @@ export function useMembers(praesidiumId?: string) {
     }
   }
 
-  async function createMember(member: Omit<Membre, "id" | "created_at" | "updated_at">) {
+  async function createMember(
+    member: Omit<Membre, "id" | "created_at" | "updated_at">,
+  ) {
     try {
       const { data, error } = await supabase
         .from("membres")
@@ -64,7 +66,9 @@ export function useMembers(praesidiumId?: string) {
       setMembers([...(data || []), ...members]);
       return data?.[0];
     } catch (err) {
-      throw err instanceof Error ? err : new Error("Erreur lors de la création");
+      throw err instanceof Error
+        ? err
+        : new Error("Erreur lors de la création");
     }
   }
 
@@ -80,7 +84,9 @@ export function useMembers(praesidiumId?: string) {
       setMembers(members.map((m) => (m.id === id ? { ...m, ...updates } : m)));
       return data?.[0];
     } catch (err) {
-      throw err instanceof Error ? err : new Error("Erreur lors de la mise à jour");
+      throw err instanceof Error
+        ? err
+        : new Error("Erreur lors de la mise à jour");
     }
   }
 
@@ -91,7 +97,9 @@ export function useMembers(praesidiumId?: string) {
       if (error) throw error;
       setMembers(members.filter((m) => m.id !== id));
     } catch (err) {
-      throw err instanceof Error ? err : new Error("Erreur lors de la suppression");
+      throw err instanceof Error
+        ? err
+        : new Error("Erreur lors de la suppression");
     }
   }
 

@@ -113,19 +113,23 @@ Les subscriptions en temps réel sont déjà implémentées dans les hooks. Assu
 ## 🚨 Dépannage
 
 ### Erreur : "Cannot find module '@supabase/supabase-js'"
+
 ```bash
 npm install @supabase/supabase-js
 ```
 
 ### Erreur : "Invalid API key"
+
 - Vérifiez que vos clés sont correctement copiées sans espaces
 - Assurez-vous d'utiliser la clé `anon public` et non la clé de service
 
 ### Erreur : "Network error"
+
 - Vérifiez votre URL Supabase (doit commencer par `https://`)
 - Assurez-vous que votre projet Supabase est actif
 
 ### Aucune donnée n'apparaît
+
 - Vérifiez que les RLS policies sont correctement configurées
 - Essayez d'abord avec "Enable read access for all" comme c'est configuré
 

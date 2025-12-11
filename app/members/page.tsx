@@ -4,17 +4,37 @@ import { useState } from "react";
 import { ProtectedRoute } from "@app/protected-route";
 import Layout from "@components/Layout";
 import { Button } from "@components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@components/ui/card";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@components/ui/dialog";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@components/ui/dialog";
 import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@components/ui/select";
 import { useMembers, usePraesidia } from "@app/lib/hooks";
 import { Trash2, Edit, Plus, Loader } from "lucide-react";
 import { toast } from "sonner";
 
 export default function MembersPage() {
-  const { members, loading, createMember, updateMember, deleteMember } = useMembers();
+  const { members, loading, createMember, updateMember, deleteMember } =
+    useMembers();
   const { praesidia } = usePraesidia();
   const [isOpen, setIsOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -63,7 +83,9 @@ export default function MembersPage() {
       });
       setEditingId(null);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Erreur lors de l'opération");
+      toast.error(
+        error instanceof Error ? error.message : "Erreur lors de l'opération",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -100,7 +122,9 @@ export default function MembersPage() {
           <div className="flex justify-between items-start">
             <div>
               <h1 className="text-3xl font-bold">Registre des Membres</h1>
-              <p className="text-gray-600 mt-2">Gestion des adhésions et statuts</p>
+              <p className="text-gray-600 mt-2">
+                Gestion des adhésions et statuts
+              </p>
             </div>
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
               <DialogTrigger asChild>
@@ -116,7 +140,12 @@ export default function MembersPage() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <Label htmlFor="praesidium_id">Praesidium</Label>
-                    <Select value={formData.praesidium_id} onValueChange={(value) => setFormData({ ...formData, praesidium_id: value })}>
+                    <Select
+                      value={formData.praesidium_id}
+                      onValueChange={(value) =>
+                        setFormData({ ...formData, praesidium_id: value })
+                      }
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Sélectionnez un praesidium" />
                       </SelectTrigger>
@@ -134,19 +163,28 @@ export default function MembersPage() {
                     <Input
                       id="nom_prenom"
                       value={formData.nom_prenom}
-                      onChange={(e) => setFormData({ ...formData, nom_prenom: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, nom_prenom: e.target.value })
+                      }
                       required
                     />
                   </div>
                   <div>
                     <Label htmlFor="statut">Statut</Label>
-                    <Select value={formData.statut} onValueChange={(value: any) => setFormData({ ...formData, statut: value })}>
+                    <Select
+                      value={formData.statut}
+                      onValueChange={(value: any) =>
+                        setFormData({ ...formData, statut: value })
+                      }
+                    >
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="actif">Actif</SelectItem>
-                        <SelectItem value="probationnaire">Probationnaire</SelectItem>
+                        <SelectItem value="probationnaire">
+                          Probationnaire
+                        </SelectItem>
                         <SelectItem value="auxiliaire">Auxiliaire</SelectItem>
                       </SelectContent>
                     </Select>
@@ -157,7 +195,12 @@ export default function MembersPage() {
                       id="date_adhesion"
                       type="date"
                       value={formData.date_adhesion}
-                      onChange={(e) => setFormData({ ...formData, date_adhesion: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          date_adhesion: e.target.value,
+                        })
+                      }
                       required
                     />
                   </div>
@@ -167,7 +210,9 @@ export default function MembersPage() {
                       id="email"
                       type="email"
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
                     />
                   </div>
                   <div>
@@ -175,11 +220,15 @@ export default function MembersPage() {
                     <Input
                       id="telephone"
                       value={formData.telephone}
-                      onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, telephone: e.target.value })
+                      }
                     />
                   </div>
                   <Button type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? <Loader className="mr-2 h-4 w-4 animate-spin" /> : null}
+                    {isSubmitting ? (
+                      <Loader className="mr-2 h-4 w-4 animate-spin" />
+                    ) : null}
                     Créer le Membre
                   </Button>
                 </form>
@@ -199,19 +248,28 @@ export default function MembersPage() {
                   <Input
                     id="edit_nom_prenom"
                     value={formData.nom_prenom}
-                    onChange={(e) => setFormData({ ...formData, nom_prenom: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, nom_prenom: e.target.value })
+                    }
                     required
                   />
                 </div>
                 <div>
                   <Label htmlFor="edit_statut">Statut</Label>
-                  <Select value={formData.statut} onValueChange={(value: any) => setFormData({ ...formData, statut: value })}>
+                  <Select
+                    value={formData.statut}
+                    onValueChange={(value: any) =>
+                      setFormData({ ...formData, statut: value })
+                    }
+                  >
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="actif">Actif</SelectItem>
-                      <SelectItem value="probationnaire">Probationnaire</SelectItem>
+                      <SelectItem value="probationnaire">
+                        Probationnaire
+                      </SelectItem>
                       <SelectItem value="auxiliaire">Auxiliaire</SelectItem>
                     </SelectContent>
                   </Select>
@@ -222,7 +280,9 @@ export default function MembersPage() {
                     id="edit_email"
                     type="email"
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
                   />
                 </div>
                 <div>
@@ -230,7 +290,9 @@ export default function MembersPage() {
                   <Input
                     id="edit_telephone"
                     value={formData.telephone}
-                    onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, telephone: e.target.value })
+                    }
                   />
                 </div>
                 <Button type="submit" disabled={isSubmitting}>
@@ -252,7 +314,9 @@ export default function MembersPage() {
           ) : members.length === 0 ? (
             <Card>
               <CardContent className="pt-6">
-                <p className="text-center text-muted-foreground py-8">Aucun membre.</p>
+                <p className="text-center text-muted-foreground py-8">
+                  Aucun membre.
+                </p>
               </CardContent>
             </Card>
           ) : (
@@ -266,10 +330,18 @@ export default function MembersPage() {
                         <CardDescription>{member.statut}</CardDescription>
                       </div>
                       <div className="flex gap-2">
-                        <Button variant="outline" size="sm" onClick={() => handleEdit(member)}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleEdit(member)}
+                        >
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button variant="destructive" size="sm" onClick={() => handleDelete(member.id)}>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => handleDelete(member.id)}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -284,13 +356,19 @@ export default function MembersPage() {
                     )}
                     {member.telephone && (
                       <div>
-                        <p className="text-sm text-muted-foreground">Téléphone</p>
+                        <p className="text-sm text-muted-foreground">
+                          Téléphone
+                        </p>
                         <p className="text-sm">{member.telephone}</p>
                       </div>
                     )}
                     <div>
                       <p className="text-sm text-muted-foreground">Adhésion</p>
-                      <p className="text-sm">{new Date(member.date_adhesion).toLocaleDateString("fr-FR")}</p>
+                      <p className="text-sm">
+                        {new Date(member.date_adhesion).toLocaleDateString(
+                          "fr-FR",
+                        )}
+                      </p>
                     </div>
                   </CardContent>
                 </Card>

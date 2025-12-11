@@ -22,7 +22,7 @@ export function usePraesidia(zoneId?: string) {
         },
         () => {
           fetchPraesidia();
-        }
+        },
       )
       .subscribe();
 
@@ -53,7 +53,9 @@ export function usePraesidia(zoneId?: string) {
     }
   }
 
-  async function createPraesidium(praesidium: Omit<Praesidium, "id" | "created_at" | "updated_at">) {
+  async function createPraesidium(
+    praesidium: Omit<Praesidium, "id" | "created_at" | "updated_at">,
+  ) {
     try {
       const { data, error } = await supabase
         .from("praesidia")
@@ -64,7 +66,9 @@ export function usePraesidia(zoneId?: string) {
       setPraesidia([...(data || []), ...praesidia]);
       return data?.[0];
     } catch (err) {
-      throw err instanceof Error ? err : new Error("Erreur lors de la création");
+      throw err instanceof Error
+        ? err
+        : new Error("Erreur lors de la création");
     }
   }
 
@@ -77,10 +81,14 @@ export function usePraesidia(zoneId?: string) {
         .select();
 
       if (error) throw error;
-      setPraesidia(praesidia.map((p) => (p.id === id ? { ...p, ...updates } : p)));
+      setPraesidia(
+        praesidia.map((p) => (p.id === id ? { ...p, ...updates } : p)),
+      );
       return data?.[0];
     } catch (err) {
-      throw err instanceof Error ? err : new Error("Erreur lors de la mise à jour");
+      throw err instanceof Error
+        ? err
+        : new Error("Erreur lors de la mise à jour");
     }
   }
 
@@ -91,7 +99,9 @@ export function usePraesidia(zoneId?: string) {
       if (error) throw error;
       setPraesidia(praesidia.filter((p) => p.id !== id));
     } catch (err) {
-      throw err instanceof Error ? err : new Error("Erreur lors de la suppression");
+      throw err instanceof Error
+        ? err
+        : new Error("Erreur lors de la suppression");
     }
   }
 

@@ -23,7 +23,7 @@ export function useZones() {
         (payload) => {
           // Refetch data on changes
           fetchZones();
-        }
+        },
       )
       .subscribe();
 
@@ -49,7 +49,9 @@ export function useZones() {
     }
   }
 
-  async function createZone(zone: Omit<Zone, "id" | "created_at" | "updated_at">) {
+  async function createZone(
+    zone: Omit<Zone, "id" | "created_at" | "updated_at">,
+  ) {
     try {
       const { data, error } = await supabase
         .from("zones")
@@ -60,7 +62,9 @@ export function useZones() {
       setZones([...(data || []), ...zones]);
       return data?.[0];
     } catch (err) {
-      throw err instanceof Error ? err : new Error("Erreur lors de la création");
+      throw err instanceof Error
+        ? err
+        : new Error("Erreur lors de la création");
     }
   }
 
@@ -73,12 +77,12 @@ export function useZones() {
         .select();
 
       if (error) throw error;
-      setZones(
-        zones.map((z) => (z.id === id ? { ...z, ...updates } : z))
-      );
+      setZones(zones.map((z) => (z.id === id ? { ...z, ...updates } : z)));
       return data?.[0];
     } catch (err) {
-      throw err instanceof Error ? err : new Error("Erreur lors de la mise à jour");
+      throw err instanceof Error
+        ? err
+        : new Error("Erreur lors de la mise à jour");
     }
   }
 
@@ -89,7 +93,9 @@ export function useZones() {
       if (error) throw error;
       setZones(zones.filter((z) => z.id !== id));
     } catch (err) {
-      throw err instanceof Error ? err : new Error("Erreur lors de la suppression");
+      throw err instanceof Error
+        ? err
+        : new Error("Erreur lors de la suppression");
     }
   }
 

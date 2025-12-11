@@ -4,11 +4,30 @@ import { useState } from "react";
 import { ProtectedRoute } from "@app/protected-route";
 import Layout from "@components/Layout";
 import { Button } from "@components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@components/ui/card";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@components/ui/dialog";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@components/ui/dialog";
 import { Input } from "@components/ui/input";
 import { Label } from "@components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@components/ui/select";
 import { supabase } from "@app/lib/supabase";
 import { Trash2, Edit, Plus, Loader } from "lucide-react";
 import { toast } from "sonner";
@@ -34,9 +53,13 @@ export default function AttendancePage() {
     fetchAllData();
     const subscription = supabase
       .channel("presences")
-      .on("postgres_changes", { event: "*", schema: "public", table: "presences" }, () => {
-        fetchPresences();
-      })
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "presences" },
+        () => {
+          fetchPresences();
+        },
+      )
       .subscribe();
 
     return () => {
@@ -48,7 +71,10 @@ export default function AttendancePage() {
     try {
       setLoading(true);
       const [presencesData, officersData, praesidiaData] = await Promise.all([
-        supabase.from("presences").select("*").order("date_reunion", { ascending: false }),
+        supabase
+          .from("presences")
+          .select("*")
+          .order("date_reunion", { ascending: false }),
         supabase.from("officiers").select("*"),
         supabase.from("praesidia").select("*"),
       ]);
@@ -69,7 +95,10 @@ export default function AttendancePage() {
 
   async function fetchPresences() {
     try {
-      const { data, error } = await supabase.from("presences").select("*").order("date_reunion", { ascending: false });
+      const { data, error } = await supabase
+        .from("presences")
+        .select("*")
+        .order("date_reunion", { ascending: false });
       if (error) throw error;
       setPresences(data || []);
     } catch (err) {
@@ -141,7 +170,10 @@ export default function AttendancePage() {
   const handleDelete = async (id: string) => {
     if (confirm("Êtes-vous sûr ?")) {
       try {
-        const { error } = await supabase.from("presences").delete().eq("id", id);
+        const { error } = await supabase
+          .from("presences")
+          .delete()
+          .eq("id", id);
         if (error) throw error;
         toast.success("Supprimé");
         fetchPresences();
@@ -158,7 +190,9 @@ export default function AttendancePage() {
           <div className="flex justify-between items-start">
             <div>
               <h1 className="text-3xl font-bold">Suivi des Présences</h1>
-              <p className="text-gray-600 mt-2">Enregistrement et gestion des présences</p>
+              <p className="text-gray-600 mt-2">
+                Enregistrement et gestion des présences
+              </p>
             </div>
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
               <DialogTrigger asChild>
@@ -174,7 +208,12 @@ export default function AttendancePage() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <Label htmlFor="praesidium_id">Praesidium</Label>
-                    <Select value={formData.praesidium_id} onValueChange={(value) => setFormData({ ...formData, praesidium_id: value })}>
+                    <Select
+                      value={formData.praesidium_id}
+                      onValueChange={(value) =>
+                        setFormData({ ...formData, praesidium_id: value })
+                      }
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Sélectionnez" />
                       </SelectTrigger>
@@ -189,13 +228,20 @@ export default function AttendancePage() {
                   </div>
                   <div>
                     <Label htmlFor="officier_id">Officier</Label>
-                    <Select value={formData.officier_id} onValueChange={(value) => setFormData({ ...formData, officier_id: value })}>
+                    <Select
+                      value={formData.officier_id}
+                      onValueChange={(value) =>
+                        setFormData({ ...formData, officier_id: value })
+                      }
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Sélectionnez" />
                       </SelectTrigger>
                       <SelectContent>
                         {officers
-                          .filter((o) => o.praesidium_id === formData.praesidium_id)
+                          .filter(
+                            (o) => o.praesidium_id === formData.praesidium_id,
+                          )
                           .map((o) => (
                             <SelectItem key={o.id} value={o.id}>
                               {o.nom_prenom}
@@ -210,13 +256,23 @@ export default function AttendancePage() {
                       id="date_reunion"
                       type="datetime-local"
                       value={formData.date_reunion}
-                      onChange={(e) => setFormData({ ...formData, date_reunion: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          date_reunion: e.target.value,
+                        })
+                      }
                       required
                     />
                   </div>
                   <div>
                     <Label htmlFor="statut_presence">Statut</Label>
-                    <Select value={formData.statut_presence} onValueChange={(value: any) => setFormData({ ...formData, statut_presence: value })}>
+                    <Select
+                      value={formData.statut_presence}
+                      onValueChange={(value: any) =>
+                        setFormData({ ...formData, statut_presence: value })
+                      }
+                    >
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
@@ -232,7 +288,9 @@ export default function AttendancePage() {
                     <Input
                       id="notes"
                       value={formData.notes}
-                      onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, notes: e.target.value })
+                      }
                       placeholder="Remarques optionnelles"
                     />
                   </div>
@@ -255,7 +313,9 @@ export default function AttendancePage() {
           ) : presences.length === 0 ? (
             <Card>
               <CardContent className="pt-6">
-                <p className="text-center text-muted-foreground py-8">Aucun enregistrement.</p>
+                <p className="text-center text-muted-foreground py-8">
+                  Aucun enregistrement.
+                </p>
               </CardContent>
             </Card>
           ) : (
@@ -266,23 +326,37 @@ export default function AttendancePage() {
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
                         <CardTitle>
-                          {officers.find((o) => o.id === presence.officier_id)?.nom_prenom}
+                          {
+                            officers.find((o) => o.id === presence.officier_id)
+                              ?.nom_prenom
+                          }
                         </CardTitle>
                         <CardDescription>
-                          {new Date(presence.date_reunion).toLocaleDateString("fr-FR", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
+                          {new Date(presence.date_reunion).toLocaleDateString(
+                            "fr-FR",
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            },
+                          )}
                         </CardDescription>
                       </div>
                       <div className="flex gap-2">
-                        <Button variant="outline" size="sm" onClick={() => handleEdit(presence)}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleEdit(presence)}
+                        >
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button variant="destructive" size="sm" onClick={() => handleDelete(presence.id)}>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => handleDelete(presence.id)}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -305,7 +379,8 @@ export default function AttendancePage() {
                     </p>
                     {presence.notes && (
                       <p className="text-sm">
-                        <span className="text-muted-foreground">Notes:</span> {presence.notes}
+                        <span className="text-muted-foreground">Notes:</span>{" "}
+                        {presence.notes}
                       </p>
                     )}
                   </CardContent>
