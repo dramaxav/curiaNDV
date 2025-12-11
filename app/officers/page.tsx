@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ProtectedRoute } from "@app/protected-route";
 import Layout from "@components/Layout";
 import { Button } from "@components/ui/button";
@@ -53,7 +53,7 @@ export default function OfficersPage() {
   });
 
   // Fetch officers on mount
-  React.useEffect(() => {
+  useEffect(() => {
     fetchOfficers();
     const subscription = supabase
       .channel("officiers")

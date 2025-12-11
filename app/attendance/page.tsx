@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ProtectedRoute } from "@app/protected-route";
 import Layout from "@components/Layout";
 import { Button } from "@components/ui/button";
@@ -49,7 +49,7 @@ export default function AttendancePage() {
     notes: "",
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchAllData();
     const subscription = supabase
       .channel("presences")

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ProtectedRoute } from "@app/protected-route";
 import Layout from "@components/Layout";
 import { Button } from "@components/ui/button";
@@ -49,7 +49,7 @@ export default function FinancesPage() {
     depenses: "0",
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchFinances();
     const subscription = supabase
       .channel("finances")
