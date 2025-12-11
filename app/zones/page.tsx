@@ -47,7 +47,7 @@ export default function ZonesPage() {
         await updateZone(editingId, {
           ...formData,
           updated_at: new Date().toISOString(),
-        });
+        } as any);
         toast.success("Zone mise à jour avec succès");
         setIsEditOpen(false);
       } else {
@@ -55,9 +55,7 @@ export default function ZonesPage() {
           ...formData,
           actif: true,
           date_creation: new Date().toISOString(),
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        });
+        } as any);
         toast.success("Zone créée avec succès");
         setIsOpen(false);
       }

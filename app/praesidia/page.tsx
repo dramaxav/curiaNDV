@@ -63,7 +63,7 @@ export default function PraesidiaPage() {
         await updatePraesidium(editingId, {
           ...formData,
           updated_at: new Date().toISOString(),
-        });
+        } as any);
         toast.success("Praesidium mis à jour avec succès");
         setIsEditOpen(false);
       } else {
@@ -71,9 +71,7 @@ export default function PraesidiaPage() {
           ...formData,
           actif: true,
           date_creation: new Date().toISOString(),
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        });
+        } as any);
         toast.success("Praesidium créé avec succès");
         setIsOpen(false);
       }
