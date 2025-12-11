@@ -59,7 +59,7 @@ export default function MembersPage() {
           ...formData,
           date_adhesion: new Date(formData.date_adhesion).toISOString(),
           updated_at: new Date().toISOString(),
-        });
+        } as any);
         toast.success("Membre mis à jour");
         setIsEditOpen(false);
       } else {
@@ -67,9 +67,7 @@ export default function MembersPage() {
           ...formData,
           date_adhesion: new Date(formData.date_adhesion).toISOString(),
           actif: true,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        });
+        } as any);
         toast.success("Membre créé avec succès");
         setIsOpen(false);
       }
