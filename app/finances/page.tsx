@@ -29,8 +29,8 @@ import {
   SelectValue,
 } from "@components/ui/select";
 import { usePraesidia } from "@app/lib/hooks";
-import { supabase } from "@app/lib/supabase";
-import { Trash2, Edit, Plus, Loader, TrendingUp } from "lucide-react";
+import { supabase, isSupabaseConfigured } from "@app/lib/supabase";
+import { Trash2, Edit, Plus, Loader, TrendingUp, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 
 export default function FinancesPage() {
