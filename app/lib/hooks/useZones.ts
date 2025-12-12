@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@app/lib/supabase";
+import { supabase, isSupabaseConfigured } from "@app/lib/supabase";
 import type { Zone } from "@app/lib/supabase";
 
 export function useZones() {
@@ -10,6 +10,12 @@ export function useZones() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!isSupabaseConfigured) {
+      setLoading(false);
+      setError("Supabase non configuré");
+      return;
+    }
+
     fetchZones();
     const subscription = supabase
       .channel("zones")
