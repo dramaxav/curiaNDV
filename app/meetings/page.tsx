@@ -29,8 +29,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@components/ui/select";
-import { supabase } from "@app/lib/supabase";
-import { Trash2, Edit, Plus, Loader, Calendar } from "lucide-react";
+import { supabase, isSupabaseConfigured } from "@app/lib/supabase";
+import { Trash2, Edit, Plus, Loader, Calendar, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 
 export default function MeetingsPage() {
