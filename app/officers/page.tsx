@@ -54,6 +54,11 @@ export default function OfficersPage() {
 
   // Fetch officers on mount
   useEffect(() => {
+    if (!isSupabaseConfigured) {
+      setLoading(false);
+      return;
+    }
+
     fetchOfficers();
     const subscription = supabase
       .channel("officiers")
