@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@app/lib/supabase";
+import { supabase, isSupabaseConfigured } from "@app/lib/supabase";
 import type { Membre } from "@app/lib/supabase";
 
 export function useMembers(praesidiumId?: string) {
@@ -10,6 +10,12 @@ export function useMembers(praesidiumId?: string) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!isSupabaseConfigured) {
+      setLoading(false);
+      setError("Supabase non configuré");
+      return;
+    }
+
     fetchMembers();
     const subscription = supabase
       .channel("membres")
