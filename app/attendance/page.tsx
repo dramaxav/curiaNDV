@@ -50,6 +50,11 @@ export default function AttendancePage() {
   });
 
   useEffect(() => {
+    if (!isSupabaseConfigured) {
+      setLoading(false);
+      return;
+    }
+
     fetchAllData();
     const subscription = supabase
       .channel("presences")
