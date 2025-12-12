@@ -50,6 +50,11 @@ export default function FinancesPage() {
   });
 
   useEffect(() => {
+    if (!isSupabaseConfigured) {
+      setLoading(false);
+      return;
+    }
+
     fetchFinances();
     const subscription = supabase
       .channel("finances")
