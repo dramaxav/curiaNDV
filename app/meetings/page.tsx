@@ -55,6 +55,11 @@ export default function MeetingsPage() {
   });
 
   useEffect(() => {
+    if (!isSupabaseConfigured) {
+      setLoading(false);
+      return;
+    }
+
     fetchManifestations();
     const subscription = supabase
       .channel("manifestations")
@@ -82,7 +87,10 @@ export default function MeetingsPage() {
       if (error) throw error;
       setManifestations(data || []);
     } catch (err) {
-      toast.error("Erreur lors du chargement");
+      const errorMessage =
+        err instanceof Error ? err.message : "Erreur lors du chargement";
+      toast.error(errorMessage);
+      setManifestations([]);
     } finally {
       setLoading(false);
     }
