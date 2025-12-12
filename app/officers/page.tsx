@@ -186,6 +186,25 @@ export default function OfficersPage() {
     <ProtectedRoute>
       <Layout>
         <div className="space-y-8">
+          {!isSupabaseConfigured && (
+            <Card className="border-yellow-200 bg-yellow-50">
+              <CardContent className="pt-6">
+                <div className="flex items-center gap-3">
+                  <AlertCircle className="h-5 w-5 text-yellow-600" />
+                  <div className="flex-1">
+                    <p className="font-semibold text-yellow-900">
+                      Configuration manquante
+                    </p>
+                    <p className="text-sm text-yellow-800">
+                      Les identifiants Supabase ne sont pas configurés. Veuillez
+                      connecter Supabase via le panneau MCP ou ajouter les
+                      variables d'environnement.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
           <div className="flex justify-between items-start">
             <div>
               <h1 className="text-3xl font-bold">Officiers</h1>
